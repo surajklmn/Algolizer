@@ -8,5 +8,6 @@ This requires following dependencies to run:
 ```cmake -B build ```
 Then cd to the build directory
 ```cd build```
-run ```run make Algolizer```
+run ```make Algolizer```
+```./Algolizer``` to run the program
 Project Setup :3
