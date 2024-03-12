@@ -10,4 +10,8 @@ Then cd to the build directory
 ```cd build```
 run ```make Algolizer```
 ```./Algolizer``` to run the program
+
+It can also be build with this commanda
+
+```g++ main.cpp -lraylib -lGL -lm -lpthread -ldl -lrt -lX11```
 Project Setup :3
