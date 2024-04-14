@@ -1,13 +1,16 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.28.3)
 project(Algolizer)
 
 find_package(raylib 3.0 REQUIRED) # Requires at least version 3.0
 
-set(CMAKE_C_STANDARD 11) # Requires C11 standard
-
+set(CMAKE_C_STANDARD 20)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 add_executable(${PROJECT_NAME} src/main.cpp)
 
 target_link_libraries(${PROJECT_NAME} raylib)
+
+
 
 # Checks if OSX and links appropriate frameworks (only required on MacOS)
 if (APPLE)
