@@ -18,6 +18,9 @@ Button button_2;
 Button button_sorting;
 Button button_searching;
 
+Button linear_search;
+Button binary_search;
+
 void init_button(Button *button, Rectangle rect, Color color, char *text, Color textColor)
 {
     button->rect = rect;
@@ -45,6 +48,7 @@ void RenderMainMenu()
     // Render button 2
     DrawRectangleRec(button_2.rect, button_2.color);
     DrawText(button_2.text, button_2.rect.x + button_2.rect.width / 2 - MeasureText(button_2.text, 20) / 2, button_2.rect.y + button_2.rect.height / 2 - 20 / 2, 20, button_2.textColor);
+
 }
 void RenderAlgorithmTypeSelection()
 {
@@ -62,6 +66,20 @@ void RenderAlgorithmTypeSelection()
     DrawText(button_searching.text, button_searching.rect.x + button_searching.rect.width / 2 - MeasureText(button_searching.text, 20) / 2, button_searching.rect.y + button_searching.rect.height / 2 - 20 / 2, 20, button_searching.textColor);
 }
 
+void RenderSearchingSelector(){
+    ClearBackground(RAYWHITE);
+    DrawText("Select Algorithm", 400, 0, 50, LIGHTGRAY);
+  
+
+    // Render button 1
+    DrawRectangleRec(linear_search.rect, linear_search.color);
+    DrawText(linear_search.text, linear_search.rect.x + linear_search.rect.width / 2 - MeasureText(linear_search.text, 20) / 2, linear_search.rect.y + linear_search.rect.height / 2 - 20 / 2, 20, linear_search.textColor);
+
+    // Render button 2
+    DrawRectangleRec(binary_search.rect, binary_search.color);
+    DrawText(binary_search.text, binary_search.rect.x + binary_search.rect.width / 2 - MeasureText(binary_search.text, 20) / 2, binary_search.rect.y + binary_search.rect.height / 2 - 20 / 2, 20, binary_search.textColor);
+
+}
 void RenderMenu()
 {
     ClearBackground(GRAY);
@@ -79,10 +97,10 @@ int main(void)
     // Initialize buttons
     init_button(&button_1, (Rectangle){50, 60, 400, 400}, LIGHTGRAY, "algorithm", RED);
     init_button(&button_2, (Rectangle){550, 60, 400, 400}, LIGHTGRAY, "Data-structure", RED);
-    init_button(&button_sorting, (Rectangle){50, 60, 400, 400}, LIGHTGRAY, "Sorting-Algorithm", RED);
     init_button(&button_searching,(Rectangle){550,60,400,400},LIGHTGRAY,"Searching-Algorithm",RED);
-   
-
+    init_button(&button_sorting, (Rectangle){50, 60, 400, 400}, LIGHTGRAY, "Sorting-Algorithm", RED);
+    init_button(&linear_search,(Rectangle){50,60,400,400},LIGHTGRAY,"Linear-Search",RED);
+    init_button(&binary_search,(Rectangle){550,60,400,400},LIGHTGRAY,"Binary-Search",RED);
     Screen currentScreen = MAIN_MENU;
 
     while (!WindowShouldClose())
@@ -107,6 +125,15 @@ int main(void)
             if(IsKeyPressed(KEY_BACKSPACE)){
                     currentScreen = MAIN_MENU;
              }
+            if(is_mouse_over_button(button_searching) && IsMouseButtonReleased(MOUSE_LEFT_BUTTON)){
+                    currentScreen = SEARCHING_SELECTOR;
+            }
+            break;
+        case SEARCHING_SELECTOR:
+              if(IsKeyPressed(KEY_BACKSPACE)){
+                    currentScreen = ALGORITHM_TYPE;
+             }
+            break;
         default:
             break;
         }
@@ -124,6 +151,8 @@ int main(void)
         case ALGORITHM_TYPE:
             RenderAlgorithmTypeSelection();
             break;
+        case SEARCHING_SELECTOR:
+            RenderSearchingSelector();
         default:
             break;
         }
