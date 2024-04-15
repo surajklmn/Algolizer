@@ -73,7 +73,11 @@ const int SEARCH_DELAY = 500; // Delay in milliseconds
 
             if (arr[currentIndex] == targetValue) {
                 found = true;
-            } else {
+            }else if(currentIndex  == ARRAY_SIZE-1){
+                DrawText("Target value found at index -1",
+                    WINDOW_WIDTH / 2 - 200, WINDOW_HEIGHT / 2, 30, GREEN);
+            } 
+            else {
                 currentIndex++;
             }
         } else {
