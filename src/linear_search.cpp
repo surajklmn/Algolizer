@@ -1,19 +1,18 @@
+#include "linear_search.h"
 #include <iostream>
 #include <random>
 #include <raylib.h>
 #include <chrono>
 #include <thread>
-
-const int WINDOW_WIDTH = 800;
-const int WINDOW_HEIGHT = 600;
+void runLinearSearchVisualizer(){
+const int WINDOW_WIDTH = 1000;
+const int WINDOW_HEIGHT = 550;
 const int ARRAY_SIZE = 20;
 const int ELEMENT_WIDTH = 30;
 const int ELEMENT_HEIGHT = 50;
 const int SEARCH_DELAY = 500; // Delay in milliseconds
-
-int main() {
     // Initialize Raylib
-    InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Linear Search Visualizer");
+    InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Linear Search");
     SetTargetFPS(60);
 
     // Generate a random array of integers
@@ -95,5 +94,5 @@ int main() {
 
     // Close Raylib window
     CloseWindow();
-    return 0;
 }
+

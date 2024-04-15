@@ -1,0 +1,6 @@
+#ifndef LINEAR_SEARCH_VISUALIZER_H
+#define LINEAR_SEARCH_VISUALIZER_H
+
+void runLinearSearchVisualizer();
+
+#endif // LINEAR_SEARCH_VISUALIZER_H

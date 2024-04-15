@@ -1,6 +1,6 @@
 #include "raylib.h"
 #include <math.h>
-
+#include "linear_search.h"
 // Define the different screens
 typedef enum { MAIN_MENU, MENU,ALGORITHM_TYPE,SEARCHING_SELECTOR } Screen;
 
@@ -130,6 +130,9 @@ int main(void)
             }
             break;
         case SEARCHING_SELECTOR:
+                if(is_mouse_over_button(linear_search) && IsMouseButtonReleased(MOUSE_LEFT_BUTTON)){
+                    runLinearSearchVisualizer();
+                }
               if(IsKeyPressed(KEY_BACKSPACE)){
                     currentScreen = ALGORITHM_TYPE;
              }
