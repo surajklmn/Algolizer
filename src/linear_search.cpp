@@ -29,7 +29,7 @@ const int SEARCH_DELAY = 500;
     bool found = false;
     bool isTargetSet = false;
     // Main game loop
-    while (!IsKeyPressed(KEY_ESCAPE)) {
+    while (!IsKeyPressed(KEY_B)) {
       if(!WindowShouldClose()) { // Clear the screen
         BeginDrawing();
         ClearBackground(RAYWHITE);
@@ -95,8 +95,10 @@ const int SEARCH_DELAY = 500;
 
         // Display instructions
         DrawText("Press 'R' to randomize the array", 10, 10, 20, GRAY);
+        DrawText(("Sample Size : " + std::to_string(ARRAY_SIZE)).c_str(),800,10,20,GRAY);
+
         DrawText("Press 'Enter' to enter a target value", 10, 40, 20, GRAY);
-        DrawText("Press 'Escape' to exit", 10, 70, 20, GRAY);
+        DrawText("Press 'B' to exit", 10, 70, 20, GRAY);
         EndDrawing();
     }else{
             std::exit(0);
