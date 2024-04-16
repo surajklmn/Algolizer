@@ -10,10 +10,8 @@ const int WINDOW_HEIGHT = 550;
 const int ARRAY_SIZE = 20;
 const int ELEMENT_WIDTH = 30;
 const int ELEMENT_HEIGHT = 50;
-const int SEARCH_DELAY = 500; // Delay in milliseconds
-    // Initialize Raylib
-    InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Linear Search");
-    SetTargetFPS(60);
+const int SEARCH_DELAY = 500;
+
 
     // Generate a random array of integers
     std::random_device rd;
@@ -28,7 +26,7 @@ const int SEARCH_DELAY = 500; // Delay in milliseconds
     int targetValue = 0;
     int currentIndex = 0;
     bool found = false;
-
+    bool isTargetSet = false;
     // Main game loop
     while (!WindowShouldClose()) {
         // Clear the screen
@@ -45,6 +43,7 @@ const int SEARCH_DELAY = 500; // Delay in milliseconds
 
         // Get user input for target value
         if (IsKeyPressed(KEY_R)) {
+            isTargetSet = false;
             // Randomize the array
             for (int i = 0; i < ARRAY_SIZE; i++) {
                 arr[i] = dis(gen);
@@ -57,11 +56,13 @@ const int SEARCH_DELAY = 500; // Delay in milliseconds
             // Get user input for target value
             std::cout << "Enter the target value: ";
             std::cin >> targetValue;
+            isTargetSet = true;
             found = false;
             currentIndex = 0;
         }
 
         // Visualize the linear search
+       if(isTargetSet){
         if (!found) {
             int x = currentIndex * ELEMENT_WIDTH + 50;
             int y = WINDOW_HEIGHT - ELEMENT_HEIGHT - 50;
@@ -88,6 +89,8 @@ const int SEARCH_DELAY = 500; // Delay in milliseconds
             DrawText(("Target value found at index " + std::to_string(currentIndex)).c_str(),
                     WINDOW_WIDTH / 2 - 200, WINDOW_HEIGHT / 2, 30, GREEN);
         }
+       
+        }
 
         // Display instructions
         DrawText("Press 'R' to randomize the array", 10, 10, 20, GRAY);
@@ -96,7 +99,6 @@ const int SEARCH_DELAY = 500; // Delay in milliseconds
         EndDrawing();
     }
 
-    // Close Raylib window
-    CloseWindow();
+
 }
 
