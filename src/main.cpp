@@ -156,6 +156,7 @@ int main(void)
             break;
         case SEARCHING_SELECTOR:
             RenderSearchingSelector();
+            break;
         default:
             break;
         }

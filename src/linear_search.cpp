@@ -1,4 +1,5 @@
 #include "linear_search.h"
+#include <cstdlib>
 #include <iostream>
 #include <random>
 #include <raylib.h>
@@ -28,8 +29,8 @@ const int SEARCH_DELAY = 500;
     bool found = false;
     bool isTargetSet = false;
     // Main game loop
-    while (!IsKeyPressed(KEY_BACKSPACE)) {
-        // Clear the screen
+    while (!IsKeyPressed(KEY_ESCAPE)) {
+      if(!WindowShouldClose()) { // Clear the screen
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
@@ -95,10 +96,12 @@ const int SEARCH_DELAY = 500;
         // Display instructions
         DrawText("Press 'R' to randomize the array", 10, 10, 20, GRAY);
         DrawText("Press 'Enter' to enter a target value", 10, 40, 20, GRAY);
-        DrawText("Press 'Backspace' to exit", 10, 70, 20, GRAY);
+        DrawText("Press 'Escape' to exit", 10, 70, 20, GRAY);
         EndDrawing();
+    }else{
+            std::exit(0);
+        }
+
     }
-
-
 }
 
