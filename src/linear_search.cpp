@@ -64,12 +64,13 @@ const int SEARCH_DELAY = 500;
 
         // Visualize the linear search
        if(isTargetSet){
+        DrawText(("Target Value : " + std::to_string(targetValue)).c_str(),800,40,20,GRAY);
         if (!found) {
             int x = currentIndex * ELEMENT_WIDTH + 50;
             int y = WINDOW_HEIGHT - ELEMENT_HEIGHT - 50;
             DrawRectangle(x, y, ELEMENT_WIDTH, ELEMENT_HEIGHT, RED);
             DrawText(std::to_string(arr[currentIndex]).c_str(), x + 5, y + 5, 20, BLACK);
-
+            
             // Add a delay to the search
             std::this_thread::sleep_for(std::chrono::milliseconds(SEARCH_DELAY));
 
