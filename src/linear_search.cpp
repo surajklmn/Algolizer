@@ -1,10 +1,17 @@
 #include "linear_search.h"
+#include "main.h"
 #include <cstdlib>
 #include <iostream>
 #include <random>
 #include <raylib.h>
 #include <chrono>
+#include <stack>
 #include <thread>
+
+extern std::stack<screen> screenStack;
+extern screen currentscreen;
+
+
 void runLinearSearchVisualizer(){
 const int WINDOW_WIDTH = 1000;
 const int WINDOW_HEIGHT = 550;
@@ -29,8 +36,8 @@ const int SEARCH_DELAY = 500;
     bool found = false;
     bool isTargetSet = false;
     // Main game loop
-    while (!IsKeyPressed(KEY_B)) {
-      if(!WindowShouldClose()) { // Clear the screen
+  
+      while(!WindowShouldClose()) { // Clear the screen
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
@@ -41,7 +48,10 @@ const int SEARCH_DELAY = 500;
             DrawRectangle(x, y, ELEMENT_WIDTH, ELEMENT_HEIGHT, SKYBLUE);
             DrawText(std::to_string(arr[i]).c_str(), x + 5, y + 5, 20, BLACK);
         }
-
+        if(IsKeyPressed(KEY_B)){
+           currentscreen = screenStack.top();
+            break;
+        }
         // Get user input for target value
         if (IsKeyPressed(KEY_R)) {
             isTargetSet = false;
@@ -99,12 +109,8 @@ const int SEARCH_DELAY = 500;
         DrawText(("Sample Size : " + std::to_string(ARRAY_SIZE)).c_str(),800,10,20,GRAY);
 
         DrawText("Press 'Enter' to enter a target value", 10, 40, 20, GRAY);
-        DrawText("Press 'B' to exit", 10, 70, 20, GRAY);
+  
         EndDrawing();
-    }else{
-            std::exit(0);
-        }
-
-    }
+    }    
 }
 
