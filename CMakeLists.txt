@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.28.3)
+cmake_minimum_required(VERSION 3.27.7)
 project(Algolizer)
 
 find_package(raylib 3.0 REQUIRED) # Requires at least version 3.0
