@@ -31,17 +31,17 @@ void RenderMainScreen(){
  
     bool isAlgorithmPressed = GuiButton(button_Algo,"Algorithm");
     bool isDataStructurePressed = GuiButton(button_DataS,"Data-Structure");
-  
+ 
+     screenStack.push(currentscreen);
 
     if(isAlgorithmPressed){
-    screenStack.push(currentscreen);
+   
       currentscreen = ALGORITHM_LIST; 
 
        
     }
     if(isDataStructurePressed){
-        screenStack.push(currentscreen);
-        currentscreen = DATASTRUCTURE_LIST;
+      currentscreen = DATASTRUCTURE_LIST;
         
      }
    
