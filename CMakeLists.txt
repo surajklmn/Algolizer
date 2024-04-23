@@ -21,7 +21,7 @@ include_directories(external)
 
 
 
-target_link_libraries(${PROJECT_NAME} raylib raygui)
+target_link_libraries(${PROJECT_NAME} raylib)
 
 
 
@@ -30,7 +30,7 @@ if (APPLE)
     add_library(raygui SHARED IMPORTED)
     set_target_properties(raygui PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/external/raygui/raygui.dynlib)
 
-
+   target_link_libraries(${PROJECT_NAME} raygui)
 
     target_link_libraries(${PROJECT_NAME} "-framework IOKit")
     target_link_libraries(${PROJECT_NAME} "-framework Cocoa")
