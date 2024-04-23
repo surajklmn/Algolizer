@@ -2,3 +2,6 @@ build/
 .DS_Store
 .cache/
 a.out
+
+src/include
+*.dynlib
