@@ -1,7 +1,7 @@
 #include <iostream>
 #define RAYGUI_IMPLEMENTATION
 #include "main.h"
-#include <raygui/raygui.h>
+#include "../external/raygui/raygui.h"
 #include <raylib.h>
 #include <stack>
 #include "linear_search.h"
