@@ -18,7 +18,7 @@ add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 
 include_directories(external)
-add_library(raygui SHARED IMPORTED)
+
 
 
 target_link_libraries(${PROJECT_NAME} raylib raygui)
@@ -27,6 +27,7 @@ target_link_libraries(${PROJECT_NAME} raylib raygui)
 
 # Checks if OSX and links appropriate frameworks (only required on MacOS)
 if (APPLE)
+    add_library(raygui SHARED IMPORTED)
     set_target_properties(raygui PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/external/raygui/raygui.dynlib)
 
 
