@@ -17,6 +17,8 @@ const int button_width = 250;
 const int button_height = 70;
 
 void RenderMainScreen(){
+   
+    GuiSetStyle(DEFAULT, TEXT_SIZE, 20); 
     const int gap = 100;
     const int centerX = (screenWidth/2);
     const int centerY = screenHeight/2;
@@ -26,32 +28,32 @@ void RenderMainScreen(){
     BeginDrawing();
     ClearBackground(RAYWHITE);
 
-    DrawText("Algolizer",centerX-70, 30, 40, GRAY);
+    DrawText("Algolizer",centerX-70, 30, 50, GRAY);
 
- 
-    bool isAlgorithmPressed = GuiButton(button_Algo,"Algorithm");
-    bool isDataStructurePressed = GuiButton(button_DataS,"Data-Structure");
- 
-     screenStack.push(currentscreen);
+
+    bool isAlgorithmPressed = GuiButton(button_Algo,"Algorithms");
+    bool isDataStructurePressed = GuiButton(button_DataS,"Data-Structures");
+
+    screenStack.push(currentscreen);
 
     if(isAlgorithmPressed){
-   
-      currentscreen = ALGORITHM_LIST; 
 
-       
+        currentscreen = ALGORITHM_LIST; 
+
+
     }
     if(isDataStructurePressed){
-      currentscreen = DATASTRUCTURE_LIST;
-        
-     }
-   
+        currentscreen = DATASTRUCTURE_LIST;
+
+    }
+
     EndDrawing();
 }
 
 
 void RenderAlgorithmList(){
 
-  const float buttonWidth = 350;
+    const float buttonWidth = 350;
     const float buttonHeight = 50;
     const float margin = 20;
     const float col1X = margin;
@@ -59,25 +61,25 @@ void RenderAlgorithmList(){
     float yPos = margin;
     BeginDrawing();
     ClearBackground(RAYWHITE);
-        GuiSetStyle(DEFAULT, TEXT_SIZE, 15); 
-        GuiGroupBox(Rectangle{ col1X, yPos, buttonWidth, screenHeight - 2 * margin }, "Sorting");
-        GuiButton(Rectangle{ col1X + margin, yPos + 2 * margin, buttonWidth - 2 * margin, buttonHeight }, "Bubble Sort");
-        GuiButton(Rectangle{ col1X + margin, yPos + 2 * margin + buttonHeight + margin, buttonWidth - 2 * margin, buttonHeight }, "Merge Sort");
-        GuiButton(Rectangle{ col1X + margin, yPos + 2 * margin + 2 * (buttonHeight + margin), buttonWidth - 2 * margin, buttonHeight }, "Selection Sort");
-        GuiButton(Rectangle{ col1X + margin, yPos + 2 * margin + 3 * (buttonHeight + margin), buttonWidth - 2 * margin, buttonHeight }, "Quick Sort");
-        GuiButton(Rectangle{ col1X + margin, yPos + 2 * margin + 4 * (buttonHeight + margin), buttonWidth - 2 * margin, buttonHeight }, "Insertion Sort");
+    GuiSetStyle(DEFAULT, TEXT_SIZE, 20); 
+    GuiGroupBox(Rectangle{ col1X, yPos, buttonWidth, screenHeight - 2 * margin }, "Sorting");
+    GuiButton(Rectangle{ col1X + margin, yPos + 2 * margin, buttonWidth - 2 * margin, buttonHeight }, "Bubble Sort");
+    GuiButton(Rectangle{ col1X + margin, yPos + 2 * margin + buttonHeight + margin, buttonWidth - 2 * margin, buttonHeight }, "Merge Sort");
+    GuiButton(Rectangle{ col1X + margin, yPos + 2 * margin + 2 * (buttonHeight + margin), buttonWidth - 2 * margin, buttonHeight }, "Selection Sort");
+    GuiButton(Rectangle{ col1X + margin, yPos + 2 * margin + 3 * (buttonHeight + margin), buttonWidth - 2 * margin, buttonHeight }, "Quick Sort");
+    GuiButton(Rectangle{ col1X + margin, yPos + 2 * margin + 4 * (buttonHeight + margin), buttonWidth - 2 * margin, buttonHeight }, "Insertion Sort");
 
-        // Draw the Searching column
-        GuiGroupBox(Rectangle{ col2X, yPos, buttonWidth, screenHeight - 2 * margin }, "Searching");
-         bool linearSearch = GuiButton(Rectangle{ col2X + margin, yPos + 2 * margin, buttonWidth - 2 * margin, buttonHeight }, "Linear Search");
-        GuiButton(Rectangle{ col2X + margin, yPos + 2 * margin + buttonHeight + margin, buttonWidth - 2 * margin, buttonHeight }, "Binary Search");
-      
-        if(linearSearch){
-            screenStack.push(currentscreen);
-            currentscreen = LINEARSEARCH;
-        }
-    
-        
+    // Draw the Searching column
+    GuiGroupBox(Rectangle{ col2X, yPos, buttonWidth, screenHeight - 2 * margin }, "Searching");
+    bool linearSearch = GuiButton(Rectangle{ col2X + margin, yPos + 2 * margin, buttonWidth - 2 * margin, buttonHeight }, "Linear Search");
+    GuiButton(Rectangle{ col2X + margin, yPos + 2 * margin + buttonHeight + margin, buttonWidth - 2 * margin, buttonHeight }, "Binary Search");
+
+    if(linearSearch){
+        screenStack.push(currentscreen);
+        currentscreen = LINEARSEARCH;
+    }
+
+
     EndDrawing();
 
 }
@@ -92,26 +94,26 @@ void RenderDataStructureList(){
     float xPos = margin;
     float yPos = margin;
     BeginDrawing();
-        ClearBackground(RAYWHITE);
-        GuiSetStyle(DEFAULT, TEXT_SIZE, 15); 
-        // Draw the Data Structures group box
-        GuiGroupBox(Rectangle{ xPos, yPos, screenWidth - 2 * margin, screenHeight - 2 * margin }, "Data Structures");
+    ClearBackground(RAYWHITE);
+    GuiSetStyle(DEFAULT, TEXT_SIZE, 20); 
+    // Draw the Data Structures group box
+    GuiGroupBox(Rectangle{ xPos, yPos, screenWidth - 2 * margin, screenHeight - 2 * margin }, "Data Structures");
 
-        // Draw the buttons
-        bool arrayVisualizer = GuiButton(Rectangle{ xPos + margin, yPos + 2 * margin, buttonWidth, buttonHeight }, "Array");
-        GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * margin, buttonWidth, buttonHeight }, "Stack");
-        GuiButton(Rectangle{ xPos + margin, yPos + 2 * margin + buttonHeight + margin, buttonWidth, buttonHeight }, "Queue");
-        GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * margin + buttonHeight + margin, buttonWidth, buttonHeight }, "Tree");
-        GuiButton(Rectangle{ xPos + margin, yPos + 2 * margin + 2 * (buttonHeight + margin), buttonWidth, buttonHeight }, "Graph");
-        GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * margin + 2 * (buttonHeight + margin), buttonWidth, buttonHeight }, "Linked List");
-        
+    // Draw the buttons
+    bool arrayVisualizer = GuiButton(Rectangle{ xPos + margin, yPos + 2 * margin, buttonWidth, buttonHeight }, "Array");
+    GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * margin, buttonWidth, buttonHeight }, "Stack");
+    GuiButton(Rectangle{ xPos + margin, yPos + 2 * margin + buttonHeight + margin, buttonWidth, buttonHeight }, "Queue");
+    GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * margin + buttonHeight + margin, buttonWidth, buttonHeight }, "Tree");
+    GuiButton(Rectangle{ xPos + margin, yPos + 2 * margin + 2 * (buttonHeight + margin), buttonWidth, buttonHeight }, "Graph");
+    GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * margin + 2 * (buttonHeight + margin), buttonWidth, buttonHeight }, "Linked List");
 
-        if(arrayVisualizer){
-            screenStack.push(currentscreen);
-            currentscreen = ARRAY_VISUALIZER;
-        }
-        
-        EndDrawing();
+
+    if(arrayVisualizer){
+        screenStack.push(currentscreen);
+        currentscreen = ARRAY_VISUALIZER;
+    }
+
+    EndDrawing();
 }
 
 
@@ -123,12 +125,12 @@ int main(){
     SetTargetFPS(60);
 
     currentscreen = MAINSCREEN;
- 
+
 
     while(!WindowShouldClose()){
-       
-      
-      
+
+
+
         switch(currentscreen){
             case MAINSCREEN:
                 RenderMainScreen();
@@ -147,10 +149,10 @@ int main(){
                 break;
             default:
                 break;
-            
+
         }
 
-          if(IsKeyPressed(KEY_B)){
+        if(IsKeyPressed(KEY_B)){
 
             if(!screenStack.empty()){
                 currentscreen =screenStack.top();
