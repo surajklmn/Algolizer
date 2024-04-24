@@ -88,7 +88,7 @@ const int SEARCH_DELAY = 500;
                 found = true;
             }else if(currentIndex  == ARRAY_SIZE-1){
                 DrawText("Target value found at index -1",
-                    WINDOW_WIDTH / 2 - 200, WINDOW_HEIGHT / 2, 30, GREEN);
+                    WINDOW_WIDTH / 2 - 350, WINDOW_HEIGHT / 2, 30, GREEN);
             } 
             else {
                 currentIndex++;
@@ -99,7 +99,7 @@ const int SEARCH_DELAY = 500;
             DrawRectangle(x, y, ELEMENT_WIDTH, ELEMENT_HEIGHT, GREEN);
             DrawText(std::to_string(arr[currentIndex]).c_str(), x + 5, y + 5, 20, BLACK);
             DrawText(("Target value found at index " + std::to_string(currentIndex)).c_str(),
-                    WINDOW_WIDTH / 2 - 200, WINDOW_HEIGHT / 2, 30, GREEN);
+                    WINDOW_WIDTH / 2 - 350, WINDOW_HEIGHT / 2, 30, GREEN);
         }
        
         }
