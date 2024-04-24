@@ -74,7 +74,7 @@ const int SEARCH_DELAY = 500;
 
         // Visualize the linear search
        if(isTargetSet){
-        DrawText(("Target Value : " + std::to_string(targetValue)).c_str(),800,40,20,GRAY);
+        DrawText(("Target Value : " + std::to_string(targetValue)).c_str(),600,40,20,GRAY);
         if (!found) {
             int x = currentIndex * ELEMENT_WIDTH + 50;
             int y = WINDOW_HEIGHT - ELEMENT_HEIGHT - 50;
@@ -106,7 +106,7 @@ const int SEARCH_DELAY = 500;
 
         // Display instructions
         DrawText("Press 'R' to randomize the array", 10, 10, 20, GRAY);
-        DrawText(("Sample Size : " + std::to_string(ARRAY_SIZE)).c_str(),800,10,20,GRAY);
+        DrawText(("Sample Size : " + std::to_string(ARRAY_SIZE)).c_str(),600,10,20,GRAY);
 
         DrawText("Press 'Enter' to enter a target value", 10, 40, 20, GRAY);
   
