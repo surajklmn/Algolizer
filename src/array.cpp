@@ -109,7 +109,7 @@ void runArrayVisualizer(){
             std::cin >> index;
             deleteElementAtIndex(index);
         }else if(IsKeyPressed(KEY_S)){
-            deleteAtEnd();
+            deleteFromFront();
         }
         else if(IsKeyPressed(KEY_B)){
             currentscreen = screenStack.top();
@@ -124,9 +124,9 @@ void runArrayVisualizer(){
               DrawText("Press 'O' To Insert At Front", 10, 50, 15, BLACK);
               DrawText("Press 'P' To Insert At Index", 10, 70, 15, BLACK);
 
-              DrawText("Press 'D' To Delete From Front", 10, 90, 15, BLACK);
+              DrawText("Press 'D' To Delete From Back", 10, 90, 15, BLACK);
               DrawText("Press 'A' To Delete At Index", 10, 110, 15, BLACK);
-              DrawText("Press 'S' To Delete From Back", 10, 130, 15, BLACK);
+              DrawText("Press 'S' To Delete From Front", 10, 130, 15, BLACK);
                 
               DrawText("Data -> ",20,260,20,BLACK);
               DrawText("Index -> ",20,220,20,BLACK);
