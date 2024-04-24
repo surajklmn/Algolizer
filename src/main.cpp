@@ -5,7 +5,7 @@
 #include <raylib.h>
 #include <stack>
 #include "linear_search.h"
-
+#include "array.h"
 screen currentscreen;
 std::stack<screen> screenStack;
 
@@ -98,14 +98,19 @@ void RenderDataStructureList(){
         GuiGroupBox(Rectangle{ xPos, yPos, screenWidth - 2 * margin, screenHeight - 2 * margin }, "Data Structures");
 
         // Draw the buttons
-        GuiButton(Rectangle{ xPos + margin, yPos + 2 * margin, buttonWidth, buttonHeight }, "Array");
+        bool arrayVisualizer = GuiButton(Rectangle{ xPos + margin, yPos + 2 * margin, buttonWidth, buttonHeight }, "Array");
         GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * margin, buttonWidth, buttonHeight }, "Stack");
         GuiButton(Rectangle{ xPos + margin, yPos + 2 * margin + buttonHeight + margin, buttonWidth, buttonHeight }, "Queue");
         GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * margin + buttonHeight + margin, buttonWidth, buttonHeight }, "Tree");
         GuiButton(Rectangle{ xPos + margin, yPos + 2 * margin + 2 * (buttonHeight + margin), buttonWidth, buttonHeight }, "Graph");
         GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * margin + 2 * (buttonHeight + margin), buttonWidth, buttonHeight }, "Linked List");
-      
+        
 
+        if(arrayVisualizer){
+            screenStack.push(currentscreen);
+            currentscreen = ARRAY_VISUALIZER;
+        }
+        
         EndDrawing();
 }
 
@@ -136,6 +141,9 @@ int main(){
                 break;
             case LINEARSEARCH:
                 runLinearSearchVisualizer();
+                break;
+            case ARRAY_VISUALIZER:
+                runArrayVisualizer();
                 break;
             default:
                 break;

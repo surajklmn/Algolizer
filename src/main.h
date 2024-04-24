@@ -4,5 +4,7 @@ enum screen{
     ALGORITHM_LIST,
     DATASTRUCTURE_LIST,
     LINEARSEARCH,
+    ARRAY_VISUALIZER,
+
 };
 

@@ -10,6 +10,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(SOURCE_FILES
     src/main.cpp
     src/linear_search.cpp
+    src/array.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
