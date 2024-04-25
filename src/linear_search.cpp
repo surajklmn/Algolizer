@@ -79,7 +79,7 @@ const int SEARCH_DELAY = 500;
             }
      }
     if(isEnteringInput){
-             GuiTextBox(Rectangle { 800 / 2.0 - 100, 600.0 / 2 - 20, 200, 40 }, inputText, 64, true);
+             GuiTextBox(Rectangle { 800 / 2.0 - 100, 600.0 / 2 - 100, 200, 40 }, inputText, 64, true);
         }
 
         // Visualize the linear search
