@@ -7,6 +7,7 @@
 #include <chrono>
 #include <stack>
 #include <thread>
+#include <raygui/raygui.h>
 
 extern std::stack<screen> screenStack;
 extern screen currentscreen;
@@ -29,12 +30,13 @@ const int SEARCH_DELAY = 500;
     for (int i = 0; i < ARRAY_SIZE; i++) {
         arr[i] = dis(gen);
     }
-
+    char inputText[64] = "";
     // Linear search variables
     int targetValue = 0;
     int currentIndex = 0;
     bool found = false;
     bool isTargetSet = false;
+    bool isEnteringInput = false;
     // Main game loop
   
       while(!WindowShouldClose()) { // Clear the screen
@@ -65,11 +67,19 @@ const int SEARCH_DELAY = 500;
 
         if (IsKeyPressed(KEY_ENTER)) {
             // Get user input for target value
-            std::cout << "Enter the target value: ";
-            std::cin >> targetValue;
-            isTargetSet = true;
-            found = false;
-            currentIndex = 0;
+         
+            isEnteringInput = !isEnteringInput;
+            if(!isEnteringInput){
+                targetValue = atoi(inputText);
+                isTargetSet = true;
+                found = false;
+                currentIndex = 0;
+
+
+            }
+     }
+    if(isEnteringInput){
+             GuiTextBox(Rectangle { 800 / 2.0 - 100, 600.0 / 2 - 20, 200, 40 }, inputText, 64, true);
         }
 
         // Visualize the linear search
