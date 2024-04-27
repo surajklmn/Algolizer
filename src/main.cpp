@@ -12,23 +12,24 @@ std::stack<screen> screenStack;
 #define screenWidth 800
 #define screenHeight 600
 
-
-const int button_width = 250;
-const int button_height = 70;
+float scaling_factorX = 1.0f;
+float scaling_factorY = 1.0f;
 
 void RenderMainScreen(){
-   
+    const float button_width = 250;
+    const float button_height = 70; 
     GuiSetStyle(DEFAULT, TEXT_SIZE, 20); 
-    const int gap = 100;
+    const int gap = 100*scaling_factorY;
+
     const int centerX = (screenWidth/2);
     const int centerY = screenHeight/2;
-    Rectangle button_Algo = {centerX-(button_width/2.0),centerY-button_height,button_width,button_height};
-    Rectangle button_DataS = {centerX-(button_width/2.0),centerY-button_height + gap,button_width,button_height};
+    Rectangle button_Algo = {static_cast<float>((centerX-(button_width/2.0))*scaling_factorX),(centerY-button_height)*scaling_factorY,button_width*scaling_factorX,button_height*scaling_factorY};
+    Rectangle button_DataS = {static_cast<float>((centerX-(button_width/2.0))*scaling_factorX),(centerY-button_height)*scaling_factorY + gap,button_width*scaling_factorX,button_height*scaling_factorY};
 
     BeginDrawing();
     ClearBackground(RAYWHITE);
 
-    DrawText("Algolizer",centerX-70, 30, 50, GRAY);
+    DrawText("Algolizer",(centerX-70)*scaling_factorX, 30*scaling_factorY, 50, GRAY);
 
 
     bool isAlgorithmPressed = GuiButton(button_Algo,"Algorithms");
@@ -131,8 +132,11 @@ int main(){
 
     while(!WindowShouldClose()){
 
-
-
+        if(IsWindowResized()){
+            scaling_factorX = static_cast<double> (GetScreenWidth()) / static_cast<double>(screenWidth);
+            scaling_factorY = static_cast<double> (GetScreenHeight()) / static_cast<double>(screenHeight);
+        }
+        
         switch(currentscreen){
             case MAINSCREEN:
                 RenderMainScreen();
