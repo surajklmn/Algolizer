@@ -120,8 +120,10 @@ void RenderDataStructureList(){
 
 
 int main(){
-
+   
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(screenWidth, screenHeight, "Algolizer");
+    SetWindowMinSize(screenWidth, screenHeight);
     SetTargetFPS(60);
 
     currentscreen = MAINSCREEN;
