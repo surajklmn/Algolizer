@@ -71,6 +71,7 @@ const int SEARCH_DELAY = 500;
             isEnteringInput = !isEnteringInput;
             if(!isEnteringInput){
                 targetValue = atoi(inputText);
+                inputText[0] = '\0'; // Empty String
                 isTargetSet = true;
                 found = false;
                 currentIndex = 0;
