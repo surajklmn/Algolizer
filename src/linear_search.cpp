@@ -98,8 +98,8 @@ const int SEARCH_DELAY = 500;
             if (arr[currentIndex] == targetValue) {
                 found = true;
             }else if(currentIndex  == ARRAY_SIZE-1){
-                DrawText("Target value found at index -1",
-                    WINDOW_WIDTH / 2 - 350, WINDOW_HEIGHT / 2, 30, GREEN);
+                DrawText("Target value Not Found",
+                    WINDOW_WIDTH / 2 - 350, WINDOW_HEIGHT / 2, 30, RED);
             } 
             else {
                 currentIndex++;
