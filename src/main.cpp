@@ -38,7 +38,8 @@ void RenderMainScreen(){
     BeginDrawing();
     ClearBackground(RAYWHITE);
 
-    DrawText(title_text, X_Position+35, 30, 50 * scaling_factorX, GRAY);
+    DrawText(title_text, (X_Position+35), 30 * scaling_factorY, 50 * scaling_factorX, GRAY);
+
 
 
 
