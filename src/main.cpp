@@ -16,20 +16,31 @@ float scaling_factorX = 1.0f;
 float scaling_factorY = 1.0f;
 
 void RenderMainScreen(){
+    GuiSetStyle(DEFAULT, TEXT_SIZE, 20);
+
+  
+    const char* title_text  = "Algolizer";
     const float button_width = 250;
     const float button_height = 70; 
-    GuiSetStyle(DEFAULT, TEXT_SIZE, 20); 
+
     const int gap = 100*scaling_factorY;
 
-    const int centerX = (screenWidth/2);
-    const int centerY = screenHeight/2;
-    Rectangle button_Algo = {static_cast<float>((centerX-(button_width/2.0))*scaling_factorX),(centerY-button_height)*scaling_factorY,button_width*scaling_factorX,button_height*scaling_factorY};
-    Rectangle button_DataS = {static_cast<float>((centerX-(button_width/2.0))*scaling_factorX),(centerY-button_height)*scaling_factorY + gap,button_width*scaling_factorX,button_height*scaling_factorY};
+  
+    const float X_Position = ((screenWidth/2.0) - (button_width/2.0)) * scaling_factorX;
+    const float Y_Position = ((screenHeight/2.0) - button_height) * scaling_factorY;
+        
 
+
+    Rectangle button_Algo = {X_Position,Y_Position,button_width*scaling_factorX,button_height*scaling_factorY};
+    Rectangle button_DataS = {X_Position,Y_Position+gap,button_width*scaling_factorX,button_height*scaling_factorY};
+
+    
+       
     BeginDrawing();
     ClearBackground(RAYWHITE);
 
-    DrawText("Algolizer",(centerX-70)*scaling_factorX, 30*scaling_factorY, 50, GRAY);
+    DrawText(title_text, X_Position+35, 30, 50 * scaling_factorX, GRAY);
+
 
 
     bool isAlgorithmPressed = GuiButton(button_Algo,"Algorithms");
@@ -53,8 +64,7 @@ void RenderMainScreen(){
 
 
 void RenderAlgorithmList(){
-
-    const float buttonWidth = 350;
+   const float buttonWidth = 350;
     const float buttonHeight = 50;
     const float margin = 20;
     const float col1X = margin;
@@ -82,6 +92,7 @@ void RenderAlgorithmList(){
 
 
     EndDrawing();
+
 
 }
 
