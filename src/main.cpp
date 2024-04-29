@@ -1,5 +1,4 @@
 #include <iostream>
-#define RAYGUI_IMPLEMENTATION
 #include "main.h"
 #include <raygui/raygui.h>
 #include <raylib.h>
@@ -64,26 +63,35 @@ void RenderMainScreen(){
 
 
 void RenderAlgorithmList(){
-   const float buttonWidth = 350;
-    const float buttonHeight = 50;
-    const float margin = 20;
-    const float col1X = margin;
-    const float col2X = screenWidth / 2.0 + margin;
-    float yPos = margin;
+   const float BasebuttonWidth = 360;
+    const float BasebuttonHeight = 50;
+
+
+    const float buttonWidth = BasebuttonWidth * scaling_factorX;
+    const float buttonHeight = BasebuttonHeight * scaling_factorY;
+    const float margin = 20 * scaling_factorX;
+    const float col1X = 40 * scaling_factorX;
+    const float col2X = (screenWidth / 2.0 + 20)*scaling_factorX;
+    const float outlineHeight = (screenHeight - 40)*scaling_factorY;
+    const float buttonHeightMargin = (BasebuttonHeight+20);
+    const float yPos = 20;
     BeginDrawing();
     ClearBackground(RAYWHITE);
-    GuiSetStyle(DEFAULT, TEXT_SIZE, 20); 
-    GuiGroupBox(Rectangle{ col1X, yPos, buttonWidth, screenHeight - 2 * margin }, "Sorting");
-    GuiButton(Rectangle{ col1X + margin, yPos + 2 * margin, buttonWidth - 2 * margin, buttonHeight }, "Bubble Sort");
-    GuiButton(Rectangle{ col1X + margin, yPos + 2 * margin + buttonHeight + margin, buttonWidth - 2 * margin, buttonHeight }, "Merge Sort");
-    GuiButton(Rectangle{ col1X + margin, yPos + 2 * margin + 2 * (buttonHeight + margin), buttonWidth - 2 * margin, buttonHeight }, "Selection Sort");
-    GuiButton(Rectangle{ col1X + margin, yPos + 2 * margin + 3 * (buttonHeight + margin), buttonWidth - 2 * margin, buttonHeight }, "Quick Sort");
-    GuiButton(Rectangle{ col1X + margin, yPos + 2 * margin + 4 * (buttonHeight + margin), buttonWidth - 2 * margin, buttonHeight }, "Insertion Sort");
+    GuiSetStyle(DEFAULT, TEXT_SIZE, 20);
+
+
+
+    GuiGroupBox(Rectangle{ margin, yPos, buttonWidth, outlineHeight }, "Sorting");
+    GuiButton(Rectangle{ col1X, (yPos + 40)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Bubble Sort");
+    GuiButton(Rectangle{ col1X, (yPos + 40 + buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Merge Sort");
+    GuiButton(Rectangle{ col1X, (yPos + 40 + 2 * buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Selection Sort");
+    GuiButton(Rectangle{ col1X, (yPos + 40 + 3 * buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Quick Sort");
+    GuiButton(Rectangle{ col1X, (yPos + 40 + 4 * buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Insertion Sort");
 
     // Draw the Searching column
-    GuiGroupBox(Rectangle{ col2X, yPos, buttonWidth, screenHeight - 2 * margin }, "Searching");
-    bool linearSearch = GuiButton(Rectangle{ col2X + margin, yPos + 2 * margin, buttonWidth - 2 * margin, buttonHeight }, "Linear Search");
-    GuiButton(Rectangle{ col2X + margin, yPos + 2 * margin + buttonHeight + margin, buttonWidth - 2 * margin, buttonHeight }, "Binary Search");
+    GuiGroupBox(Rectangle{ col2X, yPos, buttonWidth, outlineHeight }, "Searching");
+    bool linearSearch = GuiButton(Rectangle{ col2X + margin, (yPos + 40) * scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Linear Search");
+    bool binarySearch = GuiButton(Rectangle{ col2X + margin, (yPos + 40 + buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Binary Search");
 
     if(linearSearch){
         screenStack.push(currentscreen);
@@ -99,25 +107,30 @@ void RenderAlgorithmList(){
 
 void RenderDataStructureList(){
 
-    const float buttonWidth = 280;
-    const float buttonHeight = 60;
-    const float margin = 50;
+    const float BasebuttonWidth = 280;
+    const float BasebuttonHeight = 60;
 
-    float xPos = margin;
-    float yPos = margin;
+    const float buttonWidth = BasebuttonWidth * scaling_factorX;
+    const float buttonHeight = BasebuttonHeight * scaling_factorY;
+
+    const float margin = 50 * scaling_factorX;
+    const float marginY = 50 * scaling_factorY;
+
+    float xPos = 50 * scaling_factorX;
+    float yPos = 50 * scaling_factorY;
     BeginDrawing();
     ClearBackground(RAYWHITE);
     GuiSetStyle(DEFAULT, TEXT_SIZE, 20); 
     // Draw the Data Structures group box
-    GuiGroupBox(Rectangle{ xPos, yPos, screenWidth - 2 * margin, screenHeight - 2 * margin }, "Data Structures");
+    GuiGroupBox(Rectangle{ xPos, yPos, (screenWidth - 100) * scaling_factorX, (screenHeight - 100)* scaling_factorY }, "Data Structures");
 
     // Draw the buttons
-    bool arrayVisualizer = GuiButton(Rectangle{ xPos + margin, yPos + 2 * margin, buttonWidth, buttonHeight }, "Array");
-    GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * margin, buttonWidth, buttonHeight }, "Stack");
-    GuiButton(Rectangle{ xPos + margin, yPos + 2 * margin + buttonHeight + margin, buttonWidth, buttonHeight }, "Queue");
-    GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * margin + buttonHeight + margin, buttonWidth, buttonHeight }, "Tree");
-    GuiButton(Rectangle{ xPos + margin, yPos + 2 * margin + 2 * (buttonHeight + margin), buttonWidth, buttonHeight }, "Graph");
-    GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * margin + 2 * (buttonHeight + margin), buttonWidth, buttonHeight }, "Linked List");
+    bool arrayVisualizer = GuiButton(Rectangle{ xPos + margin, yPos + 2 * marginY, buttonWidth, buttonHeight }, "Array");
+    GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * marginY, buttonWidth, buttonHeight }, "Stack");
+    GuiButton(Rectangle{ xPos + margin, yPos + 2 * marginY + buttonHeight + marginY, buttonWidth, buttonHeight }, "Queue");
+    GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * marginY + buttonHeight + marginY, buttonWidth, buttonHeight }, "Tree");
+    GuiButton(Rectangle{ xPos + margin, yPos + 2 * marginY + 2 * (buttonHeight + marginY), buttonWidth, buttonHeight }, "Graph");
+    GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * marginY + 2 * (buttonHeight + marginY), buttonWidth, buttonHeight }, "Linked List");
 
 
     if(arrayVisualizer){
