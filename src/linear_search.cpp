@@ -8,6 +8,8 @@
 #include <stack>
 #include <thread>
 #include <raygui/raygui.h>
+#include "utils/InputBox.h"
+
 
 extern std::stack<screen> screenStack;
 extern screen currentscreen;
@@ -38,6 +40,7 @@ const int SEARCH_DELAY = 500;
     bool isTargetSet = false;
     bool isEnteringInput = false;
     // Main game loop
+    InputBox inputbox(Rectangle { 800 / 2.0 - 100, 600.0 / 2 - 100, 200, 40 });
   
       while(!WindowShouldClose()) { // Clear the screen
         BeginDrawing();
@@ -66,22 +69,19 @@ const int SEARCH_DELAY = 500;
         }
 
         if (IsKeyPressed(KEY_ENTER)) {
-            // Get user input for target value
-         
-            isEnteringInput = !isEnteringInput;
-            if(!isEnteringInput){
-                targetValue = atoi(inputText);
-                inputText[0] = '\0'; // Empty String
-                isTargetSet = true;
-                found = false;
-                currentIndex = 0;
-
-
-            }
-     }
-    if(isEnteringInput){
-             GuiTextBox(Rectangle { 800 / 2.0 - 100, 600.0 / 2 - 100, 200, 40 }, inputText, 64, true);
-        }
+                inputbox.Update();
+                if(!inputbox.IsEnteringInput()){
+                     isTargetSet = true;
+                     targetValue = inputbox.GetInputValue();   
+                     found = false;
+                     currentIndex = 0;
+                 }
+             
+      }
+          
+    if(inputbox.IsEnteringInput()){
+            inputbox.Draw(); 
+    }
 
         // Visualize the linear search
        if(isTargetSet){
