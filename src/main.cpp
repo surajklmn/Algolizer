@@ -1,4 +1,6 @@
-#define RAYGUI_IMPLEMENTATION
+#ifndef __APPLE__
+    #define RAYGUI_IMPLEMENTATION
+#endif // !__APPLE__
 #include <iostream>
 #include "main.h"
 #include <raygui/raygui.h>
