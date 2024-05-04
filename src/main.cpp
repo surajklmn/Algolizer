@@ -1,3 +1,4 @@
+#define RAYGUI_IMPLEMENTATION
 #include <iostream>
 #include "main.h"
 #include <raygui/raygui.h>
