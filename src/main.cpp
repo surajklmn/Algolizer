@@ -1,4 +1,6 @@
-#define RAYGUI_IMPLEMENTATION
+#ifdef _WIN32
+    #define RAYGUI_IMPLEMENTATION
+#endif
 #include <iostream>
 #include "main.h"
 #include <raygui/raygui.h>
