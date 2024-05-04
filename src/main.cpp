@@ -5,6 +5,7 @@
 #include <stack>
 #include "linear_search.h"
 #include "array.h"
+#include "queue.h"
 screen currentscreen;
 std::stack<screen> screenStack;
 
@@ -128,15 +129,18 @@ void RenderDataStructureList(){
     // Draw the buttons
     bool arrayVisualizer = GuiButton(Rectangle{ xPos + margin, yPos + 2 * marginY, buttonWidth, buttonHeight }, "Array");
     GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * marginY, buttonWidth, buttonHeight }, "Stack");
-    GuiButton(Rectangle{ xPos + margin, yPos + 2 * marginY + buttonHeight + marginY, buttonWidth, buttonHeight }, "Queue");
+    bool queueVisualizer = GuiButton(Rectangle{ xPos + margin, yPos + 2 * marginY + buttonHeight + marginY, buttonWidth, buttonHeight }, "Queue");
     GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * marginY + buttonHeight + marginY, buttonWidth, buttonHeight }, "Tree");
     GuiButton(Rectangle{ xPos + margin, yPos + 2 * marginY + 2 * (buttonHeight + marginY), buttonWidth, buttonHeight }, "Graph");
     GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * marginY + 2 * (buttonHeight + marginY), buttonWidth, buttonHeight }, "Linked List");
 
-
+     
     if(arrayVisualizer){
-        screenStack.push(currentscreen);
+        screenStack.push(currentscreen); 
         currentscreen = ARRAY_VISUALIZER;
+    }else if(queueVisualizer){
+        screenStack.push(currentscreen);
+        currentscreen = QUEUE_VISUALIZER;
     }
 
     EndDrawing();
@@ -177,6 +181,9 @@ int main(){
                 break;
             case ARRAY_VISUALIZER:
                 runArrayVisualizer();
+                break;
+            case QUEUE_VISUALIZER:
+                RunQueueVisualizer();
                 break;
             default:
                 break;

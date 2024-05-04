@@ -11,6 +11,7 @@ set(SOURCE_FILES
     src/main.cpp
     src/linear_search.cpp
     src/array.cpp
+    src/queue.cpp
     src/utils/InputBox.cpp
 )
 
