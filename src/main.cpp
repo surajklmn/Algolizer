@@ -47,15 +47,17 @@ void RenderMainScreen(){
     bool isAlgorithmPressed = GuiButton(button_Algo,"Algorithms");
     bool isDataStructurePressed = GuiButton(button_DataS,"Data-Structures");
 
-    screenStack.push(currentscreen);
+   
 
     if(isAlgorithmPressed){
 
+        screenStack.push(currentscreen);
         currentscreen = ALGORITHM_LIST; 
 
 
     }
     if(isDataStructurePressed){
+        screenStack.push(currentscreen);
         currentscreen = DATASTRUCTURE_LIST;
 
     }
@@ -142,7 +144,7 @@ void RenderDataStructureList(){
         screenStack.push(currentscreen);
         currentscreen = QUEUE_VISUALIZER;
     }
-
+   
     EndDrawing();
 }
 
@@ -201,5 +203,6 @@ int main(){
 
 
     CloseWindow();
+    std::cout << screenStack.size() << std::endl; 
     return 0;
 }
