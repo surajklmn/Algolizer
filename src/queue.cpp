@@ -36,8 +36,8 @@ void RunQueueVisualizer(){
      BeginDrawing();
      ClearBackground(RAYWHITE);
      DrawText("Press Enter To Enqueue Element",30,20,15,GRAY);
-     DrawText("Press Enter To Enqueue Element",30,40,15,GRAY);
-     DrawText("Press D To Dequeue Element",30,60,15,GRAY);
+     DrawText("Press D To Dequeue Element",30,40,15,GRAY);
+     DrawText("Press B To exit",30,60,15,GRAY);
     if(IsKeyPressed(KEY_B)){
         currentscreen = screenStack.top();
         break;
@@ -52,7 +52,7 @@ void RunQueueVisualizer(){
         if(dataEntered){
                 if(queue_item.empty()){
                     Rectangle rectangle = {starting_X,300,box_width,box_height};
-                     Color color = GREEN;
+                     Color color = DARKGREEN;
                      queue_item.push_back({rectangle,color,data});
                 }
                 else{
@@ -95,7 +95,7 @@ void RunQueueVisualizer(){
             }
         
         if(i>0 && i== queue_item.size()-1){
-                    DrawRectangleRec(queue_item[i].dimension, RED);
+                    DrawRectangleRec(queue_item[i].dimension, MAROON);
 
             }
          DrawText(queue_item[i].text.c_str(),queue_item[i].dimension.x+(box_width/2.0f)-18,
