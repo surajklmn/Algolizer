@@ -5,6 +5,6 @@ enum screen{
     DATASTRUCTURE_LIST,
     LINEARSEARCH,
     ARRAY_VISUALIZER,
-
+    QUEUE_VISUALIZER,
 };
 
