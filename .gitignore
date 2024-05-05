@@ -5,3 +5,4 @@ a.out
 
 src/include
 *.dynlib
+.vscode/
