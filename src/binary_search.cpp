@@ -17,7 +17,7 @@ void runBinarySearchVisualizer() {
     const int WINDOW_WIDTH = 1000;
     const int WINDOW_HEIGHT = 550;
     const int ARRAY_SIZE = 20;
-    const int ELEMENT_WIDTH = 40;
+    const int ELEMENT_WIDTH = 35;
     const int ELEMENT_HEIGHT = 50;
     const int SEARCH_DELAY = 500;
 
