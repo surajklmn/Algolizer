@@ -1,6 +1,7 @@
 #include "binary_search.h"
 #include "main.h"
 #include <cstdlib>
+#include <iostream>
 #include <random>
 #include <raylib.h>
 #include <chrono>
@@ -92,29 +93,34 @@ void runBinarySearchVisualizer() {
         if (isTargetSet) {
             DrawText(("Target Value : " + std::to_string(targetValue)).c_str(), 600, 40, 20, GRAY);
             if (!found) {
-                mid = left + (right - left) / 2;
-                int x = mid * ELEMENT_WIDTH + 50;
-                int y = WINDOW_HEIGHT - ELEMENT_HEIGHT - 50;
-                DrawRectangle(x, y, ELEMENT_WIDTH, ELEMENT_HEIGHT, RED);
-                DrawText(std::to_string(arr[mid]).c_str(), x + 5, y + 5, 20, BLACK);
-
-                // Highlight the search range
-                for (int i = left; i <= right; i++) {
-                    int x = i * ELEMENT_WIDTH + 50;
+                if (left <= right) { // Check if the search range is valid
+                    mid = left + (right - left) / 2;
+                    int x = mid * ELEMENT_WIDTH + 50;
                     int y = WINDOW_HEIGHT - ELEMENT_HEIGHT - 50;
-                    DrawRectangle(x, y, ELEMENT_WIDTH, ELEMENT_HEIGHT, YELLOW);
-                    DrawText(std::to_string(arr[i]).c_str(), x + 5, y + 5, 20, BLACK);
-                }
+                    DrawRectangle(x, y, ELEMENT_WIDTH, ELEMENT_HEIGHT, RED);
+                    DrawText(std::to_string(arr[mid]).c_str(), x + 5, y + 5, 20, BLACK);
 
-                // Add a delay to the search
-                std::this_thread::sleep_for(std::chrono::milliseconds(SEARCH_DELAY));
+                    // Highlight the search range
+                    for (int i = left; i <= right; i++) {
+                        int x = i * ELEMENT_WIDTH + 50;
+                        int y = WINDOW_HEIGHT - ELEMENT_HEIGHT - 50;
+                        DrawRectangle(x, y, ELEMENT_WIDTH, ELEMENT_HEIGHT, YELLOW);
+                        DrawText(std::to_string(arr[i]).c_str(), x + 5, y + 5, 20, BLACK);
+                    }
 
-                if (arr[mid] == targetValue) {
-                    found = true;
-                } else if (arr[mid] < targetValue) {
-                    left = mid + 1;
-                } else {
-                    right = mid - 1;
+                    // Add a delay to the search
+                    std::this_thread::sleep_for(std::chrono::milliseconds(SEARCH_DELAY));
+
+                    if (arr[mid] == targetValue) {
+                        found = true;
+                    } else if (arr[mid] < targetValue) {
+                        left = mid + 1;
+                    } else {
+                        right = mid - 1;
+                    }
+                } else { // Element not found
+                    DrawText("Target value not found", WINDOW_WIDTH / 2 - 350, WINDOW_HEIGHT / 2, 30, RED);
+                    found = false; 
                 }
             } else {
                 int x = mid * ELEMENT_WIDTH + 50;
