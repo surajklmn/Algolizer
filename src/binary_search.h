@@ -1,0 +1,6 @@
+#ifndef BINARY_SEARCH_VISUALIZER_H
+#define BINARY_SEARCH_VISUALIZER_H
+
+void runBinarySearchVisualizer();
+
+#endif // BINARY_SEARCH_VISUALIZER_H

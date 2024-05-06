@@ -1,11 +1,12 @@
 #ifndef __APPLE__
-    #define RAYGUI_IMPLEMENTATION
+#define RAYGUI_IMPLEMENTATION
 #endif // !__APPLE__
 #include <iostream>
 #include "main.h"
 #include <raygui/raygui.h>
 #include <raylib.h>
 #include <stack>
+#include "binary_search.h"
 #include "linear_search.h"
 #include "array.h"
 #include "queue.h"
@@ -21,36 +22,33 @@ float scaling_factorY = 1.0f;
 void RenderMainScreen(){
     GuiSetStyle(DEFAULT, TEXT_SIZE, 20);
 
-  
+
     const char* title_text  = "Algolizer";
     const float button_width = 250;
     const float button_height = 70; 
 
     const int gap = 100*scaling_factorY;
 
-  
+
     const float X_Position = ((screenWidth/2.0) - (button_width/2.0)) * scaling_factorX;
     const float Y_Position = ((screenHeight/2.0) - button_height) * scaling_factorY;
-        
+
 
 
     Rectangle button_Algo = {X_Position,Y_Position,button_width*scaling_factorX,button_height*scaling_factorY};
     Rectangle button_DataS = {X_Position,Y_Position+gap,button_width*scaling_factorX,button_height*scaling_factorY};
 
-    
-       
+
+
     BeginDrawing();
     ClearBackground(RAYWHITE);
 
     DrawText(title_text, (X_Position+35), 30 * scaling_factorY, 50 * scaling_factorX, GRAY);
 
-
-
-
     bool isAlgorithmPressed = GuiButton(button_Algo,"Algorithms");
     bool isDataStructurePressed = GuiButton(button_DataS,"Data-Structures");
 
-   
+
 
     if(isAlgorithmPressed){
 
@@ -70,10 +68,8 @@ void RenderMainScreen(){
 
 
 void RenderAlgorithmList(){
-   const float BasebuttonWidth = 360;
+    const float BasebuttonWidth = 360;
     const float BasebuttonHeight = 50;
-
-
     const float buttonWidth = BasebuttonWidth * scaling_factorX;
     const float buttonHeight = BasebuttonHeight * scaling_factorY;
     const float margin = 20 * scaling_factorX;
@@ -82,7 +78,9 @@ void RenderAlgorithmList(){
     const float outlineHeight = (screenHeight - 40)*scaling_factorY;
     const float buttonHeightMargin = (BasebuttonHeight+20);
     const float yPos = 20;
+
     BeginDrawing();
+    
     ClearBackground(RAYWHITE);
     GuiSetStyle(DEFAULT, TEXT_SIZE, 20);
 
@@ -104,14 +102,12 @@ void RenderAlgorithmList(){
         screenStack.push(currentscreen);
         currentscreen = LINEARSEARCH;
     }
-
-
+    else if(binarySearch){
+        screenStack.push(currentscreen);
+        currentscreen = BINARYSEARCH;
+    }               
     EndDrawing();
-
-
 }
-
-
 void RenderDataStructureList(){
 
     const float BasebuttonWidth = 280;
@@ -139,7 +135,7 @@ void RenderDataStructureList(){
     GuiButton(Rectangle{ xPos + margin, yPos + 2 * marginY + 2 * (buttonHeight + marginY), buttonWidth, buttonHeight }, "Graph");
     GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * marginY + 2 * (buttonHeight + marginY), buttonWidth, buttonHeight }, "Linked List");
 
-     
+
     if(arrayVisualizer){
         screenStack.push(currentscreen); 
         currentscreen = ARRAY_VISUALIZER;
@@ -147,7 +143,7 @@ void RenderDataStructureList(){
         screenStack.push(currentscreen);
         currentscreen = QUEUE_VISUALIZER;
     }
-   
+
     EndDrawing();
 }
 
@@ -155,7 +151,7 @@ void RenderDataStructureList(){
 
 
 int main(){
-   
+
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(screenWidth, screenHeight, "Algolizer");
     SetWindowMinSize(screenWidth, screenHeight);
@@ -170,7 +166,7 @@ int main(){
             scaling_factorX = static_cast<double> (GetScreenWidth()) / static_cast<double>(screenWidth);
             scaling_factorY = static_cast<double> (GetScreenHeight()) / static_cast<double>(screenHeight);
         }
-        
+
         switch(currentscreen){
             case MAINSCREEN:
                 RenderMainScreen();
@@ -183,6 +179,9 @@ int main(){
                 break;
             case LINEARSEARCH:
                 runLinearSearchVisualizer();
+                break;
+            case BINARYSEARCH:
+                runBinarySearchVisualizer();
                 break;
             case ARRAY_VISUALIZER:
                 runArrayVisualizer();

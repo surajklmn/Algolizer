@@ -10,6 +10,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(SOURCE_FILES
     src/main.cpp
     src/linear_search.cpp
+    src/binary_search.cpp
     src/array.cpp
     src/queue.cpp
     src/utils/InputBox.cpp
