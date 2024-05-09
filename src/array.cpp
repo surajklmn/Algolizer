@@ -1,144 +1,69 @@
-#include <raylib.h>
 #include <iostream>
-#include <stack>
-#include "main.h"
-
-extern std::stack<screen> screenStack;
-extern screen currentscreen;
-
-#define SIZE 10
-int array[SIZE] = {0};
-int numElements = 0;
-
-
-void deleteElementAtIndex(int index){
-    if(index >=0 && index<SIZE){
-        for(int i=index;i<SIZE-1;i++){
-            array[i] = array[i+1];
-        }
-        array[SIZE-1]=0;
-    }
-    numElements--;
-}
-
-
-void insertAtBeginning(int element){
-    if(numElements < SIZE){
-        for(int i=numElements;i>0;i--){
-            array[i] = array[i-1];
-        }
-        array[0] = element;
-        numElements++;
-    }
-}
-
-void insertAtEnd(){
-    for(int i=0;i<SIZE;i++){
-        if(array[i] == 0){
-            array[i] = GetRandomValue(1, 100);
-            numElements++;
-            break;
-        }
-    }
-}
-
-void insertElementAtIndex(int index){
-    int value = GetRandomValue(0, 100);
-    if (index >= 0 && index < SIZE && numElements < SIZE) {
-        for (int i = numElements; i > index; i--) {
-            array[i] = array[i - 1];
-        }
-        array[index] = value;
-        numElements++;
-    }
-}
-
-
-void deleteAtEnd(){
-    for(int i=SIZE-1;i>=0;i--){
-        if(array[i]!=0){
-            array[i] = 0;
-            numElements--;
-            break;
-        }
-    }
-}
-
-void deleteFromFront() {
-    if (numElements > 0) {
-        for (int i = 0; i < SIZE - 1; i++) {
-            array[i] = array[i + 1];      
-        }
-        array[SIZE - 1] = 0; 
-
-        numElements--;    
-    }
-}
+#include <random>
+#include <raylib.h>
+#include <raygui/raygui.h>
+#include <string>
+#include <vector>
+#include "array.h"
+#include "utils/InputBox.h"
 
 
 void runArrayVisualizer(){
-
-       
-    while(!WindowShouldClose()){
-
-    
-           // Draw Text
-        // -- B for Back
-        // -- I insert at End
-        // -- O Insert at Front
-        // -- P Insert at Index
-
-        // -- D Delete From Back
-        // -- A Delete At Index
-        // -- S Delete From Front
-        if(IsKeyPressed(KEY_I)){
-            insertAtEnd();
-        }else if(IsKeyPressed(KEY_O)){
-            int element = GetRandomValue(0, 100);
-            insertAtBeginning(element);
-        }else if(IsKeyPressed(KEY_P)){
-            int index;
-            std::cout << "Enter Index :" << std::endl;
-            std::cin >> index;
-            insertElementAtIndex(index);
-        }else if(IsKeyPressed(KEY_D)){
-            deleteAtEnd();
-        }else if(IsKeyPressed(KEY_A)){
-            int index;
-            std::cout << "Enter Index :" << std::endl;
-            std::cin >> index;
-            deleteElementAtIndex(index);
-        }else if(IsKeyPressed(KEY_S)){
-            deleteFromFront();
-        }
-        else if(IsKeyPressed(KEY_B)){
-            currentscreen = screenStack.top();
-            break;
-        }
-        
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
-     
-              DrawText("Press 'B' To move back to previous screen", 10, 10, 15, BLACK);
-              DrawText("Press 'I' To Insert At End", 10, 30, 15, BLACK);
-              DrawText("Press 'O' To Insert At Front", 10, 50, 15, BLACK);
-              DrawText("Press 'P' To Insert At Index", 10, 70, 15, BLACK);
-
-              DrawText("Press 'D' To Delete From Back", 10, 90, 15, BLACK);
-              DrawText("Press 'A' To Delete At Index", 10, 110, 15, BLACK);
-              DrawText("Press 'S' To Delete From Front", 10, 130, 15, BLACK);
-                
-              DrawText("Data -> ",20,260,20,BLACK);
-              DrawText("Index -> ",20,220,20,BLACK);
-        for(int i=0;i<SIZE;i++){
-            DrawRectangle(140 + i * 50, 250, 40, 40, BLUE); 
-            DrawText(TextFormat("%d", array[i]), 150 + i * 50, 260, 20, BLACK);  
-            DrawText(TextFormat("%d", i), 155 + i * 50, 220, 20, BLACK); 
-        }
-        
-       EndDrawing(); 
-
+    int array_size = 10;
+    int box_width = 60;
+    int box_height = 60; 
+    int selectedIndex;
+    std::vector<int> dataset;   
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, 99);
+    for (int i = 0; i < array_size; i++) {
+        dataset.push_back(dis(gen));
     }
+    InputBox data_input({static_cast<float>(GetScreenWidth()/2.0)-100,100,180,40}); 
+    while(!WindowShouldClose()){
+        int box_gap = 10;
+        int startingX = 50;
+        int startingY = GetScreenHeight()/2;
+    
+
+        BeginDrawing();
+
+        bool selectElement = GuiButton({50,30,160,40},"Select Element");
+        bool updateElement = GuiButton({230,30,160,40},"Update Element");
+        bool insertElement =  GuiButton({410,30,160,40},"Insert Element");
+        bool removeElement =  GuiButton({590,30,160,40},"Remove Element");
+
+        
+        if(selectElement || (data_input.IsEnteringInput() && IsKeyPressed(KEY_ENTER))){  
+            data_input.Update();
+            
+            if(!data_input.IsEnteringInput()){
+                selectedIndex = data_input.GetInputValue();
+            }
+
+        }
+             if(data_input.IsEnteringInput()){
+            data_input.Draw();
+        }
+        ClearBackground(RAYWHITE); 
+
+        Color color = BLACK;
+        for(int i=0;i<dataset.size();i++){
+           if(selectedIndex == i) color = DARKGREEN;
+             DrawRectangle(startingX+box_gap,startingY-30,box_width,box_height,color);
+            
+            DrawText(TextFormat("%i",dataset[i]),startingX+(box_width/2-5),startingY+(box_height/2)-30,20,WHITE);
+            
+            startingX = startingX+box_gap+box_width;
+            color = BLACK;
+        }
+    
+    
+
+        EndDrawing();
+    }
+
 
 
 
