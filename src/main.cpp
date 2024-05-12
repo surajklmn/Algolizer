@@ -1,7 +1,9 @@
 #ifndef __APPLE__
 #define RAYGUI_IMPLEMENTATION
+#include "bubble_sort.h"
 #endif // !__APPLE__
 #include <iostream>
+#include "bubble_sort.h"
 #include "main.h"
 #include <raygui/raygui.h>
 #include <raylib.h>
@@ -87,7 +89,7 @@ void RenderAlgorithmList(){
 
 
     GuiGroupBox(Rectangle{ margin, yPos, buttonWidth, outlineHeight }, "Sorting");
-    GuiButton(Rectangle{ col1X, (yPos + 40)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Bubble Sort");
+    bool bubbleSort = GuiButton(Rectangle{ col1X, (yPos + 40)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Bubble Sort");
     GuiButton(Rectangle{ col1X, (yPos + 40 + buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Merge Sort");
     GuiButton(Rectangle{ col1X, (yPos + 40 + 2 * buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Selection Sort");
     GuiButton(Rectangle{ col1X, (yPos + 40 + 3 * buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Quick Sort");
@@ -105,7 +107,10 @@ void RenderAlgorithmList(){
     else if(binarySearch){
         screenStack.push(currentscreen);
         currentscreen = BINARYSEARCH;
-    }               
+    }else if(bubbleSort){
+        screenStack.push(currentscreen);
+        currentscreen = BUBBLESORT_VISUALIZER;
+    }
     EndDrawing();
 }
 void RenderDataStructureList(){
@@ -189,6 +194,9 @@ int main(){
             case QUEUE_VISUALIZER:
                 RunQueueVisualizer();
                 break;
+            case BUBBLESORT_VISUALIZER:
+                RunBubbleSortVisualizer();
+                break; 
             default:
                 break;
 
@@ -205,6 +213,5 @@ int main(){
 
 
     CloseWindow();
-    std::cout << screenStack.size() << std::endl; 
     return 0;
 }
