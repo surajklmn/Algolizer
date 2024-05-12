@@ -73,8 +73,8 @@ void RunQueueVisualizer(){
     }
     if(IsKeyPressed(KEY_D)){
         if(!queue_item.empty()){
-                              queue_item.erase(queue_item.begin());
-                 queue_item.begin()->color = DARKGREEN;
+                 queue_item.erase(queue_item.begin());
+                 if(!queue_item.empty())queue_item.begin()->color = DARKGREEN;
         }  
     }
 
