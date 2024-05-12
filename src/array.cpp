@@ -21,7 +21,7 @@ void runArrayVisualizer(){
     int array_size = 10;
     int box_width = 50;
     int box_height = 50; 
-    int selectedIndex;
+    int selectedIndex = -1;
     int removeIndex;
     int updateIndex;
     std::vector<int> dataset;   
