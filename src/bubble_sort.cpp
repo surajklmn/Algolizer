@@ -1,4 +1,3 @@
-#include <__type_traits/is_swappable.h>
 #include <chrono>
 #include <raylib.h>
 #include "bubble_sort.h"
