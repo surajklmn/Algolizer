@@ -36,15 +36,16 @@ if(WIN32)
     )
     set(BUILD_EXAMPLES OFF CACHE INTERNAL "")
     FetchContent_MakeAvailable(raylib)
+else()
+    find_package(raylib 3.0 REQUIRED) # Requires at least version 3.0
 endif()
 
 # Checks if OSX and links appropriate frameworks (only required on MacOS)
 if (APPLE)
-    find_package(raylib 3.0 REQUIRED) # Requires at least version 3.0
     add_library(raygui SHARED IMPORTED)
     set_target_properties(raygui PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/external/raygui/raygui.dynlib)
 
-   target_link_libraries(${PROJECT_NAME} raygui)
+    target_link_libraries(${PROJECT_NAME} raygui)
 
     target_link_libraries(${PROJECT_NAME} "-framework IOKit")
     target_link_libraries(${PROJECT_NAME} "-framework Cocoa")
