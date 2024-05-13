@@ -6,7 +6,7 @@
 #include <stack>
 #include <thread>
 #include <vector>
-const int bar_width = 11;
+const int bar_width = 20;
 int comparision_count = 0;
 extern std::stack<screen> screenStack;
 extern screen currentscreen;
@@ -42,7 +42,7 @@ void RunBubbleSortVisualizer(){
     const int bar_count = GetScreenWidth()/(bar_width+1);
 
  
-   SetTargetFPS(120); // Change This Value To Increase Animation Time 
+   SetTargetFPS(144); // Change This Value To Increase Animation Time 
 
 
     std::vector<int> dataset; 
