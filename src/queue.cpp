@@ -56,7 +56,7 @@ void RunQueueVisualizer(){
                      queue_item.push_back({rectangle,color,data});
                 }
                 else{
-
+                    
                 Rectangle lastElement = queue_item.back().dimension;
                 Rectangle rectangle = {lastElement.x + element_gap , 300, box_width,box_height};
                 Vector2 line_start = queue_item.back().line;

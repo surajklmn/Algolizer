@@ -12,6 +12,7 @@
 #include "linear_search.h"
 #include "array.h"
 #include "queue.h"
+#include "stack.h"
 screen currentscreen;
 std::stack<screen> screenStack;
 
@@ -134,7 +135,7 @@ void RenderDataStructureList(){
 
     // Draw the buttons
     bool arrayVisualizer = GuiButton(Rectangle{ xPos + margin, yPos + 2 * marginY, buttonWidth, buttonHeight }, "Array");
-    GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * marginY, buttonWidth, buttonHeight }, "Stack");
+    bool stackVisualizer = GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * marginY, buttonWidth, buttonHeight }, "Stack");
     bool queueVisualizer = GuiButton(Rectangle{ xPos + margin, yPos + 2 * marginY + buttonHeight + marginY, buttonWidth, buttonHeight }, "Queue");
     GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * marginY + buttonHeight + marginY, buttonWidth, buttonHeight }, "Tree");
     GuiButton(Rectangle{ xPos + margin, yPos + 2 * marginY + 2 * (buttonHeight + marginY), buttonWidth, buttonHeight }, "Graph");
@@ -147,6 +148,9 @@ void RenderDataStructureList(){
     }else if(queueVisualizer){
         screenStack.push(currentscreen);
         currentscreen = QUEUE_VISUALIZER;
+    }else if(stackVisualizer){
+        screenStack.push(currentscreen);
+        currentscreen = STACK_VISUALIZER;
     }
 
     EndDrawing();
@@ -197,6 +201,9 @@ int main(){
             case BUBBLESORT_VISUALIZER:
                 RunBubbleSortVisualizer();
                 break; 
+            case STACK_VISUALIZER:
+                RunStackVisualizer();
+                break;
             default:
                 break;
 

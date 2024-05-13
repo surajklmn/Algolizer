@@ -14,6 +14,7 @@ set(SOURCE_FILES
     src/queue.cpp
     src/utils/InputBox.cpp
     src/bubble_sort.cpp
+    src/stack.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
