@@ -23,8 +23,8 @@ struct Element{
 void RunStackVisualizer(){
     const int box_width = 55;
     const int box_height = 55;
-    const int starting_X = 400;
-    const int element_gap = 70;
+    const int starting_X = 700;
+    const int element_gap = 20;
     bool dataEntered = false;
     const Color base_color = DARKGRAY;
     InputBox input_widget = InputBox(Rectangle { 800 / 2.0 - 100, 600.0 / 2 - 100, 200, 40 });
@@ -59,9 +59,12 @@ void RunStackVisualizer(){
     else {
         // If stack is not empty, calculate position based on the last element
         Rectangle lastElement = stack_item.back().dimension;
+         Vector2 line_start = stack_item.back().line;
+        line_start.x = lastElement.x;
+        line_start.y = lastElement.y+lastElement.height/2;
         Rectangle rectangle = {lastElement.x - box_width - element_gap, lastElement.y, box_width, box_height}; // Position to the left of the last element
         Color color = DARKGREEN; // You can change the color if needed
-        stack_item.push_back({rectangle, color, data});
+        stack_item.push_back({rectangle, color, data,line_start});
     }
     dataEntered = false; // Reset dataEntered flag after pushing data
 }
@@ -87,12 +90,15 @@ void RunStackVisualizer(){
 
     
         if(i>0){
-            DrawLineEx(stack_item[i].line,{stack_item[i].dimension.x,stack_item[i].dimension.y+(box_height/2.0f)},2.0f, BLACK);
-            DrawTriangle( {stack_item[i].dimension.x-5,stack_item[i].dimension.y+(box_height/2.0f)-5}, 
-                        {stack_item[i].dimension.x-5,stack_item[i].dimension.y+(box_height/2.0f)+5},
-                        
-                         {stack_item[i].dimension.x+1,stack_item[i].dimension.y+(box_height/2.0f)}, BLACK);
+            DrawLineEx(stack_item[i].line,{stack_item[i].dimension.x+box_width,stack_item[i].dimension.y+(box_height/2.0f)},2.0f, BLACK);
+            DrawTriangle( {stack_item[i].dimension.x+box_width-1,stack_item[i].dimension.y+(box_height/2.0f)}, 
+                          {stack_item[i].dimension.x+box_width+5,stack_item[i].dimension.y+(box_height/2.0f)+5},
+                          {stack_item[i].dimension.x+box_width+5,stack_item[i].dimension.y+(box_height/2.0f)-5},
 
+                           
+                        
+                         BLACK
+                         );
             }
         
         if(i>0 && i== stack_item.size()-1){
