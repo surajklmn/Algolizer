@@ -28,8 +28,18 @@ void runBinarySearchVisualizer() {
     int arr[ARRAY_SIZE];
     for (int i = 0; i < ARRAY_SIZE; i++) {
         arr[i] = dis(gen);
+        for (int j = i; j > 0; j--) {
+            if (arr[j] < arr[j - 1]) {
+                // Swap
+                int temp = arr[j];
+                arr[j] = arr[j - 1];
+                arr[j - 1] = temp;
+            } else {
+                break; // Stop if the previous element is already smaller
+            }
+        }
+
     }
-    std::sort(arr, arr + ARRAY_SIZE); // Sort the array
 
     char inputText[64] = "";
     // Binary search variables

@@ -1,0 +1,78 @@
+#include <chrono>
+#include <raylib.h>
+#include "main.h"
+#include <iostream>
+#include <stack>
+#include <thread>
+#include <vector>
+
+const int bar_width = 20;
+extern std::stack<screen> screenStack;
+extern screen currentscreen;
+
+inline void DrawState(const std::vector<int>& dataset, int currentElement, int comparisionElement) {
+    const int bar_gap = bar_width + 1;
+    DrawText(TextFormat("Sample Size : %d ", dataset.size()), 20, 20, 15, BLACK);
+    DrawText(TextFormat("Comparisions : %d ", comparision_count), 20, 40, 15, BLACK);
+
+    BeginDrawing();
+    ClearBackground(RAYWHITE);
+    int startingX = 2;
+    for (int i = 0; i < dataset.size(); i++) {
+        Color baseColor = BLACK;
+        if (i == currentElement) {
+            baseColor = BLUE;
+        }
+        else if (i == comparisionElement) {
+            baseColor = RED;
+        }
+        DrawRectangle(startingX, GetScreenHeight() - dataset[i], bar_width, dataset[i], baseColor);
+        startingX += bar_gap;
+    }
+    EndDrawing();
+}
+
+void RunSelectionSortVisualizer() {
+    const int max_barHeight = GetScreenHeight() - 100;
+    const int min_barHeight = 20;
+    const int bar_count = GetScreenWidth() / (bar_width + 1);
+
+    SetTargetFPS(144); // Change This Value To Increase Animation Time
+
+    std::vector<int> dataset;
+    for (int i = 0; i < bar_count; i++) {
+        dataset.push_back(GetRandomValue(min_barHeight, max_barHeight));
+    }
+    bool isSorted = false;
+
+    while (!WindowShouldClose()) {
+        if (IsKeyPressed(KEY_B)) {
+            currentscreen = screenStack.top();
+            break;
+        }
+
+        if (!isSorted) {
+            for (int i = 0; i < dataset.size() - 1; i++) {
+                int minIndex = i;
+                for (int j = i + 1; j < dataset.size(); j++) {
+                    if (dataset[j] < dataset[minIndex]) {
+                        minIndex = j;
+                    }
+                    comparision_count++;
+                    DrawState(dataset, minIndex, j);
+                    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+                }
+                if (minIndex != i) {
+                    int temp = dataset[i];
+                    dataset[i] = dataset[minIndex];
+                    dataset[minIndex] = temp;
+                }
+            }
+            isSorted = true;
+        }
+
+        DrawState(dataset, -1, -1); // -1 to indicate sorted, can render using black color
+    }
+    comparision_count = 0;
+}
+

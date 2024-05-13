@@ -8,6 +8,8 @@ enum screen{
     ARRAY_VISUALIZER,
     QUEUE_VISUALIZER,
     BUBBLESORT_VISUALIZER,
+    SELECTIONSORT_VISUALIZER,
     STACK_VISUALIZER,
 };
 
+extern int comparision_count;
