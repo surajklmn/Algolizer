@@ -53,8 +53,7 @@ void RunStackVisualizer(){
     if(stack_item.empty()){
         // If stack is empty, simply add the new element at the starting position
         Rectangle rectangle = {starting_X, 300, box_width, box_height};
-        Color color = DARKGREEN;
-        stack_item.push_back({rectangle, color, data});
+        stack_item.push_back({rectangle, base_color, data});
     }
     else {
         // If stack is not empty, calculate position based on the last element
@@ -63,8 +62,8 @@ void RunStackVisualizer(){
         line_start.x = lastElement.x;
         line_start.y = lastElement.y+lastElement.height/2;
         Rectangle rectangle = {lastElement.x - box_width - element_gap, lastElement.y, box_width, box_height}; // Position to the left of the last element
-        Color color = DARKGREEN; // You can change the color if needed
-        stack_item.push_back({rectangle, color, data,line_start});
+         // You can change the color if needed
+        stack_item.push_back({rectangle, base_color, data,line_start});
     }
     dataEntered = false; // Reset dataEntered flag after pushing data
 }
@@ -77,7 +76,7 @@ void RunStackVisualizer(){
    if(IsKeyPressed(KEY_D)){
     if(!stack_item.empty()){
         stack_item.pop_back(); // Remove the last element (leftmost item)
-        if(!stack_item.empty()) stack_item.begin()->color = DARKGREEN;
+  
     }  
 }
 
@@ -101,7 +100,7 @@ void RunStackVisualizer(){
                          );
             }
         
-        if(i>0 && i== stack_item.size()-1){
+        if((i>0 && i== stack_item.size()-1) || (stack_item.size()==1)){
                     DrawRectangleRec(stack_item[i].dimension, MAROON);
 
             }
