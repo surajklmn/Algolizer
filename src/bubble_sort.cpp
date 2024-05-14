@@ -50,7 +50,7 @@ void RunBubbleSortVisualizer(){
         dataset.push_back(GetRandomValue(min_barHeight, max_barHeight));
     }
     bool isSorted = false;
-  
+    bool swapped;
     while(!WindowShouldClose()){
         if(IsKeyPressed(KEY_B)){
            currentscreen = screenStack.top();
@@ -59,13 +59,20 @@ void RunBubbleSortVisualizer(){
 
         if(!isSorted){
             for(int i = 0;i<dataset.size()-1;i++){
+                swapped = false;
                 for(int j = 0;j<dataset.size()-i-1;j++){
                     if(dataset[j] > dataset[j+1]){
                         std::swap(dataset[j],dataset[j+1]);
+                        swapped = true;
                     }
                     comparision_count++; 
+                
                     DrawState(dataset,j,j+1);
+                    
                 }
+                    if(!swapped){
+                        break;
+                    }
             }
            isSorted = true;
         }
