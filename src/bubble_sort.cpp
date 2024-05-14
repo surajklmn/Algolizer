@@ -6,12 +6,12 @@
 #include <stack>
 #include <thread>
 #include <vector>
-const int bar_width = 20;
+int bar_width = 20;
 int comparision_count = 0;
 extern std::stack<screen> screenStack;
 extern screen currentscreen;
 
-inline void DrawState(const std::vector<int>& dataset, int currentElement, int comparisionElement){
+void DrawState(const std::vector<int>& dataset, int currentElement, int comparisionElement){
     const int bar_gap = bar_width+1;
     DrawText(TextFormat("Sample Size : %d ",dataset.size()),20,20,15,BLACK);
     DrawText(TextFormat("Comparisions : %d ",comparision_count),20,40,15,BLACK);
