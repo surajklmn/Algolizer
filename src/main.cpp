@@ -1,7 +1,8 @@
 #ifndef __APPLE__
 #define RAYGUI_IMPLEMENTATION
-#include "bubble_sort.h"
 #endif // !__APPLE__
+#include "bubble_sort.h"
+#include "merge_sort.hpp"
 #include <iostream>
 #include "bubble_sort.h"
 #include "main.h"
@@ -91,7 +92,7 @@ void RenderAlgorithmList(){
 
     GuiGroupBox(Rectangle{ margin, yPos, buttonWidth, outlineHeight }, "Sorting");
     bool bubbleSort = GuiButton(Rectangle{ col1X, (yPos + 40)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Bubble Sort");
-    GuiButton(Rectangle{ col1X, (yPos + 40 + buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Merge Sort");
+    bool mergesort =  GuiButton(Rectangle{ col1X, (yPos + 40 + buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Merge Sort");
     GuiButton(Rectangle{ col1X, (yPos + 40 + 2 * buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Selection Sort");
     GuiButton(Rectangle{ col1X, (yPos + 40 + 3 * buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Quick Sort");
     GuiButton(Rectangle{ col1X, (yPos + 40 + 4 * buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Insertion Sort");
@@ -111,7 +112,11 @@ void RenderAlgorithmList(){
     }else if(bubbleSort){
         screenStack.push(currentscreen);
         currentscreen = BUBBLESORT_VISUALIZER;
+    }else if(mergesort){
+        screenStack.push(currentscreen);
+        currentscreen = MERGESORT_VISUALIZER;
     }
+
     EndDrawing();
 }
 void RenderDataStructureList(){
@@ -203,6 +208,9 @@ int main(){
                 break; 
             case STACK_VISUALIZER:
                 RunStackVisualizer();
+                break;
+            case MERGESORT_VISUALIZER:
+                RunMergeSortVisualizer();
                 break;
             default:
                 break;
