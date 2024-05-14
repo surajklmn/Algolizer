@@ -58,15 +58,13 @@ void RunBubbleSortVisualizer(){
         }
 
         if(!isSorted){
-            for(int i = 0;i<dataset.size();i++){
-                for(int j = i+1;j<dataset.size();j++){
-                    if(dataset[j] < dataset[i]){
-                       int temp = dataset[i];
-                        dataset[i] = dataset[j];
-                        dataset[j] = temp;
+            for(int i = 0;i<dataset.size()-1;i++){
+                for(int j = 0;j<dataset.size()-i-1;j++){
+                    if(dataset[j] > dataset[j+1]){
+                        std::swap(dataset[j],dataset[j+1]);
                     }
                     comparision_count++; 
-                    DrawState(dataset,i,j);
+                    DrawState(dataset,j,j+1);
                 }
             }
            isSorted = true;
