@@ -51,7 +51,8 @@ void mergeSort(std::vector<int>& arr, int left, int right) {
         mergeSort(arr, left, mid);
         mergeSort(arr, mid + 1, right);
         merge(arr, left, mid, right);
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        //std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
         DrawState(arr,left,right);
     }
 }
@@ -59,7 +60,7 @@ void mergeSort(std::vector<int>& arr, int left, int right) {
 
 void RunMergeSortVisualizer(){
 
-    SetTargetFPS(30); // Change This Value To Increase Animation Time 
+    SetTargetFPS(144); // Change This Value To Increase Animation Time 
 
     
     const int max_barHeight = GetScreenHeight()-100;
