@@ -8,7 +8,7 @@
 #include <stack>
 extern std::stack<screen> screenStack;
 extern screen currentscreen;
-extern const int bar_width;
+extern int bar_width;
 void merge(std::vector<int>& arr, int left, int mid, int right) {
     int n1 = mid - left + 1;
     int n2 = right - mid;
@@ -50,17 +50,19 @@ void mergeSort(std::vector<int>& arr, int left, int right) {
         int mid = left + (right - left) / 2;
         mergeSort(arr, left, mid);
         mergeSort(arr, mid + 1, right);
+		DrawState(arr,left,right);
         merge(arr, left, mid, right);
-        //std::this_thread::sleep_for(std::chrono::milliseconds(100));
+		DrawState(arr,left,right);
+    
 
-        DrawState(arr,left,right);
+       
     }
 }
 
 
 void RunMergeSortVisualizer(){
 
-    SetTargetFPS(144); // Change This Value To Increase Animation Time 
+    SetTargetFPS(30); // Change This Value To Increase Animation Time 
 
     
     const int max_barHeight = GetScreenHeight()-100;
