@@ -19,7 +19,7 @@
 screen currentscreen;
 std::stack<screen> screenStack;
 
-#define screenWidth 1000
+#define screenWidth 800
 #define screenHeight 600
 
 float scaling_factorX = 1.0f;

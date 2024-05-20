@@ -107,7 +107,6 @@ void RunSelectionSortVisualizer(){
 
         EndDrawing(); 
     }
-    CloseWindow();
 
 }
 
