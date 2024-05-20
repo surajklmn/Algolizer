@@ -1,78 +1,83 @@
-#include <chrono>
-#include <raylib.h>
 #include "main.h"
-#include <iostream>
-#include <stack>
+#include "raylib.h"
+#include <chrono>
 #include <thread>
-#include <vector>
-
+const int screen_width = 800;
+const int screen_height = 600;
 const int bar_width = 20;
-extern std::stack<screen> screenStack;
-extern screen currentscreen;
-
-inline void DrawState(const std::vector<int>& dataset, int currentElement, int comparisionElement) {
-    const int bar_gap = bar_width + 1;
-    DrawText(TextFormat("Sample Size : %d ", dataset.size()), 20, 20, 15, BLACK);
-    DrawText(TextFormat("Comparisions : %d ", comparision_count), 20, 40, 15, BLACK);
-
-    BeginDrawing();
-    ClearBackground(RAYWHITE);
-    int startingX = 2;
-    for (int i = 0; i < dataset.size(); i++) {
-        Color baseColor = BLACK;
-        if (i == currentElement) {
-            baseColor = BLUE;
-        }
-        else if (i == comparisionElement) {
-            baseColor = RED;
-        }
-        DrawRectangle(startingX, GetScreenHeight() - dataset[i], bar_width, dataset[i], baseColor);
-        startingX += bar_gap;
-    }
-    EndDrawing();
+const int numBars = screen_width/bar_width;
+void swap(int &x, int  &y){
+    int temp = x;
+    x = y;
+    y =  temp;
 }
+void selectionVisualizer(int arr[], int n){
+    for(int i = 0; i < n - 1; i++){
+        int min_index = i;
+        for(int j = i + 1; j < n; j++){
+            BeginDrawing();
+            ClearBackground(RAYWHITE);
+            for(int k = 0; k < numBars; k++){
+                if(k == i || k == j){
+                    DrawRectangle(k*bar_width, screen_height - arr[k], bar_width, arr[k], RED);
 
-void RunSelectionSortVisualizer() {
-    const int max_barHeight = GetScreenHeight() - 100;
-    const int min_barHeight = 20;
-    const int bar_count = GetScreenWidth() / (bar_width + 1);
-
-    SetTargetFPS(144); // Change This Value To Increase Animation Time
-
-    std::vector<int> dataset;
-    for (int i = 0; i < bar_count; i++) {
-        dataset.push_back(GetRandomValue(min_barHeight, max_barHeight));
-    }
-    bool isSorted = false;
-
-    while (!WindowShouldClose()) {
-        if (IsKeyPressed(KEY_B)) {
-            currentscreen = screenStack.top();
-            break;
-        }
-
-        if (!isSorted) {
-            for (int i = 0; i < dataset.size() - 1; i++) {
-                int minIndex = i;
-                for (int j = i + 1; j < dataset.size(); j++) {
-                    if (dataset[j] < dataset[minIndex]) {
-                        minIndex = j;
-                    }
-                    comparision_count++;
-                    DrawState(dataset, minIndex, j);
-                    std::this_thread::sleep_for(std::chrono::milliseconds(10));
                 }
-                if (minIndex != i) {
-                    int temp = dataset[i];
-                    dataset[i] = dataset[minIndex];
-                    dataset[minIndex] = temp;
+                else{
+
+                    DrawRectangle(k*bar_width,screen_height - arr[k], bar_width, arr[k], BLACK);
                 }
+
             }
-            isSorted = true;
+            EndDrawing();
+            std::this_thread::sleep_for(std::chrono::milliseconds(50));
+            if(arr[j] < arr[min_index] ){
+                min_index = j; 
+
+            }
+        }
+       
+        
+         swap(arr[min_index],arr[i]);
+        BeginDrawing();
+        ClearBackground(RAYWHITE);
+        for(int k = 0; k < numBars; k++){
+            if(k == i || k == min_index){
+                DrawRectangle(k * bar_width, screen_height - arr[k], bar_width,arr[k],GREEN);
+            }
+
+            else{
+                DrawRectangle(k* bar_width, screen_height - arr[k], bar_width,arr[k], BLACK);
+            }
+        }
+            EndDrawing();
+            std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    }
+}
+int main(void){
+
+    InitWindow(screen_width,screen_height, "Selection Sort");
+    SetTargetFPS(60);
+    int data[numBars];
+    for(int i = 0; i < numBars; i++){
+        data[i] = GetRandomValue(10, screen_height-20);
+
+    }
+    while (!WindowShouldClose()) {
+        if(IsKeyPressed(KEY_SPACE)){
+            selectionVisualizer(data, numBars);
+        }
+        BeginDrawing();
+        ClearBackground(RAYWHITE);
+        for(int i = 0; i < numBars; i++){
+            DrawRectangle(i * bar_width, screen_height - data[i], bar_width, data[i], BLACK);
         }
 
-        DrawState(dataset, -1, -1); // -1 to indicate sorted, can render using black color
+
+
+        EndDrawing(); 
     }
-    comparision_count = 0;
+    CloseWindow();
+    return 0;
+
 }
 
