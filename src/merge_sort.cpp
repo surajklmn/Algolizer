@@ -9,6 +9,7 @@
 extern std::stack<screen> screenStack;
 extern screen currentscreen;
 extern int bar_width;
+extern int comparision_count;
 void merge(std::vector<int>& arr, int left, int mid, int right) {
     int n1 = mid - left + 1;
     int n2 = right - mid;
@@ -30,6 +31,7 @@ void merge(std::vector<int>& arr, int left, int mid, int right) {
             arr[k] = R[j];
             j++;
         }
+        comparision_count++;
         k++;
     }
 
