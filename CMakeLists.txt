@@ -14,6 +14,7 @@ set(SOURCE_FILES
     src/queue.cpp
     src/utils/InputBox.cpp
     src/bubble_sort.cpp
+    src/selection_sort.cpp
     src/stack.cpp
     src/merge_sort.cpp
 )
