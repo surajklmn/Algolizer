@@ -23,10 +23,15 @@ void selectionVisualizer(int arr[], int n){
             BeginDrawing();
             ClearBackground(RAYWHITE);
             for(int k = 0; k < numBars; k++){
-                if(k == i || k == j){
-                    DrawRectangle(k*(bar_width+gap), screen_height - arr[k], bar_width, arr[k], RED);
+                if(k == i){
+                    DrawRectangle(k*(bar_width+gap), screen_height - arr[k], bar_width, arr[k], YELLOW);
 
                 }
+                else if(k == j){
+                        DrawRectangle(k*(bar_width+gap), screen_height - arr[k], bar_width, arr[k], RED);
+
+                }
+                
                 else{
 
                     DrawRectangle(k*(bar_width+gap),screen_height - arr[k], bar_width, arr[k], BLACK);
@@ -34,7 +39,7 @@ void selectionVisualizer(int arr[], int n){
 
             }
             EndDrawing();
-            std::this_thread::sleep_for(std::chrono::milliseconds(50));
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
             if(arr[j] < arr[min_index] ){
                 min_index = j; 
 
@@ -46,8 +51,13 @@ void selectionVisualizer(int arr[], int n){
         BeginDrawing();
         ClearBackground(RAYWHITE);
         for(int k = 0; k < numBars; k++){
-            if(k == i || k == min_index){
+            if(k == i){
                 DrawRectangle(k *(bar_width + gap), screen_height - arr[k], bar_width,arr[k],GREEN);
+            }
+            else if (k == min_index) {
+DrawRectangle(k *(bar_width + gap), screen_height - arr[k], bar_width,arr[k],YELLOW);
+
+            
             }
 
             else{
@@ -55,7 +65,7 @@ void selectionVisualizer(int arr[], int n){
             }
         }
         EndDrawing();
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
 }
 void RunSelectionSortVisualizer(){
