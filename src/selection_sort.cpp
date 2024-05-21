@@ -4,10 +4,10 @@
 #include <thread>
 #include <stack>
 #include "selection_sort.h"
-const int screen_width = 800;
-const int screen_height = 600;
+int screen_width;
+int screen_height;
 const int bar_width = 20;
-const int numBars = screen_width/bar_width;
+int numBars;
 const int gap = 5;
 extern std::stack<screen> screenStack;
 extern screen currentscreen;
@@ -69,8 +69,12 @@ DrawRectangle(k *(bar_width + gap), screen_height - arr[k], bar_width,arr[k],YEL
     }
 }
 void RunSelectionSortVisualizer(){
+    screen_width = GetScreenWidth();
+    screen_height = GetScreenHeight();
+    numBars = screen_width/bar_width;
 
     SetTargetFPS(60);
+
     int data[numBars];
     for(int i = 0; i < numBars; i++){
         data[i] = GetRandomValue(10, screen_height-20);
