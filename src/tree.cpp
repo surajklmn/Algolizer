@@ -32,13 +32,34 @@ void Tree::InsertNode(int data){
 void Tree::TraversePre(Node* node){
     if(node == nullptr) return;
 
-    std::cout << node->data;
+    std::cout << node->data << std::endl;
     TraversePre(node->left_node); // Left
     TraversePre(node->right_node);
 
 }
+void Tree::TraverseIn(Node* node){
+   if(node == nullptr) return;
+   TraverseIn(node->left_node);
+   std::cout << node->data << std::endl;
+   TraverseIn(node->right_node);
+}
+
+void Tree::TraversePos(Node* node){
+    if(node == nullptr) return;
+    TraversePos(node->left_node);
+    TraversePos(node->right_node);
+    std::cout << node->data << std::endl;
+}
+
 void Tree::TraversePreOrder(){
     this->TraversePre(this->root_node);
+}
+
+void Tree::TraverseInOrder(){
+    this->TraverseIn(this->root_node);
+}
+void Tree::TraversePostOrder(){
+    this->TraversePos(this->root_node);
 }
 
 void RunTreeVisualizer(){
