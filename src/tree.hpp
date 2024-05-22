@@ -18,6 +18,8 @@ public:
     void TraversePreOrder();
     void TraverseInOrder();
     void TraversePostOrder();
+    void LevelOrderTraverse();
+    int NodeAtDistance(int distance);
     const int getHeight();
 
 private:
@@ -25,6 +27,7 @@ private:
     void TraversePre(Node* root_node);
     void TraversePos(Node* root_node);
     int CalculateTreeHeight(Node* node);
+    void GetNodeAtDistance(Node* node,int distance,int& data);
     Node* root_node;
 
 };

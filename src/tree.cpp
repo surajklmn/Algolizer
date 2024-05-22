@@ -48,13 +48,13 @@ void Tree::TraversePos(Node* node){
     if(node == nullptr) return;
     TraversePos(node->left_node);
     TraversePos(node->right_node);
-    std::cout << node->data << std::endl;
+    std::cout << node->data << std::endl; 
 }
 int Tree::CalculateTreeHeight(Node* node){
     if(node == nullptr){
         return -1; 
     } 
-    if(node->left_node == nullptr && node->right_node == 0){
+    if(node->left_node == nullptr && node->right_node == nullptr){
         return 0;
     }
     int leftSubTreeH = CalculateTreeHeight(node->left_node);
@@ -64,7 +64,17 @@ int Tree::CalculateTreeHeight(Node* node){
   
 }
 
-
+void Tree::GetNodeAtDistance(Node* node,int distance,int& data){
+    if(node == nullptr){
+        return;
+    }
+    if(distance == 0){
+        // GetValueAt
+        data = node->data;
+    }
+    GetNodeAtDistance(node->left_node,distance-1,data);
+    GetNodeAtDistance(node->right_node, distance-1,data);
+}
 // Public Functions
 void Tree::TraversePreOrder(){
     this->TraversePre(this->root_node);
@@ -77,6 +87,12 @@ void Tree::TraversePostOrder(){
     this->TraversePos(this->root_node);
 }
 
+int Tree::NodeAtDistance(int distance){
+    int data;
+    GetNodeAtDistance(this->root_node, distance,data);
+    return data;
+   
+}
 const int Tree::getHeight(){
     return this->CalculateTreeHeight(this->root_node);
 }
@@ -89,6 +105,7 @@ void RunTreeVisualizer(){
 
 
     SetTargetFPS(60); 
+
     while(!WindowShouldClose()){
         BeginDrawing();
         ClearBackground(RAYWHITE);
