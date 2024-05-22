@@ -15,11 +15,14 @@ public:
     Tree(): root_node(nullptr){}
     void InsertNode(int data);
     void Deletion();
+    void TraversePreOrder();
+    void TraverseInOrder();
+    void TraversePostOrder();
+
+private:
     void TraverseIn(Node* root_node);
     void TraversePre(Node* root_node);
     void TraversePos(Node* root_node);
-
-private:
     Node* root_node;
 
 };

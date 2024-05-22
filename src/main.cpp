@@ -15,7 +15,7 @@
 #include "queue.h"
 #include "stack.h"
 #include "selection_sort.h"
-
+#include "tree.hpp"
 screen currentscreen;
 std::stack<screen> screenStack;
 
@@ -149,7 +149,7 @@ void RenderDataStructureList(){
     bool arrayVisualizer = GuiButton(Rectangle{ xPos + margin, yPos + 2 * marginY, buttonWidth, buttonHeight }, "Array");
     bool stackVisualizer = GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * marginY, buttonWidth, buttonHeight }, "Stack");
     bool queueVisualizer = GuiButton(Rectangle{ xPos + margin, yPos + 2 * marginY + buttonHeight + marginY, buttonWidth, buttonHeight }, "Queue");
-    GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * marginY + buttonHeight + marginY, buttonWidth, buttonHeight }, "Tree");
+    bool treeVisualizer = GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * marginY + buttonHeight + marginY, buttonWidth, buttonHeight }, "Tree");
     GuiButton(Rectangle{ xPos + margin, yPos + 2 * marginY + 2 * (buttonHeight + marginY), buttonWidth, buttonHeight }, "Graph");
     GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * marginY + 2 * (buttonHeight + marginY), buttonWidth, buttonHeight }, "Linked List");
 
@@ -163,6 +163,11 @@ void RenderDataStructureList(){
     }else if(stackVisualizer){
         screenStack.push(currentscreen);
         currentscreen = STACK_VISUALIZER;
+    }
+    if(treeVisualizer){
+        screenStack.push(currentscreen);
+        currentscreen = TREE_VISUALIZER;
+
     }
 
     EndDrawing();
@@ -220,6 +225,9 @@ int main(){
                 RunMergeSortVisualizer();
             case SELECTIONSORT_VISUALIZER:
                 RunSelectionSortVisualizer();
+                break;
+            case TREE_VISUALIZER:
+                RunTreeVisualizer();
                 break;
             default:
                 break;
