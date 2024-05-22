@@ -1,5 +1,5 @@
 #include "tree.hpp"
-
+#include <algorithm>
 #include <iostream>
 #include <raylib.h>
  
@@ -50,7 +50,22 @@ void Tree::TraversePos(Node* node){
     TraversePos(node->right_node);
     std::cout << node->data << std::endl;
 }
+int Tree::CalculateTreeHeight(Node* node){
+    if(node == nullptr){
+        return -1; 
+    } 
+    if(node->left_node == nullptr && node->right_node == 0){
+        return 0;
+    }
+    int leftSubTreeH = CalculateTreeHeight(node->left_node);
+    int rightSubTreeH = CalculateTreeHeight(node->right_node);
 
+    return 1+std::max(leftSubTreeH,rightSubTreeH);
+  
+}
+
+
+// Public Functions
 void Tree::TraversePreOrder(){
     this->TraversePre(this->root_node);
 }
@@ -62,6 +77,10 @@ void Tree::TraversePostOrder(){
     this->TraversePos(this->root_node);
 }
 
+const int Tree::getHeight(){
+    return this->CalculateTreeHeight(this->root_node);
+}
+// Visualizer Function
 void RunTreeVisualizer(){
    
     Tree mytree;

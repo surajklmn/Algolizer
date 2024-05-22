@@ -18,11 +18,13 @@ public:
     void TraversePreOrder();
     void TraverseInOrder();
     void TraversePostOrder();
+    const int getHeight();
 
 private:
     void TraverseIn(Node* root_node);
     void TraversePre(Node* root_node);
     void TraversePos(Node* root_node);
+    int CalculateTreeHeight(Node* node);
     Node* root_node;
 
 };
