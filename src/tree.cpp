@@ -64,17 +64,27 @@ int Tree::CalculateTreeHeight(Node* node){
   
 }
 
-void Tree::GetNodeAtDistance(Node* node,int distance,int& data){
+void Tree::GetNodeAtDistance(Node* node,int distance,std::vector<int>& data){
     if(node == nullptr){
         return;
     }
     if(distance == 0){
         // GetValueAt
-        data = node->data;
+        data.push_back(node->data);
     }
     GetNodeAtDistance(node->left_node,distance-1,data);
     GetNodeAtDistance(node->right_node, distance-1,data);
 }
+
+void Tree::TraverseLevel(Node* node){
+
+
+
+}
+
+
+
+
 // Public Functions
 void Tree::TraversePreOrder(){
     this->TraversePre(this->root_node);
@@ -86,9 +96,12 @@ void Tree::TraverseInOrder(){
 void Tree::TraversePostOrder(){
     this->TraversePos(this->root_node);
 }
+void Tree::LevelOrderTraverse(){
+    this->TraverseLevel(this->root_node);
+}
 
-int Tree::NodeAtDistance(int distance){
-    int data;
+std::vector<int> Tree::NodeAtDistance(int distance){
+    std::vector<int> data;
     GetNodeAtDistance(this->root_node, distance,data);
     return data;
    

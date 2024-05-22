@@ -1,5 +1,5 @@
 #pragma once
-
+#include <vector>
 struct Node{
     int data;
     Node* left_node;
@@ -19,7 +19,7 @@ public:
     void TraverseInOrder();
     void TraversePostOrder();
     void LevelOrderTraverse();
-    int NodeAtDistance(int distance);
+    std::vector<int> NodeAtDistance(int distance);
     const int getHeight();
 
 private:
@@ -27,7 +27,8 @@ private:
     void TraversePre(Node* root_node);
     void TraversePos(Node* root_node);
     int CalculateTreeHeight(Node* node);
-    void GetNodeAtDistance(Node* node,int distance,int& data);
+    void GetNodeAtDistance(Node* node,int distance,std::vector<int>& data);
+    void TraverseLevel(Node* node);
     Node* root_node;
 
 };
