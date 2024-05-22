@@ -77,7 +77,12 @@ void Tree::GetNodeAtDistance(Node* node,int distance,std::vector<int>& data){
 }
 
 void Tree::TraverseLevel(Node* node){
-
+    for(int i=0;i<=this->getHeight();i++){
+        std::vector<int> nodelist = this->NodeAtDistance(i);
+        for(int node_value: nodelist){
+            std::cout << node_value << std::endl;
+        }
+    }
 
 
 }
@@ -113,9 +118,15 @@ const int Tree::getHeight(){
 void RunTreeVisualizer(){
    
     Tree mytree;
-    mytree.InsertNode(30);
-    mytree.TraversePreOrder();
-
+  
+    mytree.InsertNode(7);
+    mytree.InsertNode(4);
+    mytree.InsertNode(9);
+    mytree.InsertNode(1);
+    mytree.InsertNode(6);
+    mytree.InsertNode(8);
+    mytree.InsertNode(10);
+    mytree.LevelOrderTraverse();
 
     SetTargetFPS(60); 
 
