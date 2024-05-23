@@ -87,7 +87,7 @@ void Tree::TraverseLevel(Node* node){
     for(int i=0;i<=this->getHeight();i++){
         std::vector<int> nodelist = this->NodeAtDistance(i);
         for(int node_value: nodelist){
-            std::cout << node_value << std::endl;
+           TraversalOrder.push_back(node_value); 
         }
     }
 
@@ -203,10 +203,6 @@ void RunTreeVisualizer(){
     Rectangle buttonPos = {20,100,150,30};
     Rectangle buttonLev = {20,140,150,30};
 
-    // ----------------- Instruction texts
-    std::vector<std::string> instruction_texts; 
-    instruction_texts.push_back("Tree Type: Binary Tree");
-    instruction_texts.push_back("Press 'Enter' To Insert Value");
      
     // ---------------------- Set Gui Configurations
     GuiSetStyle(DEFAULT,TEXT_SIZE,12);
@@ -223,26 +219,35 @@ void RunTreeVisualizer(){
         bool postorder =GuiButton(buttonPos,"Postorder-Traversal");
         bool levelorder = GuiButton(buttonLev,"Levelorder-Traversal");
         mytree.DrawTreeStructure();
-        if(highlightTraverse){
-        mytree.UpdateAtCoordinate();
-        highlightTraverse = false;
-        }
-        mytree.DrawTreeStructure();
+         
+
         if(preorder){
             TraversalOrder.clear();
             mytree.TraversePreOrder();
             highlightTraverse = true;  
         }
-      
-        
-        // ---------- Render Instruction Texts
-        
-        for(const std::string& text: instruction_texts){
-        
-            DrawText(text.c_str(),x_coordinateText,y_coordinateText,15,GRAY);
-            y_coordinateText +=20; 
+          if(inorder){
+            TraversalOrder.clear();
+            mytree.TraverseInOrder();
+            highlightTraverse = true;  
         }
-       
+          if(postorder){
+            TraversalOrder.clear();
+            mytree.TraversePostOrder();
+            highlightTraverse = true;  
+        }
+          if(levelorder){
+            TraversalOrder.clear();
+            mytree.LevelOrderTraverse();
+            highlightTraverse = true;  
+        }
+
+        if(highlightTraverse){
+         mytree.UpdateAtCoordinate();
+         highlightTraverse = false;
+        }
+      
+  
        
         EndDrawing();
 
