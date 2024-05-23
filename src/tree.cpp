@@ -1,9 +1,15 @@
 #include "tree.hpp"
 #include <algorithm>
+#include <chrono>
 #include <iostream>
 #include <raylib.h>
 #include <raygui/raygui.h>
+#include <map>
+#include <thread>
 
+bool highlightTraverse = false;
+std::unordered_map<int,Node*> nodeposition;
+std::vector<int> TraversalOrder;
 void Tree::InsertNode(int data){
     Node* data_node = new Node(data);
     if(root_node == nullptr){
@@ -33,7 +39,7 @@ void Tree::InsertNode(int data){
 void Tree::TraversePre(Node* node){
     if(node == nullptr) return;
 
-    std::cout << node->data << std::endl;
+    TraversalOrder.push_back(node->data); 
     TraversePre(node->left_node); // Left
     TraversePre(node->right_node);
 
@@ -41,7 +47,7 @@ void Tree::TraversePre(Node* node){
 void Tree::TraverseIn(Node* node){
    if(node == nullptr) return;
    TraverseIn(node->left_node);
-   std::cout << node->data << std::endl;
+   TraversalOrder.push_back(node->data); 
    TraverseIn(node->right_node);
 }
 
@@ -49,7 +55,7 @@ void Tree::TraversePos(Node* node){
     if(node == nullptr) return;
     TraversePos(node->left_node);
     TraversePos(node->right_node);
-    std::cout << node->data << std::endl; 
+    TraversalOrder.push_back(node->data); 
 }
 int Tree::CalculateTreeHeight(Node* node){
     if(node == nullptr){
@@ -87,10 +93,10 @@ void Tree::TraverseLevel(Node* node){
 
 
 }
-void Tree::DrawTree(Node* node,int startingX,int startingY,int spacing){
+void DrawTree(Node* node,int startingX,int startingY,int spacing){
     int Radius = 30;
     int level_height = Radius+60;
-    Color node_color = DARKGREEN;
+   
         
     Vector2 linestart_Left = {static_cast<float>(startingX-Radius),static_cast<float>(startingY)};
     Vector2 lineend_Left = {static_cast<float>(startingX-spacing-Radius),static_cast<float>(startingY+level_height)};
@@ -100,9 +106,10 @@ void Tree::DrawTree(Node* node,int startingX,int startingY,int spacing){
     Color linecolor = DARKGRAY;
 
 
-
+   
     if(node == nullptr) return;
-    DrawCircle(startingX,startingY,Radius,node_color);
+    nodeposition.insert({node->data,node});
+    DrawCircle(startingX,startingY,Radius,node->color);
     DrawText(TextFormat("%d",node->data),startingX-10,startingY-10,20,WHITE);
     
     if(node->left_node !=nullptr){
@@ -113,7 +120,7 @@ void Tree::DrawTree(Node* node,int startingX,int startingY,int spacing){
            DrawLineEx(linestart_Right,lineend_Right,2,linecolor);  
         DrawTree(node->right_node,startingX+spacing,startingY+level_height,spacing/(1.5));
     }
-
+ 
 }
 
 
@@ -146,9 +153,25 @@ const int Tree::getHeight(){
 void Tree::DrawTreeStructure(){
     int startingX = GetScreenWidth()/2;
     int startingY = 140;
-    this->DrawTree(this->root_node,startingX , 200 , 200);
+    DrawTree(this->root_node,startingX , 200 , 200);
 }
 
+
+
+
+
+void Tree::UpdateAtCoordinate(){
+    for(int item : TraversalOrder){
+   
+        nodeposition[item]->color = BLUE;
+        BeginDrawing();
+        DrawTreeStructure();
+        EndDrawing();
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        nodeposition[item]->color = DARKGRAY;
+      
+    }
+}
 
 
 // Visualizer Function
@@ -169,7 +192,7 @@ void RunTreeVisualizer(){
     //--------- Gui Constants
     const int screenwidth = 1024;
     const int screenheight = 768;
-
+   
 
     
     SetTargetFPS(60); 
@@ -188,21 +211,30 @@ void RunTreeVisualizer(){
     // ---------------------- Set Gui Configurations
     GuiSetStyle(DEFAULT,TEXT_SIZE,12);
     SetWindowSize(screenwidth,screenheight);
-
-
-
     while(!WindowShouldClose()){
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
+     BeginDrawing(); 
+     ClearBackground(RAYWHITE);
         // ----------- Gui Text Components
         int y_coordinateText  = 20; 
         int x_coordinateText  = screenwidth-(screenwidth/4);  
         // ----------- Render Buttons
-        GuiButton(buttonPre,"Preorder-Traversal");
-        GuiButton(buttonIn,"Inorder-Traversal");
-        GuiButton(buttonPos,"Postorder-Traversal");
-        GuiButton(buttonLev,"Levelorder-Traversal");
-
+        bool preorder = GuiButton(buttonPre,"Preorder-Traversal");
+        bool inorder = GuiButton(buttonIn,"Inorder-Traversal");
+        bool postorder =GuiButton(buttonPos,"Postorder-Traversal");
+        bool levelorder = GuiButton(buttonLev,"Levelorder-Traversal");
+        mytree.DrawTreeStructure();
+        if(highlightTraverse){
+        mytree.UpdateAtCoordinate();
+        highlightTraverse = false;
+        }
+        mytree.DrawTreeStructure();
+        if(preorder){
+            TraversalOrder.clear();
+            mytree.TraversePreOrder();
+            highlightTraverse = true;  
+        }
+      
+        
         // ---------- Render Instruction Texts
         
         for(const std::string& text: instruction_texts){
@@ -212,8 +244,9 @@ void RunTreeVisualizer(){
         }
        
        
-        mytree.DrawTreeStructure();
-
         EndDrawing();
+
     }
+
+
 }
