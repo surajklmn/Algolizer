@@ -1,12 +1,16 @@
 #include "tree.hpp"
+#include "main.h"
 #include <algorithm>
 #include <chrono>
 #include <iostream>
 #include <raylib.h>
 #include <raygui/raygui.h>
 #include <thread>
+#include <stack>
 
-bool highlightTraverse = false;
+extern std::stack<screen> screenStack;
+extern screen currentscreen;
+
 std::vector<int> TraversalOrder;
 void Tree::InsertNode(int data){
     Node* data_node = new Node(data);
@@ -120,10 +124,10 @@ void Tree::DrawTree(Node* node,int startingX,int startingY,int spacing){
     }
  
 }
+//--------------------------------------------------------------------------
 
 
-
-// Public Functions
+// Accessor Functions
 void Tree::TraversePreOrder(){
     this->TraversePre(this->root_node);
 }
@@ -158,7 +162,7 @@ void Tree::DrawTreeStructure(){
 
 
 
-void Tree::UpdateAtCoordinate(){
+void Tree::HighlightTraversal(){
     for(int item : TraversalOrder){
    
         nodeposition[item]->color = BLUE;
@@ -191,9 +195,11 @@ void RunTreeVisualizer(){
     //--------- Gui Constants
     const int screenwidth = 1024;
     const int screenheight = 768;
-   
-
+  
     
+    //--------- Flags
+    bool highlightTraverse = false;
+    MaximizeWindow();
     SetTargetFPS(60); 
     //---------------Traversal Buttons Dimensions
 
@@ -205,7 +211,7 @@ void RunTreeVisualizer(){
      
     // ---------------------- Set Gui Configurations
     GuiSetStyle(DEFAULT,TEXT_SIZE,12);
-    SetWindowSize(screenwidth,screenheight);
+
     while(!WindowShouldClose()){
      BeginDrawing(); 
      ClearBackground(RAYWHITE);
@@ -219,6 +225,11 @@ void RunTreeVisualizer(){
         bool levelorder = GuiButton(buttonLev,"Levelorder-Traversal");
         mytree.DrawTreeStructure();
          
+
+        if(IsKeyPressed(KEY_B)){
+           currentscreen = screenStack.top();
+           break;
+        }
 
         if(preorder){
             TraversalOrder.clear();
@@ -242,7 +253,7 @@ void RunTreeVisualizer(){
         }
 
         if(highlightTraverse){
-         mytree.UpdateAtCoordinate();
+         mytree.HighlightTraversal();
          highlightTraverse = false;
         }
       

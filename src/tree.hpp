@@ -24,7 +24,7 @@ public:
     std::vector<int> NodeAtDistance(int distance);
     const int getHeight();
     void DrawTreeStructure();
-       void UpdateAtCoordinate();
+    void HighlightTraversal();
 
 private:
     std::unordered_map<int,Node*> nodeposition;
