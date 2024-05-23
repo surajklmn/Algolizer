@@ -2,7 +2,8 @@
 #include <algorithm>
 #include <iostream>
 #include <raylib.h>
- 
+#include <raygui/raygui.h>
+
 void Tree::InsertNode(int data){
     Node* data_node = new Node(data);
     if(root_node == nullptr){
@@ -116,24 +117,54 @@ const int Tree::getHeight(){
 }
 // Visualizer Function
 void RunTreeVisualizer(){
-   
-    Tree mytree;
   
-    mytree.InsertNode(7);
-    mytree.InsertNode(4);
-    mytree.InsertNode(9);
-    mytree.InsertNode(1);
-    mytree.InsertNode(6);
-    mytree.InsertNode(8);
-    mytree.InsertNode(10);
-    mytree.LevelOrderTraverse();
+    //--------- Gui Constants
+    const int screenwidth = 1024;
+    const int screenheight = 768;
 
+
+    
     SetTargetFPS(60); 
+    //---------------Traversal Buttons Dimensions
+
+    Rectangle buttonPre = {20,20,150,30};
+    Rectangle buttonIn = {20,60,150,30};
+    Rectangle buttonPos = {20,100,150,30};
+    Rectangle buttonLev = {20,140,150,30};
+
+    // ----------------- Instruction texts
+    std::vector<std::string> instruction_texts; 
+    instruction_texts.push_back("Tree Type: Binary Tree");
+    instruction_texts.push_back("Press 'Enter' To Insert Value");
+     
+    // ---------------------- Set Gui Configurations
+    GuiSetStyle(DEFAULT,TEXT_SIZE,12);
+    SetWindowSize(screenwidth,screenheight);
+
+
 
     while(!WindowShouldClose()){
         BeginDrawing();
         ClearBackground(RAYWHITE);
-        DrawText("Tree Visualiz",20,30,20,GRAY);
+        // ----------- Gui Text Components
+        int y_coordinateText  = 20; 
+        int x_coordinateText  = screenwidth-(screenwidth/4);  
+        // ----------- Render Buttons
+        GuiButton(buttonPre,"Preorder-Traversal");
+        GuiButton(buttonIn,"Inorder-Traversal");
+        GuiButton(buttonPos,"Postorder-Traversal");
+        GuiButton(buttonLev,"Levelorder-Traversal");
+
+        // ---------- Render Instruction Texts
+        
+        for(const std::string& text: instruction_texts){
+        
+            DrawText(text.c_str(),x_coordinateText,y_coordinateText,15,GRAY);
+            y_coordinateText +=20; 
+        }
+        
+
+
         EndDrawing();
     }
 }
