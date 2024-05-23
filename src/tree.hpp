@@ -21,6 +21,8 @@ public:
     void LevelOrderTraverse();
     std::vector<int> NodeAtDistance(int distance);
     const int getHeight();
+    void DrawTreeStructure();
+
 
 private:
     void TraverseIn(Node* root_node);
@@ -29,6 +31,7 @@ private:
     int CalculateTreeHeight(Node* node);
     void GetNodeAtDistance(Node* node,int distance,std::vector<int>& data);
     void TraverseLevel(Node* node);
+    void DrawTree(Node* node,int startingX,int startingY,int spacing);
     Node* root_node;
 
 };

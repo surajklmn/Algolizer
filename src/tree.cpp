@@ -87,7 +87,34 @@ void Tree::TraverseLevel(Node* node){
 
 
 }
+void Tree::DrawTree(Node* node,int startingX,int startingY,int spacing){
+    int Radius = 30;
+    int level_height = Radius+60;
+    Color node_color = DARKGREEN;
+        
+    Vector2 linestart_Left = {static_cast<float>(startingX-Radius),static_cast<float>(startingY)};
+    Vector2 lineend_Left = {static_cast<float>(startingX-spacing-Radius),static_cast<float>(startingY+level_height)};
+    
+    Vector2 linestart_Right = {static_cast<float>(startingX+Radius),static_cast<float>(startingY)};
+    Vector2 lineend_Right = {static_cast<float>(startingX+spacing+Radius),static_cast<float>(startingY+level_height)};
+    Color linecolor = DARKGRAY;
 
+
+
+    if(node == nullptr) return;
+    DrawCircle(startingX,startingY,Radius,node_color);
+    DrawText(TextFormat("%d",node->data),startingX-10,startingY-10,20,WHITE);
+    
+    if(node->left_node !=nullptr){
+        DrawLineEx(linestart_Left,lineend_Left,2,linecolor); 
+        DrawTree(node->left_node,startingX-spacing,startingY+level_height,spacing/(1.5));
+    }
+    if(node->right_node !=nullptr){
+           DrawLineEx(linestart_Right,lineend_Right,2,linecolor);  
+        DrawTree(node->right_node,startingX+spacing,startingY+level_height,spacing/(1.5));
+    }
+
+}
 
 
 
@@ -115,9 +142,30 @@ std::vector<int> Tree::NodeAtDistance(int distance){
 const int Tree::getHeight(){
     return this->CalculateTreeHeight(this->root_node);
 }
+
+void Tree::DrawTreeStructure(){
+    int startingX = GetScreenWidth()/2;
+    int startingY = 140;
+    this->DrawTree(this->root_node,startingX , 200 , 200);
+}
+
+
+
 // Visualizer Function
 void RunTreeVisualizer(){
-  
+    
+    Tree mytree;
+    mytree.InsertNode(7);
+    mytree.InsertNode(4);
+    mytree.InsertNode(9);
+    mytree.InsertNode(1);
+     mytree.InsertNode(6);
+     mytree.InsertNode(8);
+     mytree.InsertNode(10);
+    mytree.InsertNode(3);
+
+
+
     //--------- Gui Constants
     const int screenwidth = 1024;
     const int screenheight = 768;
@@ -162,8 +210,9 @@ void RunTreeVisualizer(){
             DrawText(text.c_str(),x_coordinateText,y_coordinateText,15,GRAY);
             y_coordinateText +=20; 
         }
-        
-
+       
+       
+        mytree.DrawTreeStructure();
 
         EndDrawing();
     }
