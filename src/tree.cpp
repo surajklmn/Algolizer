@@ -4,11 +4,9 @@
 #include <iostream>
 #include <raylib.h>
 #include <raygui/raygui.h>
-#include <unordered_map>
 #include <thread>
 
 bool highlightTraverse = false;
-std::unordered_map<int,Node*> nodeposition;
 std::vector<int> TraversalOrder;
 void Tree::InsertNode(int data){
     Node* data_node = new Node(data);
@@ -93,7 +91,7 @@ void Tree::TraverseLevel(Node* node){
 
 
 }
-void DrawTree(Node* node,int startingX,int startingY,int spacing){
+void Tree::DrawTree(Node* node,int startingX,int startingY,int spacing){
     int Radius = 30;
     int level_height = Radius+60;
    
@@ -186,6 +184,7 @@ void RunTreeVisualizer(){
      mytree.InsertNode(8);
      mytree.InsertNode(10);
     mytree.InsertNode(3);
+    mytree.InsertNode(0);
 
 
 
@@ -248,7 +247,6 @@ void RunTreeVisualizer(){
         }
       
   
-       
         EndDrawing();
 
     }

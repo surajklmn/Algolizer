@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <raylib.h>
+#include <unordered_map>
 struct Node{
     int data;
     Node* left_node;
@@ -26,12 +27,14 @@ public:
        void UpdateAtCoordinate();
 
 private:
+    std::unordered_map<int,Node*> nodeposition;
     void TraverseIn(Node* root_node);
     void TraversePre(Node* root_node);
     void TraversePos(Node* root_node);
     int CalculateTreeHeight(Node* node);
     void GetNodeAtDistance(Node* node,int distance,std::vector<int>& data);
     void TraverseLevel(Node* node);
+    void DrawTree(Node* node,int startingX,int startingY,int spacing);
  
     Node* root_node;
 
