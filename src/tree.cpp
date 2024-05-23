@@ -4,7 +4,7 @@
 #include <iostream>
 #include <raylib.h>
 #include <raygui/raygui.h>
-#include <map>
+#include <unordered_map>
 #include <thread>
 
 bool highlightTraverse = false;
