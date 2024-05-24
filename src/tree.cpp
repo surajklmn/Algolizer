@@ -7,6 +7,7 @@
 #include <raygui/raygui.h>
 #include <thread>
 #include <stack>
+#include "utils/InputBox.h"
 
 extern std::stack<screen> screenStack;
 extern screen currentscreen;
@@ -108,6 +109,13 @@ void Tree::DrawTree(Node* node,int startingX,int startingY,int spacing){
     Color linecolor = DARKGRAY;
 
 
+    // Drawing Instructions
+
+        DrawText("Press 'Enter' To Insert Value",GetScreenWidth()-400,20,12,BLACK);
+        
+    // 
+
+
    
     if(node == nullptr) return;
     nodeposition.insert({node->data,node});
@@ -180,7 +188,7 @@ void Tree::HighlightTraversal(){
 void RunTreeVisualizer(){
     
     Tree mytree;
-    mytree.InsertNode(7);
+ /*    mytree.InsertNode(7);
     mytree.InsertNode(4);
     mytree.InsertNode(9);
     mytree.InsertNode(1);
@@ -188,7 +196,9 @@ void RunTreeVisualizer(){
      mytree.InsertNode(8);
      mytree.InsertNode(10);
     mytree.InsertNode(3);
-    mytree.InsertNode(0);
+    mytree.InsertNode(0); */
+
+    InputBox inputbox= InputBox(Rectangle { 800 / 2.0 - 100, 600.0 / 2 - 100, 200, 40 });
 
 
 
@@ -208,7 +218,6 @@ void RunTreeVisualizer(){
     Rectangle buttonPos = {20,100,150,30};
     Rectangle buttonLev = {20,140,150,30};
 
-     
     // ---------------------- Set Gui Configurations
     GuiSetStyle(DEFAULT,TEXT_SIZE,12);
 
@@ -224,7 +233,20 @@ void RunTreeVisualizer(){
         bool postorder =GuiButton(buttonPos,"Postorder-Traversal");
         bool levelorder = GuiButton(buttonLev,"Levelorder-Traversal");
         mytree.DrawTreeStructure();
-         
+             if (IsKeyPressed(KEY_ENTER)) {
+                inputbox.Update();
+                 int  data;
+                 if(!inputbox.IsEnteringInput()){
+                 data = (inputbox.GetInputValue());
+                 mytree.InsertNode(data);
+             }
+
+      }
+          
+    if(inputbox.IsEnteringInput()){
+            inputbox.Draw(); 
+     }
+
 
         if(IsKeyPressed(KEY_B)){
            currentscreen = screenStack.top();
