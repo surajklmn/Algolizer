@@ -7,7 +7,8 @@ struct Node{
     Node* left_node;
     Node* right_node;
     Color color;
-    Node(int data): data(data),left_node(nullptr),right_node(nullptr),color(DARKGRAY){}
+    int node_frequency;
+    Node(int data): data(data),left_node(nullptr),right_node(nullptr),color(DARKGRAY),node_frequency(1){}
 
 };
 

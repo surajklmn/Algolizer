@@ -20,6 +20,11 @@ void Tree::InsertNode(int data){
         return;
     }
 
+    if(nodeposition.find(data) !=nodeposition.end()){
+        nodeposition[data]->node_frequency +=1;
+        return;
+    }
+
     Node* current_node = root_node;
     while(true){
         if(data < current_node->data){
@@ -107,23 +112,23 @@ void Tree::DrawTree(Node* node,int startingX,int startingY,int spacing){
     Vector2 linestart_Right = {static_cast<float>(startingX+Radius),static_cast<float>(startingY)};
     Vector2 lineend_Right = {static_cast<float>(startingX+spacing+Radius),static_cast<float>(startingY+level_height)};
     Color linecolor = DARKGRAY;
-
+    
+    if(node == nullptr) return;
 
     // Drawing Instructions
 
-        DrawText("Press 'Enter' To Insert Value",GetScreenWidth()-400,20,12,BLACK);
-        
-    // 
+    DrawText("Press 'Enter' To Insert Value",GetScreenWidth()-400,20,12,BLACK);
 
 
-   
-    if(node == nullptr) return;
     nodeposition.insert({node->data,node});
+    if(node->node_frequency !=1){
+             DrawText(TextFormat("%d",node->node_frequency),startingX-5,startingY-50,20,RED); 
+    }
     DrawCircle(startingX,startingY,Radius,node->color);
     DrawText(TextFormat("%d",node->data),startingX-10,startingY-10,20,WHITE);
     
     if(node->left_node !=nullptr){
-        DrawLineEx(linestart_Left,lineend_Left,2,linecolor); 
+                  DrawLineEx(linestart_Left,lineend_Left,2,linecolor); 
         DrawTree(node->left_node,startingX-spacing,startingY+level_height,spacing/(1.5));
     }
     if(node->right_node !=nullptr){
