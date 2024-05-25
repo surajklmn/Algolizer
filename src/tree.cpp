@@ -11,7 +11,12 @@
 
 extern std::stack<screen> screenStack;
 extern screen currentscreen;
-
+enum InputHolder{
+    INSERT,
+    DELETE,
+    SEARCH,
+    NONE,
+};
 
 std::vector<int> TraversalOrder;
 void Tree::InsertNode(int data){
@@ -54,8 +59,8 @@ void Tree::Deletion(Node* node,int data){
     }else if(node->data == data){
         Node* parent_node = GetParentNode(this->root_node,node);
         if(node->left_node == nullptr && node->right_node==nullptr){
-            delete node;
-            node = parent_node->left_node = parent_node->right_node = nullptr;
+            
+            // need Revision 
            
         }else if(node->right_node == nullptr){
             Node* temp = node;
@@ -274,7 +279,7 @@ void RunTreeVisualizer(){
     InputBox inputbox= InputBox(Rectangle { 800 / 2.0 - 100, 600.0 / 2 - 100, 200, 40 });
     InputBox inputboxS= InputBox(Rectangle { 800 / 2.0 - 100, 600.0 / 2 - 100, 200, 40 });
     
-
+    InputHolder holder = NONE;
     //--------- Gui Constants
     const int screenwidth = 1024;
     const int screenheight = 768;
@@ -291,6 +296,8 @@ void RunTreeVisualizer(){
     Rectangle buttonPos = {20,100,150,30};
     Rectangle buttonLev = {20,140,150,30};
     Rectangle buttonSearch = {20,180,150,30};
+    Rectangle buttonDelete = {20,220,150,30};
+    Rectangle buttonInsert = {20,260,150,30};
     bool searchFlag = false;
     bool isSearching = false;
     // ---------------------- Set Gui Configurations
@@ -303,40 +310,62 @@ void RunTreeVisualizer(){
         int y_coordinateText  = 20; 
         int x_coordinateText  = screenwidth-(screenwidth/4);  
         // ----------- Render Buttons
+        bool insert = GuiButton(buttonInsert,"Insert");
+        bool search = GuiButton(buttonSearch,"Search");
+        bool buttonD = GuiButton(buttonDelete,"Delete");
         bool preorder = GuiButton(buttonPre,"Preorder-Traversal");
         bool inorder = GuiButton(buttonIn,"Inorder-Traversal");
         bool postorder =GuiButton(buttonPos,"Postorder-Traversal");
         bool levelorder = GuiButton(buttonLev,"Levelorder-Traversal");
-        bool search = GuiButton(buttonSearch,"Search");
+  
+  
         mytree.DrawTreeStructure();
         if(IsKeyPressed(KEY_D)){
           mytree.DeleteNode(3); 
         
         }  
     
-        if (IsKeyPressed(KEY_ENTER) && !searchFlag){
+        if (insert || (holder == INSERT && inputbox.IsEnteringInput() && IsKeyPressed(KEY_ENTER))) {
                
                  inputbox.Update();
-                 if(!inputbox.IsEnteringInput()){
+                 holder = INSERT;
+             if(!inputbox.IsEnteringInput()){
                  data = (inputbox.GetInputValue());
                  mytree.InsertNode(data);
+                holder = NONE;
              }
 
       }
-      if(search || (searchFlag && inputboxS.IsEnteringInput() && IsKeyPressed(KEY_ENTER)) ){
+      if(search || (holder == SEARCH && inputboxS.IsEnteringInput() && IsKeyPressed(KEY_ENTER)) ){
           
             inputboxS.Update(); 
 
             TraversalOrder.clear();
-            searchFlag = true;
-            
+            holder = SEARCH;            
             if(!inputboxS.IsEnteringInput()){
                  data = (inputboxS.GetInputValue()); 
                  searchFlag = false;
                 isSearching = true;
                 mytree.Search(data);
                  highlightTraverse = true;
+                 holder = NONE;
             
+            }
+          
+               
+
+ 
+
+        }
+         if(buttonD || (holder == DELETE && inputboxS.IsEnteringInput() && IsKeyPressed(KEY_ENTER)) ){
+          
+            inputboxS.Update(); 
+            holder = DELETE;
+            TraversalOrder.clear();          
+            if(!inputboxS.IsEnteringInput()){
+                 data = (inputboxS.GetInputValue());
+                 mytree.DeleteNode(data);  
+                 holder = NONE;
             }
           
                
