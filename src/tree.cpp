@@ -106,7 +106,6 @@ void Tree::TraverseLevel(Node* node){
 void Tree::SearchTraversal(Node* node, int data){
 
     if(node == nullptr){
-        std::cout << "Data Not Found" << std::endl;
         return;
     }
     TraversalOrder.push_back(node->data);
@@ -234,13 +233,13 @@ void RunTreeVisualizer(){
     const int screenwidth = 1024;
     const int screenheight = 768;
   
-    
+    int data;
     //--------- Flags
     bool highlightTraverse = false;
     MaximizeWindow();
     SetTargetFPS(60); 
     //---------------Traversal Buttons Dimensions
-    bool isDataEntered = false;
+    bool highlightmessage = false;
     Rectangle buttonPre = {20,20,150,30};
     Rectangle buttonIn = {20,60,150,30};
     Rectangle buttonPos = {20,100,150,30};
@@ -268,7 +267,6 @@ void RunTreeVisualizer(){
         if (IsKeyPressed(KEY_ENTER) && !searchFlag){
                
                  inputbox.Update();
-                 int  data;
                  if(!inputbox.IsEnteringInput()){
                  data = (inputbox.GetInputValue());
                  mytree.InsertNode(data);
@@ -282,7 +280,6 @@ void RunTreeVisualizer(){
             TraversalOrder.clear();
             searchFlag = true;
             
-             int  data;
             if(!inputboxS.IsEnteringInput()){
                  data = (inputboxS.GetInputValue()); 
                  searchFlag = false;
@@ -338,11 +335,21 @@ void RunTreeVisualizer(){
 
         if(highlightTraverse){
        
-         highlightTraverse = false;
-         mytree.HighlightTraversal();
+            highlightTraverse = false;
+            mytree.HighlightTraversal();
+             if(std::find(TraversalOrder.begin(),TraversalOrder.end(),data) == TraversalOrder.end()){
+                highlightmessage = true; 
+             }else{
+                highlightmessage = false;
+            }
+
+            
         }
-      
-  
+        if(highlightmessage){
+            DrawText("Element Not Found",500,60,20,RED);
+        } 
+       
+
         EndDrawing();
 
     }
