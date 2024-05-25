@@ -47,7 +47,6 @@ void Tree::InsertNode(int data){
 
 void Tree::TraversePre(Node* node){
     if(node == nullptr) return;
-
     TraversalOrder.push_back(node->data); 
     TraversePre(node->left_node); // Left
     TraversePre(node->right_node);
@@ -110,12 +109,11 @@ void Tree::SearchTraversal(Node* node, int data){
         std::cout << "Data Not Found" << std::endl;
         return;
     }
-
+    TraversalOrder.push_back(node->data);
     if(node->data == data)
     {
-        std::cout << "Data Found" << std::endl;
+        node->color = GREEN;
         return;
-
     }else if(data<node->data){
         SearchTraversal(node->left_node,data);
     }else if(data>node->data){
@@ -128,8 +126,9 @@ void Tree::SearchTraversal(Node* node, int data){
 void Tree::DrawTree(Node* node,int startingX,int startingY,int spacing){
     int Radius = 30;
     int level_height = Radius+60;
-   
-        
+
+      
+    DrawText("Press 'Enter' To Insert Value",GetScreenWidth()-400,20,12,BLACK);  
     Vector2 linestart_Left = {static_cast<float>(startingX-Radius),static_cast<float>(startingY)};
     Vector2 lineend_Left = {static_cast<float>(startingX-spacing-Radius),static_cast<float>(startingY+level_height)};
     
@@ -141,7 +140,6 @@ void Tree::DrawTree(Node* node,int startingX,int startingY,int spacing){
 
     // Drawing Instructions
 
-    DrawText("Press 'Enter' To Insert Value",GetScreenWidth()-400,20,12,BLACK);
 
 
     nodeposition.insert({node->data,node});
@@ -200,10 +198,13 @@ void Tree::DrawTreeStructure(){
 
 
 void Tree::HighlightTraversal(){
+  
     for(int item : TraversalOrder){
    
+       
         nodeposition[item]->color = BLUE;
-        BeginDrawing();
+        BeginDrawing(); 
+        ClearBackground(RAYWHITE); 
         DrawTreeStructure();
         EndDrawing();
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
@@ -239,13 +240,13 @@ void RunTreeVisualizer(){
     MaximizeWindow();
     SetTargetFPS(60); 
     //---------------Traversal Buttons Dimensions
-
+    bool isDataEntered = false;
     Rectangle buttonPre = {20,20,150,30};
     Rectangle buttonIn = {20,60,150,30};
     Rectangle buttonPos = {20,100,150,30};
     Rectangle buttonLev = {20,140,150,30};
     Rectangle buttonSearch = {20,180,150,30};
-    bool searchFlag = false;;
+    bool searchFlag = false;
     // ---------------------- Set Gui Configurations
     GuiSetStyle(DEFAULT,TEXT_SIZE,12);
 
@@ -275,23 +276,33 @@ void RunTreeVisualizer(){
 
       }
       if(search || (searchFlag && inputboxS.IsEnteringInput() && IsKeyPressed(KEY_ENTER)) ){
+          
             inputboxS.Update(); 
+
+            TraversalOrder.clear();
             searchFlag = true;
             
              int  data;
             if(!inputboxS.IsEnteringInput()){
-                 data = (inputboxS.GetInputValue());
-                 mytree.Search(data);
+                 data = (inputboxS.GetInputValue()); 
                  searchFlag = false;
-             }
+                mytree.Search(data);
+                 highlightTraverse = true;
+            
+            }
+          
+               
+
  
 
         }
 
      if(inputbox.IsEnteringInput()){
+              
             inputbox.Draw(); 
      }
     if(inputboxS.IsEnteringInput()){
+          
             inputboxS.Draw(); 
      }
 
@@ -326,8 +337,9 @@ void RunTreeVisualizer(){
         }
 
         if(highlightTraverse){
-         mytree.HighlightTraversal();
+       
          highlightTraverse = false;
+         mytree.HighlightTraversal();
         }
       
   
@@ -335,5 +347,5 @@ void RunTreeVisualizer(){
 
     }
 
-    mytree.Search(40);
+
 }
