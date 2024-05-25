@@ -57,6 +57,19 @@ void Tree::Deletion(Node* node,int data){
             delete node;
             node = parent_node->left_node = parent_node->right_node = nullptr;
            
+        }else if(node->right_node == nullptr){
+            Node* temp = node;
+            parent_node->left_node = node->left_node; 
+            delete temp;
+            temp = nullptr;
+
+        }else if(node->left_node == nullptr){
+            Node* temp = node;
+            parent_node->right_node = node->right_node;
+            delete temp;
+            temp = nullptr;
+        }else{
+
         }
         nodeposition.erase(data);
     }
@@ -256,7 +269,7 @@ void RunTreeVisualizer(){
     mytree.InsertNode(30);
     mytree.InsertNode(5);
     mytree.InsertNode(55);
-    mytree.InsertNode(10);
+    mytree.InsertNode(3);
 
     InputBox inputbox= InputBox(Rectangle { 800 / 2.0 - 100, 600.0 / 2 - 100, 200, 40 });
     InputBox inputboxS= InputBox(Rectangle { 800 / 2.0 - 100, 600.0 / 2 - 100, 200, 40 });
@@ -296,8 +309,8 @@ void RunTreeVisualizer(){
         bool search = GuiButton(buttonSearch,"Search");
         mytree.DrawTreeStructure();
         if(IsKeyPressed(KEY_D)){
-            mytree.DeleteNode(10);
-          
+           
+        
         }  
     
         if (IsKeyPressed(KEY_ENTER) && !searchFlag){
