@@ -2,6 +2,7 @@
 #include <vector>
 #include <raylib.h>
 #include <unordered_map>
+#include <iostream>
 struct Node{
     int data;
     Node* left_node;
@@ -17,7 +18,7 @@ class Tree{
 public:
     Tree(): root_node(nullptr){}
     void InsertNode(int data);
-    void Deletion(int data);
+    void DeleteNode(int data);
     void TraversePreOrder();
     void TraverseInOrder();
     void TraversePostOrder();
@@ -27,9 +28,10 @@ public:
     void DrawTreeStructure();
     void HighlightTraversal();
     void Search(int data);
+    
 
 private:
-    std::unordered_map<int,Node*> nodeposition;
+    std::unordered_map<int,Node*> nodeposition; 
     void TraverseIn(Node* root_node);
     void TraversePre(Node* root_node);
     void TraversePos(Node* root_node);
@@ -37,8 +39,11 @@ private:
     void GetNodeAtDistance(Node* node,int distance,std::vector<int>& data);
     void TraverseLevel(Node* node);
     void DrawTree(Node* node,int startingX,int startingY,int spacing);
-    void SearchTraversal(Node* node,int data); 
+    void SearchTraversal(Node* node,int data);
+    void Deletion(Node* node,int data);
+    Node* GetParentNode(Node* node,Node* target);
     Node* root_node;
+    Node* nodeT;
 
 };
 

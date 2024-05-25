@@ -45,6 +45,26 @@ void Tree::InsertNode(int data){
 }
 
 
+void Tree::Deletion(Node* node,int data){
+    if(node == nullptr) return;
+    else if(data < node->data){
+        Deletion(node->left_node,data);
+    }else if(data > node->data){
+        Deletion(node->right_node,data);
+    }else if(node->data == data){
+        Node* parent_node = GetParentNode(this->root_node,node);
+        if(node->left_node == nullptr && node->right_node==nullptr){
+            delete node;
+            node = parent_node->left_node = parent_node->right_node = nullptr;
+           
+        }
+        nodeposition.erase(data);
+    }
+}
+void Tree::DeleteNode(int data){
+    this->Deletion(this->root_node,data);
+}
+
 void Tree::TraversePre(Node* node){
     if(node == nullptr) return;
     TraversalOrder.push_back(node->data); 
@@ -78,6 +98,17 @@ int Tree::CalculateTreeHeight(Node* node){
     return 1+std::max(leftSubTreeH,rightSubTreeH);
   
 }
+Node* Tree::GetParentNode(Node* node,Node* target_node){
+    if(node == nullptr) return nullptr;
+    if(node->left_node == target_node || node->right_node == target_node){
+        return node;
+    }else if(target_node->data < node->data){
+        return GetParentNode(node->left_node, target_node);
+    }else if(target_node->data > node->data){
+        return GetParentNode(node->right_node,target_node);
+    }
+    return nullptr; // Return Null
+};
 
 void Tree::GetNodeAtDistance(Node* node,int distance,std::vector<int>& data){
     if(node == nullptr){
@@ -221,9 +252,11 @@ void Tree::Search(int data){
 void RunTreeVisualizer(){
     
     Tree mytree;
-    mytree.InsertNode(40);
+    mytree.InsertNode(20);
     mytree.InsertNode(30);
-    mytree.InsertNode(50);
+    mytree.InsertNode(5);
+    mytree.InsertNode(55);
+    mytree.InsertNode(10);
 
     InputBox inputbox= InputBox(Rectangle { 800 / 2.0 - 100, 600.0 / 2 - 100, 200, 40 });
     InputBox inputboxS= InputBox(Rectangle { 800 / 2.0 - 100, 600.0 / 2 - 100, 200, 40 });
@@ -262,8 +295,11 @@ void RunTreeVisualizer(){
         bool levelorder = GuiButton(buttonLev,"Levelorder-Traversal");
         bool search = GuiButton(buttonSearch,"Search");
         mytree.DrawTreeStructure();
-      
-
+        if(IsKeyPressed(KEY_D)){
+            mytree.DeleteNode(10);
+          
+        }  
+    
         if (IsKeyPressed(KEY_ENTER) && !searchFlag){
                
                  inputbox.Update();
