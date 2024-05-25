@@ -292,6 +292,7 @@ void RunTreeVisualizer(){
     Rectangle buttonLev = {20,140,150,30};
     Rectangle buttonSearch = {20,180,150,30};
     bool searchFlag = false;
+    bool isSearching = false;
     // ---------------------- Set Gui Configurations
     GuiSetStyle(DEFAULT,TEXT_SIZE,12);
 
@@ -309,7 +310,7 @@ void RunTreeVisualizer(){
         bool search = GuiButton(buttonSearch,"Search");
         mytree.DrawTreeStructure();
         if(IsKeyPressed(KEY_D)){
-           
+          mytree.DeleteNode(3); 
         
         }  
     
@@ -332,6 +333,7 @@ void RunTreeVisualizer(){
             if(!inputboxS.IsEnteringInput()){
                  data = (inputboxS.GetInputValue()); 
                  searchFlag = false;
+                isSearching = true;
                 mytree.Search(data);
                  highlightTraverse = true;
             
@@ -386,10 +388,11 @@ void RunTreeVisualizer(){
        
             highlightTraverse = false;
             mytree.HighlightTraversal();
-             if(std::find(TraversalOrder.begin(),TraversalOrder.end(),data) == TraversalOrder.end()){
+             if(std::find(TraversalOrder.begin(),TraversalOrder.end(),data) == TraversalOrder.end() && isSearching){
                 highlightmessage = true; 
              }else{
                 highlightmessage = false;
+                isSearching = false;
             }
 
             
