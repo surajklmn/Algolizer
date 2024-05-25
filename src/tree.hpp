@@ -17,7 +17,7 @@ class Tree{
 public:
     Tree(): root_node(nullptr){}
     void InsertNode(int data);
-    void Deletion();
+    void Deletion(int data);
     void TraversePreOrder();
     void TraverseInOrder();
     void TraversePostOrder();
@@ -26,6 +26,7 @@ public:
     const int getHeight();
     void DrawTreeStructure();
     void HighlightTraversal();
+    void Search(int data);
 
 private:
     std::unordered_map<int,Node*> nodeposition;
@@ -36,7 +37,7 @@ private:
     void GetNodeAtDistance(Node* node,int distance,std::vector<int>& data);
     void TraverseLevel(Node* node);
     void DrawTree(Node* node,int startingX,int startingY,int spacing);
- 
+    void SearchTraversal(Node* node,int data); 
     Node* root_node;
 
 };

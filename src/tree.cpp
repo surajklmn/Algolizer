@@ -12,6 +12,7 @@
 extern std::stack<screen> screenStack;
 extern screen currentscreen;
 
+
 std::vector<int> TraversalOrder;
 void Tree::InsertNode(int data){
     Node* data_node = new Node(data);
@@ -101,6 +102,29 @@ void Tree::TraverseLevel(Node* node){
 
 
 }
+
+
+void Tree::SearchTraversal(Node* node, int data){
+
+    if(node == nullptr){
+        std::cout << "Data Not Found" << std::endl;
+        return;
+    }
+
+    if(node->data == data)
+    {
+        std::cout << "Data Found" << std::endl;
+        return;
+
+    }else if(data<node->data){
+        SearchTraversal(node->left_node,data);
+    }else if(data>node->data){
+        SearchTraversal(node->right_node,data);
+    }
+
+}
+
+
 void Tree::DrawTree(Node* node,int startingX,int startingY,int spacing){
     int Radius = 30;
     int level_height = Radius+60;
@@ -188,24 +212,22 @@ void Tree::HighlightTraversal(){
     }
 }
 
+void Tree::Search(int data){
+    this->SearchTraversal(this->root_node,data);
+}
+
 
 // Visualizer Function
 void RunTreeVisualizer(){
     
     Tree mytree;
- /*    mytree.InsertNode(7);
-    mytree.InsertNode(4);
-    mytree.InsertNode(9);
-    mytree.InsertNode(1);
-     mytree.InsertNode(6);
-     mytree.InsertNode(8);
-     mytree.InsertNode(10);
-    mytree.InsertNode(3);
-    mytree.InsertNode(0); */
+    mytree.InsertNode(40);
+    mytree.InsertNode(30);
+    mytree.InsertNode(50);
 
     InputBox inputbox= InputBox(Rectangle { 800 / 2.0 - 100, 600.0 / 2 - 100, 200, 40 });
-
-
+    InputBox inputboxS= InputBox(Rectangle { 800 / 2.0 - 100, 600.0 / 2 - 100, 200, 40 });
+    
 
     //--------- Gui Constants
     const int screenwidth = 1024;
@@ -222,7 +244,8 @@ void RunTreeVisualizer(){
     Rectangle buttonIn = {20,60,150,30};
     Rectangle buttonPos = {20,100,150,30};
     Rectangle buttonLev = {20,140,150,30};
-
+    Rectangle buttonSearch = {20,180,150,30};
+    bool searchFlag = false;;
     // ---------------------- Set Gui Configurations
     GuiSetStyle(DEFAULT,TEXT_SIZE,12);
 
@@ -237,9 +260,13 @@ void RunTreeVisualizer(){
         bool inorder = GuiButton(buttonIn,"Inorder-Traversal");
         bool postorder =GuiButton(buttonPos,"Postorder-Traversal");
         bool levelorder = GuiButton(buttonLev,"Levelorder-Traversal");
+        bool search = GuiButton(buttonSearch,"Search");
         mytree.DrawTreeStructure();
-             if (IsKeyPressed(KEY_ENTER)) {
-                inputbox.Update();
+      
+
+        if (IsKeyPressed(KEY_ENTER) && !searchFlag){
+               
+                 inputbox.Update();
                  int  data;
                  if(!inputbox.IsEnteringInput()){
                  data = (inputbox.GetInputValue());
@@ -247,11 +274,30 @@ void RunTreeVisualizer(){
              }
 
       }
-          
-    if(inputbox.IsEnteringInput()){
+      if(search || (searchFlag && inputboxS.IsEnteringInput() && IsKeyPressed(KEY_ENTER)) ){
+            inputboxS.Update(); 
+            searchFlag = true;
+            
+             int  data;
+            if(!inputboxS.IsEnteringInput()){
+                 data = (inputboxS.GetInputValue());
+                 mytree.Search(data);
+                 searchFlag = false;
+             }
+ 
+
+        }
+
+     if(inputbox.IsEnteringInput()){
             inputbox.Draw(); 
      }
+    if(inputboxS.IsEnteringInput()){
+            inputboxS.Draw(); 
+     }
 
+
+ 
+          
 
         if(IsKeyPressed(KEY_B)){
            currentscreen = screenStack.top();
@@ -289,5 +335,5 @@ void RunTreeVisualizer(){
 
     }
 
-
+    mytree.Search(40);
 }
