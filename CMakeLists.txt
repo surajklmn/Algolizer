@@ -17,11 +17,10 @@ set(SOURCE_FILES
     src/selection_sort.cpp
     src/stack.cpp
     src/merge_sort.cpp
+    src/tree.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
-
-
 
 
 include_directories(external)
