@@ -75,13 +75,18 @@ Node* Tree::Deletion(Node* root,int data){
 		//Case 2: One child 
 		else if(root->left_node == nullptr) {
 			Node *temp = root;
-			root = root->right_node;
+			
+            root = root->right_node;
+            if(temp == this->root_node){this->root_node = root;}
 			delete temp;
+            temp = nullptr;
 		}
 		else if(root->right_node == nullptr) {
 			Node *temp = root;
 			root = root->left_node;
+            if(temp == this->root_node){this->root_node = root;}
 			delete temp;
+            temp = nullptr;
 		}
 		else { 
 			Node *temp = FindMin(root->right_node);
@@ -89,7 +94,7 @@ Node* Tree::Deletion(Node* root,int data){
 			root->right_node = Deletion(root->right_node,temp->data);
 		}
 	}
-   
+    nodeposition.erase(data); 
 	return root;
 
 }
@@ -354,7 +359,7 @@ void RunTreeVisualizer(){
   
   
         mytree.DrawTreeStructure();
- 
+    
     
         if (insert || (holder == INSERT && inputbox.IsEnteringInput() && IsKeyPressed(KEY_ENTER))) {
                

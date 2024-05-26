@@ -28,7 +28,7 @@ public:
     void DrawTreeStructure();
     void HighlightTraversal();
     void Search(int data);
-    
+
 
 private:
     std::unordered_map<int,Node*> nodeposition; 
