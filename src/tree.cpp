@@ -51,15 +51,25 @@ void Tree::InsertNode(int data){
 
 
 void Tree::Deletion(Node* node,int data){
-    if(node == nullptr) return;
+    if(node == nullptr) return;  
     else if(data < node->data){
         Deletion(node->left_node,data);
     }else if(data > node->data){
         Deletion(node->right_node,data);
     }else if(node->data == data){
         Node* parent_node = GetParentNode(this->root_node,node);
-        if(node->left_node == nullptr && node->right_node==nullptr){
-            
+        if(node == this->root_node){
+            delete node;
+            this->root_node = nullptr;
+        }
+        else if(node->left_node == nullptr && node->right_node==nullptr){
+             delete node;
+            if(parent_node->left_node == node){ 
+                parent_node->left_node  = nullptr;
+            }else if(parent_node->right_node == node){
+                parent_node->right_node  = nullptr; 
+            }
+            node = nullptr;
             // need Revision 
            
         }else if(node->right_node == nullptr){
@@ -73,8 +83,6 @@ void Tree::Deletion(Node* node,int data){
             parent_node->right_node = node->right_node;
             delete temp;
             temp = nullptr;
-        }else{
-
         }
         nodeposition.erase(data);
     }
@@ -117,7 +125,7 @@ int Tree::CalculateTreeHeight(Node* node){
   
 }
 Node* Tree::GetParentNode(Node* node,Node* target_node){
-    if(node == nullptr) return nullptr;
+    if(node == nullptr || node == target_node) return nullptr;
     if(node->left_node == target_node || node->right_node == target_node){
         return node;
     }else if(target_node->data < node->data){
