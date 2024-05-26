@@ -194,7 +194,6 @@ void Tree::DrawTree(Node* node,int startingX,int startingY,int spacing){
     int Radius = 30;
     int level_height = Radius+60;
 
-    DrawText("Press 'Enter' To Insert Value",GetScreenWidth()-400,20,12,BLACK);  
     Vector2 linestart_Left = {static_cast<float>(startingX-Radius),static_cast<float>(startingY)};
     Vector2 lineend_Left = {static_cast<float>(startingX-spacing-Radius),static_cast<float>(startingY+level_height)};
     
