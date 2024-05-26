@@ -204,19 +204,16 @@ void Tree::DrawTree(Node* node,int startingX,int startingY,int spacing,bool high
     if(node == nullptr)
     { return;}
     
-    int x_coordinate=GetScreenWidth()/2 - 200;
+    int x_coordinate=180;
 
     if(highlight){
-        DrawText("Traversal Order : ",x_coordinate-250,GetScreenHeight()-100,25,BLACK);
-        DrawText("[",x_coordinate-10,GetScreenHeight()-100,25,BLACK);
-
+        DrawText("Traversal Order : ",20,GetScreenHeight()-100,15,BLACK);
         for(int item : TraversalOrder){ 
-            DrawText(TextFormat("{%d}",item),x_coordinate, GetScreenHeight()-100,25,BLACK);
-            x_coordinate = x_coordinate+60;
+            DrawText(TextFormat("{%d}",item),x_coordinate, GetScreenHeight()-100,15,BLACK);
+            x_coordinate = x_coordinate+40;
             
         }
-          DrawText("]",x_coordinate-10,GetScreenHeight()-100,25,BLACK);
-     }
+      }
 
 
 
