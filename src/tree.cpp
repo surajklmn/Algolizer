@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <chrono>
 #include <iostream>
+#include <ostream>
 #include <raylib.h>
 #include <raygui/raygui.h>
 #include <thread>
@@ -51,28 +52,33 @@ void Tree::InsertNode(int data){
 
 
 void Tree::Deletion(Node* node,int data){
+ 
     if(node == nullptr) return;  
     else if(data < node->data){
         Deletion(node->left_node,data);
     }else if(data > node->data){
         Deletion(node->right_node,data);
     }else if(node->data == data){
+      
         Node* parent_node = GetParentNode(this->root_node,node);
-        if(node == this->root_node){
-            delete node;
-            this->root_node = nullptr;
-        }
-        else if(node->left_node == nullptr && node->right_node==nullptr){
+        if(parent_node == nullptr) return; 
+         if(node->left_node == nullptr && node->right_node==nullptr){
              delete node;
-            if(parent_node->left_node == node){ 
+             if(node == this->root_node){
+                this->root_node = nullptr;
+                return;
+               
+            }else if(parent_node->left_node == node){ 
                 parent_node->left_node  = nullptr;
             }else if(parent_node->right_node == node){
                 parent_node->right_node  = nullptr; 
             }
             node = nullptr;
+            
             // need Revision 
            
-        }else if(node->right_node == nullptr){
+        }else if(node->right_node == nullptr){ 
+    
             Node* temp = node;
             parent_node->left_node = node->left_node; 
             delete temp;
@@ -83,8 +89,25 @@ void Tree::Deletion(Node* node,int data){
             parent_node->right_node = node->right_node;
             delete temp;
             temp = nullptr;
+        }else{
+            Node* inorder_sucessor  = GetInorderSucessor(this->root_node,node);
+            if(inorder_sucessor == nullptr) return;
+            int test = node->data;
+             
+            node->data = inorder_sucessor->data;
+            inorder_sucessor->data = test;
+          
+            nodeposition[node->data] = node;
+     
+            Deletion(node->right_node, inorder_sucessor->data);
+
+            
+        
         }
-        nodeposition.erase(data);
+        
+
+
+   
     }
 }
 void Tree::DeleteNode(int data){
@@ -183,7 +206,6 @@ void Tree::DrawTree(Node* node,int startingX,int startingY,int spacing){
     int Radius = 30;
     int level_height = Radius+60;
 
-      
     DrawText("Press 'Enter' To Insert Value",GetScreenWidth()-400,20,12,BLACK);  
     Vector2 linestart_Left = {static_cast<float>(startingX-Radius),static_cast<float>(startingY)};
     Vector2 lineend_Left = {static_cast<float>(startingX-spacing-Radius),static_cast<float>(startingY+level_height)};
@@ -193,12 +215,15 @@ void Tree::DrawTree(Node* node,int startingX,int startingY,int spacing){
     Color linecolor = DARKGRAY;
     
     if(node == nullptr) return;
-
+    std::cout << "-----" << std::endl;
     // Drawing Instructions
-
-
-
-    nodeposition.insert({node->data,node});
+    for(auto& pair : nodeposition){
+        std::cout <<"KEY:" <<pair.first <<"//VALU:"<< pair.second->data << std::endl;
+    }
+    std::cout << "----" << std::endl;
+    
+     nodeposition.insert({node->data,node});
+    
     if(node->node_frequency !=1){
              DrawText(TextFormat("%d",node->node_frequency),startingX-5,startingY-50,20,RED); 
     }
@@ -214,7 +239,27 @@ void Tree::DrawTree(Node* node,int startingX,int startingY,int spacing){
         DrawTree(node->right_node,startingX+spacing,startingY+level_height,spacing/(1.5));
     }
  
+
 }
+
+Node* Tree::GetInorderSucessor(Node* node, Node* target){
+
+    Node* sucessor = nullptr;
+    while(node != nullptr){
+        if(target->data >= node->data){
+           node = node->right_node;
+        }else{
+            sucessor = node;
+            node = node->left_node;
+        }
+            
+    }
+    
+    return sucessor;
+
+}
+
+
 //--------------------------------------------------------------------------
 
 
@@ -272,6 +317,8 @@ void Tree::HighlightTraversal(){
 void Tree::Search(int data){
     this->SearchTraversal(this->root_node,data);
 }
+
+
 
 
 // Visualizer Function
