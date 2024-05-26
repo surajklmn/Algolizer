@@ -190,7 +190,7 @@ void Tree::SearchTraversal(Node* node, int data){
 }
 
 
-void Tree::DrawTree(Node* node,int startingX,int startingY,int spacing){
+void Tree::DrawTree(Node* node,int startingX,int startingY,int spacing,bool highlight){
     int Radius = 30;
     int level_height = Radius+60;
 
@@ -203,7 +203,22 @@ void Tree::DrawTree(Node* node,int startingX,int startingY,int spacing){
     
     if(node == nullptr)
     { return;}
- 
+    
+    int x_coordinate=GetScreenWidth()/2 - 200;
+
+    if(highlight){
+        DrawText("Traversal Order : ",x_coordinate-250,GetScreenHeight()-100,25,BLACK);
+        DrawText("[",x_coordinate-10,GetScreenHeight()-100,25,BLACK);
+
+        for(int item : TraversalOrder){ 
+            DrawText(TextFormat("{%d}",item),x_coordinate, GetScreenHeight()-100,25,BLACK);
+            x_coordinate = x_coordinate+60;
+            
+        }
+          DrawText("]",x_coordinate-10,GetScreenHeight()-100,25,BLACK);
+     }
+
+
 
     nodeposition.insert({node->data,node});
     
@@ -221,7 +236,6 @@ void Tree::DrawTree(Node* node,int startingX,int startingY,int spacing){
            DrawLineEx(linestart_Right,lineend_Right,2,linecolor);  
         DrawTree(node->right_node,startingX+spacing,startingY+level_height,spacing/(1.5));
     }
- 
 
 }
 
@@ -271,10 +285,10 @@ const int Tree::getHeight(){
     return this->CalculateTreeHeight(this->root_node);
 }
 
-void Tree::DrawTreeStructure(){
+void Tree::DrawTreeStructure(bool highlight = false){
     int startingX = GetScreenWidth()/2;
     int startingY = 140;
-    DrawTree(this->root_node,startingX , 200 , 200);
+    DrawTree(this->root_node,startingX , 200 , 200,highlight);
 }
 
 
@@ -289,7 +303,7 @@ void Tree::HighlightTraversal(){
         nodeposition[item]->color = BLUE;
         BeginDrawing(); 
         ClearBackground(RAYWHITE); 
-        DrawTreeStructure();
+        DrawTreeStructure(true);
         EndDrawing();
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         nodeposition[item]->color = DARKGRAY;

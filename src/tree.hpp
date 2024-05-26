@@ -25,7 +25,7 @@ public:
     void LevelOrderTraverse();
     std::vector<int> NodeAtDistance(int distance);
     const int getHeight();
-    void DrawTreeStructure();
+    void DrawTreeStructure(bool highlight);
     void HighlightTraversal();
     void Search(int data);
 
@@ -38,7 +38,7 @@ private:
     int CalculateTreeHeight(Node* node);
     void GetNodeAtDistance(Node* node,int distance,std::vector<int>& data);
     void TraverseLevel(Node* node);
-    void DrawTree(Node* node,int startingX,int startingY,int spacing);
+    void DrawTree(Node* node,int startingX,int startingY,int spacing,bool highlight = false);
     void SearchTraversal(Node* node,int data);
     Node* Deletion(Node* node,int data);
     Node* GetParentNode(Node* node,Node* target);
