@@ -40,7 +40,7 @@ private:
     void TraverseLevel(Node* node);
     void DrawTree(Node* node,int startingX,int startingY,int spacing);
     void SearchTraversal(Node* node,int data);
-    void Deletion(Node* node,int data);
+    Node* Deletion(Node* node,int data);
     Node* GetParentNode(Node* node,Node* target);
     Node* GetInorderSucessor(Node* node , Node* target);
     Node* root_node;

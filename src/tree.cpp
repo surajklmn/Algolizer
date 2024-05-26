@@ -49,66 +49,49 @@ void Tree::InsertNode(int data){
         }
     }
 }
+Node* FindMin(Node* root)
+{
+	while(root->left_node != nullptr) root = root->left_node;
+	return root;
+}
 
-
-void Tree::Deletion(Node* node,int data){
- 
-    if(node == nullptr) return;  
-    else if(data < node->data){
-        Deletion(node->left_node,data);
-    }else if(data > node->data){
-        Deletion(node->right_node,data);
-    }else if(node->data == data){
-      
-        Node* parent_node = GetParentNode(this->root_node,node);
-        if(parent_node == nullptr) return; 
-         if(node->left_node == nullptr && node->right_node==nullptr){
-             delete node;
-             if(node == this->root_node){
-                this->root_node = nullptr;
-                return;
-               
-            }else if(parent_node->left_node == node){ 
-                parent_node->left_node  = nullptr;
-            }else if(parent_node->right_node == node){
-                parent_node->right_node  = nullptr; 
+Node* Tree::Deletion(Node* root,int data){
+    if(root == nullptr){
+        return root;
+    }else if(data < root->data) {
+        root->left_node = Deletion(root->left_node,data);
+    }else if(data > root->data) {
+        root->right_node = Deletion(root->right_node,data);
+    }else{
+		// Case 1:  No child
+		if(root->left_node == nullptr && root->right_node == nullptr) { 
+			 delete root;
+            if(root == this->root_node){
+                this->root_node =nullptr;
             }
-            node = nullptr;
-            
-            // need Revision 
-           
-        }else if(node->right_node == nullptr){ 
-    
-            Node* temp = node;
-            parent_node->left_node = node->left_node; 
-            delete temp;
-            temp = nullptr;
-
-        }else if(node->left_node == nullptr){
-            Node* temp = node;
-            parent_node->right_node = node->right_node;
-            delete temp;
-            temp = nullptr;
-        }else{
-            Node* inorder_sucessor  = GetInorderSucessor(this->root_node,node);
-            if(inorder_sucessor == nullptr) return;
-            int test = node->data;
-             
-            node->data = inorder_sucessor->data;
-            inorder_sucessor->data = test;
-          
-            nodeposition[node->data] = node;
-     
-            Deletion(node->right_node, inorder_sucessor->data);
-
-            
-        
-        }
-        
-
-
+                       
+			root = nullptr;
+		}
+		//Case 2: One child 
+		else if(root->left_node == nullptr) {
+			Node *temp = root;
+			root = root->right_node;
+			delete temp;
+		}
+		else if(root->right_node == nullptr) {
+			Node *temp = root;
+			root = root->left_node;
+			delete temp;
+		}
+		else { 
+			Node *temp = FindMin(root->right_node);
+			root->data = temp->data;
+			root->right_node = Deletion(root->right_node,temp->data);
+		}
+	}
    
-    }
+	return root;
+
 }
 void Tree::DeleteNode(int data){
     this->Deletion(this->root_node,data);
@@ -214,15 +197,11 @@ void Tree::DrawTree(Node* node,int startingX,int startingY,int spacing){
     Vector2 lineend_Right = {static_cast<float>(startingX+spacing+Radius),static_cast<float>(startingY+level_height)};
     Color linecolor = DARKGRAY;
     
-    if(node == nullptr) return;
-    std::cout << "-----" << std::endl;
-    // Drawing Instructions
-    for(auto& pair : nodeposition){
-        std::cout <<"KEY:" <<pair.first <<"//VALU:"<< pair.second->data << std::endl;
-    }
-    std::cout << "----" << std::endl;
-    
-     nodeposition.insert({node->data,node});
+    if(node == nullptr)
+    { return;}
+ 
+
+    nodeposition.insert({node->data,node});
     
     if(node->node_frequency !=1){
              DrawText(TextFormat("%d",node->node_frequency),startingX-5,startingY-50,20,RED); 
@@ -375,10 +354,7 @@ void RunTreeVisualizer(){
   
   
         mytree.DrawTreeStructure();
-        if(IsKeyPressed(KEY_D)){
-          mytree.DeleteNode(3); 
-        
-        }  
+ 
     
         if (insert || (holder == INSERT && inputbox.IsEnteringInput() && IsKeyPressed(KEY_ENTER))) {
                
