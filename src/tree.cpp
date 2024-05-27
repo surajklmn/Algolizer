@@ -236,24 +236,6 @@ void Tree::DrawTree(Node* node,int startingX,int startingY,int spacing,bool high
 
 }
 
-Node* Tree::GetInorderSucessor(Node* node, Node* target){
-
-    Node* sucessor = nullptr;
-    while(node != nullptr){
-        if(target->data >= node->data){
-           node = node->right_node;
-        }else{
-            sucessor = node;
-            node = node->left_node;
-        }
-            
-    }
-    
-    return sucessor;
-
-}
-
-
 //--------------------------------------------------------------------------
 
 

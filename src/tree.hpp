@@ -42,9 +42,7 @@ private:
     void SearchTraversal(Node* node,int data);
     Node* Deletion(Node* node,int data);
     Node* GetParentNode(Node* node,Node* target);
-    Node* GetInorderSucessor(Node* node , Node* target);
     Node* root_node;
-    Node* nodeT;
 
 };
 
