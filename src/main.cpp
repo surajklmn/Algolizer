@@ -94,10 +94,8 @@ void RenderAlgorithmList(){
 
     GuiGroupBox(Rectangle{ margin, yPos, buttonWidth, outlineHeight }, "Sorting");
     bool bubbleSort = GuiButton(Rectangle{ col1X, (yPos + 40)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Bubble Sort");
-    bool mergesort =  GuiButton(Rectangle{ col1X, (yPos + 40 + buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Merge Sort");
-    GuiButton(Rectangle{ col1X, (yPos + 40 + 2 * buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Selection Sort");
-    GuiButton(Rectangle{ col1X, (yPos + 40 + buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Merge Sort");
-   bool selectionSort =  GuiButton(Rectangle{ col1X, (yPos + 40 + 2 * buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Selection Sort");
+    bool mergesort =  GuiButton(Rectangle{ col1X, (yPos + 40 + buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Merge Sort"); 
+    bool selectionSort =  GuiButton(Rectangle{ col1X, (yPos + 40 + 2 * buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Selection Sort");
     GuiButton(Rectangle{ col1X, (yPos + 40 + 3 * buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Quick Sort");
     GuiButton(Rectangle{ col1X, (yPos + 40 + 4 * buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Insertion Sort");
 
