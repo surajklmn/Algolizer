@@ -8,7 +8,7 @@
 //int screen_height;
 const int bar_width = 20;
 //int numBars;
-const int gap = 5;
+const int gap = 1;
 extern std::stack<screen> screenStack;
 extern screen currentscreen;
 void swap(int &x, int  &y){
@@ -71,7 +71,7 @@ DrawRectangle(k *(bar_width + gap), screen_height - arr[k], bar_width,arr[k],YEL
 void RunSelectionSortVisualizer(){
     screen_width = GetScreenWidth();
     screen_height = GetScreenHeight();
-    numBars = screen_width/bar_width;
+    numBars = screen_width/(bar_width+gap);
 
     SetTargetFPS(60);
 
@@ -81,7 +81,6 @@ void RunSelectionSortVisualizer(){
 
     }
     bool isSorted = false;
-
     const int bar_gap = bar_width + 1;
     while (!WindowShouldClose()) {
         ClearBackground(RAYWHITE);

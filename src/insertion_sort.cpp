@@ -8,7 +8,7 @@ int screen_width;
 int screen_height;
 const int bar_width = 20;
 int numBars;
-const int gap = 5;
+const int gap = 1;
 extern std::stack<screen> screenStack;
 extern screen currentscreen;
 
@@ -58,7 +58,7 @@ void insertionVisualizer(int arr[], int n) {
 void RunInsertionSortVisualizer() {
     screen_width = GetScreenWidth();
     screen_height = GetScreenHeight();
-    numBars = screen_width / bar_width;
+    numBars = screen_width / (bar_width+gap);
 
     SetTargetFPS(60);
 
