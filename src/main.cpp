@@ -16,6 +16,7 @@
 #include "stack.h"
 #include "selection_sort.h"
 #include "tree.hpp"
+#include "insertion_sort.h"
 screen currentscreen;
 std::stack<screen> screenStack;
 
@@ -97,7 +98,7 @@ void RenderAlgorithmList(){
     bool mergesort =  GuiButton(Rectangle{ col1X, (yPos + 40 + buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Merge Sort"); 
     bool selectionSort =  GuiButton(Rectangle{ col1X, (yPos + 40 + 2 * buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Selection Sort");
     GuiButton(Rectangle{ col1X, (yPos + 40 + 3 * buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Quick Sort");
-    GuiButton(Rectangle{ col1X, (yPos + 40 + 4 * buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Insertion Sort");
+   bool insertionSort =  GuiButton(Rectangle{ col1X, (yPos + 40 + 4 * buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Insertion Sort");
 
     // Draw the Searching column
     GuiGroupBox(Rectangle{ col2X, yPos, buttonWidth, outlineHeight }, "Searching");
@@ -121,6 +122,10 @@ void RenderAlgorithmList(){
     else if(selectionSort){
     screenStack.push(currentscreen);
         currentscreen = SELECTIONSORT_VISUALIZER;
+    }
+    else if(insertionSort){
+    screenStack.push(currentscreen);
+        currentscreen = INSERTIONSORT_VISUALIZER;
     }
     EndDrawing();
 }
@@ -226,6 +231,9 @@ int main(){
                 break;
             case TREE_VISUALIZER:
                 RunTreeVisualizer();
+                break;
+            case INSERTIONSORT_VISUALIZER:
+                RunInsertionSortVisualizer();
                 break;
             default:
                 break;

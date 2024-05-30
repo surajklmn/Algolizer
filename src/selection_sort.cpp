@@ -4,10 +4,10 @@
 #include <thread>
 #include <stack>
 #include "selection_sort.h"
-int screen_width;
-int screen_height;
+//int screen_width;
+//int screen_height;
 const int bar_width = 20;
-int numBars;
+//int numBars;
 const int gap = 5;
 extern std::stack<screen> screenStack;
 extern screen currentscreen;
