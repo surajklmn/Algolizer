@@ -215,6 +215,9 @@ void Tree::DrawTree(Node* node,int startingX,int startingY,int spacing,bool high
         }
       }
 
+    if(!(this->getHeight() < 0)){
+        DrawText(TextFormat("Tree-Height : %d",this->getHeight()), GetScreenWidth()-200,20, 12, BLACK);
+    }
 
 
     nodeposition.insert({node->data,node});
