@@ -17,6 +17,7 @@
 #include "selection_sort.h"
 #include "tree.hpp"
 #include "insertion_sort.h"
+#include "quick_sort.hpp"
 screen currentscreen;
 std::stack<screen> screenStack;
 
@@ -97,7 +98,7 @@ void RenderAlgorithmList(){
     bool bubbleSort = GuiButton(Rectangle{ col1X, (yPos + 40)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Bubble Sort");
     bool mergesort =  GuiButton(Rectangle{ col1X, (yPos + 40 + buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Merge Sort"); 
     bool selectionSort =  GuiButton(Rectangle{ col1X, (yPos + 40 + 2 * buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Selection Sort");
-    GuiButton(Rectangle{ col1X, (yPos + 40 + 3 * buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Quick Sort");
+    bool quickSort = GuiButton(Rectangle{ col1X, (yPos + 40 + 3 * buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Quick Sort");
    bool insertionSort =  GuiButton(Rectangle{ col1X, (yPos + 40 + 4 * buttonHeightMargin)*scaling_factorY, buttonWidth - 2 * margin, buttonHeight }, "Insertion Sort");
 
     // Draw the Searching column
@@ -126,6 +127,10 @@ void RenderAlgorithmList(){
     else if(insertionSort){
     screenStack.push(currentscreen);
         currentscreen = INSERTIONSORT_VISUALIZER;
+    }else if(quickSort){
+         screenStack.push(currentscreen);
+        currentscreen = QUICKSORT_VISUALIZER;
+
     }
     EndDrawing();
 }
@@ -234,6 +239,9 @@ int main(){
                 break;
             case INSERTIONSORT_VISUALIZER:
                 RunInsertionSortVisualizer();
+                break;
+            case QUICKSORT_VISUALIZER:
+                RunQuickSortVisualizer();
                 break;
             default:
                 break;

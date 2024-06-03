@@ -13,6 +13,7 @@ enum screen{
     STACK_VISUALIZER,
     MERGESORT_VISUALIZER,
     TREE_VISUALIZER,
+    QUICKSORT_VISUALIZER
 };
 
 extern int comparision_count;

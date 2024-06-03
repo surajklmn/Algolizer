@@ -19,6 +19,7 @@ set(SOURCE_FILES
     src/merge_sort.cpp
     src/tree.cpp
     src/insertion_sort.cpp
+    src/quick_sort.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})

@@ -11,11 +11,7 @@ extern screen currentscreen;
 extern int bar_width;
 extern int comparision_count;
 
-void swap(int &x, int &y) {
-    int temp = x;
-    x = y;
-    y = temp;
-}
+
 
 void DrawState(const std::vector<int>& arr, int low, int high, int pivot = -1) {
     BeginDrawing();
@@ -44,12 +40,12 @@ int partition(std::vector<int>& arr, int low, int high) {
 
         if (arr[j] < pivot) {
             i++;
-            swap(arr[i], arr[j]);
+            std::swap(arr[i], arr[j]);
             DrawState(arr, low, high, j);
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
     }
-    swap(arr[i + 1], arr[high]);
+    std::swap(arr[i + 1], arr[high]);
     DrawState(arr, low, high, i + 1);
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
     return (i + 1);
