@@ -26,9 +26,11 @@ void merge(std::vector<int>& arr, int left, int mid, int right) {
     while (i < n1 && j < n2) {
         if (L[i] <= R[j]) {
             arr[k] = L[i];
+            DrawState(arr,-1,-1);
             i++;
         } else {
             arr[k] = R[j];
+            DrawState(arr,-1,-1);
             j++;
         }
         comparision_count++;
@@ -37,24 +39,25 @@ void merge(std::vector<int>& arr, int left, int mid, int right) {
 
     while (i < n1) {
         arr[k] = L[i];
+        DrawState(arr,-1,-1);
         i++;
         k++;
     }
 
     while (j < n2) {
         arr[k] = R[j];
+        DrawState(arr,-1,-1);
         j++;
         k++;
     }
+    DrawState(arr,left,right);
 }
 void mergeSort(std::vector<int>& arr, int left, int right) {
     if (left < right) {
         int mid = left + (right - left) / 2;
         mergeSort(arr, left, mid);
         mergeSort(arr, mid + 1, right);
-		DrawState(arr,left,right);
         merge(arr, left, mid, right);
-		DrawState(arr,left,right);
     
 
        
