@@ -77,6 +77,7 @@ DrawRectangle(k *(bar_width + gap), screen_height - arr[k], bar_width,arr[k],YEL
     }
 }
 void RunSelectionSortVisualizer(){
+    comparision_count = 0;
     screen_width = GetScreenWidth();
     screen_height = GetScreenHeight();
     numBars = screen_width/(bar_width+gap);
