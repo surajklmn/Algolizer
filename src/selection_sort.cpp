@@ -9,6 +9,7 @@
 const int bar_width = 20;
 //int numBars;
 const int gap = 1;
+extern int comparision_count;
 extern std::stack<screen> screenStack;
 extern screen currentscreen;
 void swap(int &x, int  &y){
@@ -16,11 +17,14 @@ void swap(int &x, int  &y){
     x = y;
     y =  temp;
 }
-void selectionVisualizer(int arr[], int n){
+void selectionVisualizer(std::vector<int>& arr, int n){
+ 
     for(int i = 0; i < n - 1; i++){
         int min_index = i;
         for(int j = i + 1; j < n; j++){
             BeginDrawing();
+             DrawText(TextFormat("Sample Size : %d ",arr.size()),20,20,15,BLACK);
+             DrawText(TextFormat("Comparisions : %d ",comparision_count),20,40,15,BLACK);
             ClearBackground(RAYWHITE);
             for(int k = 0; k < numBars; k++){
                 if(k == i){
@@ -40,8 +44,10 @@ void selectionVisualizer(int arr[], int n){
             }
             EndDrawing();
             std::this_thread::sleep_for(std::chrono::milliseconds(50));
+            comparision_count++;
             if(arr[j] < arr[min_index] ){
-                min_index = j; 
+                min_index = j;
+              
 
             }
         }
@@ -50,6 +56,8 @@ void selectionVisualizer(int arr[], int n){
         swap(arr[min_index],arr[i]);
         BeginDrawing();
         ClearBackground(RAYWHITE);
+        DrawText(TextFormat("Sample Size : %d ",arr.size()),20,20,15,BLACK);
+        DrawText(TextFormat("Comparisions : %d ",comparision_count),20,40,15,BLACK);
         for(int k = 0; k < numBars; k++){
             if(k == i){
                 DrawRectangle(k *(bar_width + gap), screen_height - arr[k], bar_width,arr[k],GREEN);
@@ -65,7 +73,7 @@ DrawRectangle(k *(bar_width + gap), screen_height - arr[k], bar_width,arr[k],YEL
             }
         }
         EndDrawing();
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 }
 void RunSelectionSortVisualizer(){
@@ -75,14 +83,15 @@ void RunSelectionSortVisualizer(){
 
     SetTargetFPS(60);
 
-    int data[numBars];
+    std::vector<int> data(numBars);
     for(int i = 0; i < numBars; i++){
-        data[i] = GetRandomValue(10, screen_height-20);
+        data[i] = GetRandomValue(10, screen_height-50);
 
     }
     bool isSorted = false;
     const int bar_gap = bar_width + 1;
     while (!WindowShouldClose()) {
+        
         ClearBackground(RAYWHITE);
         if(IsKeyPressed(KEY_B)){
             currentscreen = screenStack.top();
@@ -101,6 +110,8 @@ void RunSelectionSortVisualizer(){
         ClearBackground(RAYWHITE);
 
         int posX = 2;
+        DrawText(TextFormat("Sample Size : %d ",data.size()),20,20,15,BLACK);
+        DrawText(TextFormat("Comparisions : %d ",comparision_count),20,40,15,BLACK);
         for(int i = 0; i < numBars; i++){
             DrawRectangle(i*(bar_width+gap), GetScreenHeight() - data[i], bar_width, data[i], BLACK);
 
