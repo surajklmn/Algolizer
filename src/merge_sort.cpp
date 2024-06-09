@@ -38,6 +38,7 @@ void merge(std::vector<int>& arr, int left, int mid, int right) {
     }
 
     while (i < n1) {
+        comparision_count++;
         arr[k] = L[i];
         DrawState(arr,-1,-1);
         i++;
@@ -45,6 +46,7 @@ void merge(std::vector<int>& arr, int left, int mid, int right) {
     }
 
     while (j < n2) {
+        comparision_count++;
         arr[k] = R[j];
         DrawState(arr,-1,-1);
         j++;
