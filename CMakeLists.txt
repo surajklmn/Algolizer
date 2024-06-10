@@ -20,6 +20,7 @@ set(SOURCE_FILES
     src/tree.cpp
     src/insertion_sort.cpp
     src/quick_sort.cpp
+    src/graph.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})

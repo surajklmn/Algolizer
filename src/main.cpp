@@ -18,6 +18,7 @@
 #include "tree.hpp"
 #include "insertion_sort.h"
 #include "quick_sort.hpp"
+#include "graph.h"
 screen currentscreen;
 std::stack<screen> screenStack;
 
@@ -158,7 +159,7 @@ void RenderDataStructureList(){
     bool stackVisualizer = GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * marginY, buttonWidth, buttonHeight }, "Stack");
     bool queueVisualizer = GuiButton(Rectangle{ xPos + margin, yPos + 2 * marginY + buttonHeight + marginY, buttonWidth, buttonHeight }, "Queue");
     bool treeVisualizer = GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * marginY + buttonHeight + marginY, buttonWidth, buttonHeight }, "Tree");
-    GuiButton(Rectangle{ xPos + margin, yPos + 2 * marginY + 2 * (buttonHeight + marginY), buttonWidth, buttonHeight }, "Graph");
+    bool graphVisualizer = GuiButton(Rectangle{ xPos + margin, yPos + 2 * marginY + 2 * (buttonHeight + marginY), buttonWidth, buttonHeight }, "Graph");
     GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * marginY + 2 * (buttonHeight + marginY), buttonWidth, buttonHeight }, "Linked List");
 
 
@@ -177,7 +178,11 @@ void RenderDataStructureList(){
         currentscreen = TREE_VISUALIZER;
 
     }
+    if(graphVisualizer){
+        screenStack.push(currentscreen);
+        currentscreen = GRAPH_VISUALIZER;
 
+    }
     EndDrawing();
 }
 
@@ -239,6 +244,9 @@ int main(){
                 break;
             case INSERTIONSORT_VISUALIZER:
                 RunInsertionSortVisualizer();
+                break;
+            case GRAPH_VISUALIZER:
+                RunGraphVisualizer();
                 break;
             case QUICKSORT_VISUALIZER:
                 RunQuickSortVisualizer();
