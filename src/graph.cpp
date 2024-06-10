@@ -78,7 +78,6 @@ void DrawGraph() {
 
 // Main function
 void RunGraphVisualizer() {
-    InitWindow(800, 600, "Algolizer");
     SetTargetFPS(60);
     // Start BFS from node 4
     InitBFS(1, NODE_COUNT + 1);
