@@ -1,6 +1,8 @@
 #ifndef __APPLE__
 #define RAYGUI_IMPLEMENTATION
+#include "linked_list.hpp"
 #endif // !__APPLE__
+#include "linked_list.hpp"
 #include "bubble_sort.h"
 #include "merge_sort.hpp"
 #include <iostream>
@@ -160,7 +162,7 @@ void RenderDataStructureList(){
     bool queueVisualizer = GuiButton(Rectangle{ xPos + margin, yPos + 2 * marginY + buttonHeight + marginY, buttonWidth, buttonHeight }, "Queue");
     bool treeVisualizer = GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * marginY + buttonHeight + marginY, buttonWidth, buttonHeight }, "Tree");
     bool graphVisualizer = GuiButton(Rectangle{ xPos + margin, yPos + 2 * marginY + 2 * (buttonHeight + marginY), buttonWidth, buttonHeight }, "Graph");
-    GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * marginY + 2 * (buttonHeight + marginY), buttonWidth, buttonHeight }, "Linked List");
+    bool linkedVisualizer = GuiButton(Rectangle{ xPos + margin + buttonWidth + margin, yPos + 2 * marginY + 2 * (buttonHeight + marginY), buttonWidth, buttonHeight }, "Linked List");
 
 
     if(arrayVisualizer){
@@ -182,6 +184,9 @@ void RenderDataStructureList(){
         screenStack.push(currentscreen);
         currentscreen = GRAPH_VISUALIZER;
 
+    }if(linkedVisualizer){
+        screenStack.push(currentscreen);
+        currentscreen = LINKEDLIST_VISUALIZER;
     }
     EndDrawing();
 }
@@ -250,6 +255,9 @@ int main(){
                 break;
             case QUICKSORT_VISUALIZER:
                 RunQuickSortVisualizer();
+                break;
+            case LINKEDLIST_VISUALIZER:
+                RunLinkedListVisualizer();
                 break;
             default:
                 break;

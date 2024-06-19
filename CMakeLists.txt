@@ -21,6 +21,7 @@ set(SOURCE_FILES
     src/insertion_sort.cpp
     src/quick_sort.cpp
     src/graph.cpp
+    src/linked_list.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
