@@ -12,7 +12,7 @@ run
 ```make```
 ```./Algolizer```
 
-It can also be build with this commanda
+It can also be built with this commanda
 
 ```g++ main.cpp -lraylib -lGL -lm -lpthread -ldl -lrt -lX11```
 
