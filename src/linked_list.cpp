@@ -166,13 +166,6 @@ void RunLinkedListVisualizer() {
                     std::cout << "-----" << std::endl;
                 }
                  
-               
-
-              
-
-         
-                
-
                 
             }
 
@@ -180,7 +173,17 @@ void RunLinkedListVisualizer() {
 
     
         }
+        
+        if(IsKeyPressed(KEY_P)){
+            int index = spinnerValue;
+            auto iterator = queue_item.begin() + index;
+            queue_item.erase(iterator);
+            for(int i=1;i<queue_item.size();i++){
+                queue_item[i].dimension.x -=element_gap;
+                queue_item[i].line.x -=element_gap;
+            }
 
+        }
 
 
 
