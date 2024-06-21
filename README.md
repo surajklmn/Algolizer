@@ -23,7 +23,7 @@ Follow these steps to build and run Algolizer:
 1. Clone the repository:
     ```sh
     git clone https://github.com/surajklmn/Algolizer.git
-    cd algolizer
+    cd Algolizer
     ```
 
 2. Create a build directory and generate the build files using CMake:
