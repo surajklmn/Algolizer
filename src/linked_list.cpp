@@ -28,7 +28,7 @@ extern std::stack<screen> screenStack;
 extern screen currentscreen;
 
 void RunLinkedListVisualizer() {
-
+    GuiSetStyle(DEFAULT, TEXT_SIZE, 15);
     const int box_width = 55;
     const int box_height = 55;
     const int starting_X = 400;
@@ -37,7 +37,8 @@ void RunLinkedListVisualizer() {
     const Color base_color = DARKGRAY;
     InputBox input_widget = InputBox(Rectangle{800 / 2.0 - 100, 600.0 / 2 - 100, 200, 40});
     std::deque<Element> queue_item;
-
+    Rectangle spinner = {static_cast<float>(GetScreenWidth()-200), 60, 100, 20};
+    int spinnerValue = 0;
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(RAYWHITE);
@@ -79,6 +80,7 @@ void RunLinkedListVisualizer() {
         if (input_widget.IsEnteringInput()) {
             input_widget.Draw();
         }
+        // Deletion Front 
         if (IsKeyPressed(KEY_D)) {
             if (!queue_item.empty()) {
                 queue_item.pop_front();
@@ -107,6 +109,81 @@ void RunLinkedListVisualizer() {
             }
         }
 
+    // Deletion End
+        if(IsKeyPressed(KEY_R)){
+            if(!queue_item.empty()){
+                queue_item.pop_back();
+                if (!queue_item.empty()) queue_item.begin()->color = DARKGREEN;
+
+            }
+        }
+
+    // Insertion At Index
+        if(!queue_item.empty()){
+            GuiSpinner(spinner,"Select Position ",&spinnerValue,0,queue_item.size()-1,false);
+        } 
+
+        if(IsKeyPressed(KEY_U)){
+            int index = spinnerValue;
+            auto iterator = queue_item.begin() + index;
+          
+            if(index == 0){
+                Vector2 line;
+                auto firstElement = queue_item.begin(); 
+                Rectangle rectangle = {firstElement->dimension.x - element_gap, 300, box_width, box_height};
+                line.x = rectangle.x - (element_gap-box_width);
+                line.y = rectangle.y + rectangle.height/2;
+                queue_item.push_front({rectangle,DARKGREEN, std::to_string(GetRandomValue(0, 100)),line});
+                firstElement->color = base_color;
+
+            }
+            if(index == queue_item.size()-1){
+                    Rectangle lastElement = queue_item.back().dimension;
+                    Rectangle rectangle = {lastElement.x + element_gap, 300, box_width, box_height};
+                    Vector2 line_start = queue_item.back().line;
+                    line_start.x = lastElement.x + lastElement.width;
+                    line_start.y = lastElement.y + lastElement.height / 2;
+                    queue_item.push_back({rectangle, base_color,  std::to_string(GetRandomValue(0, 100)), line_start}); 
+            }else{
+                Color base_color = GRAY;
+                Vector2 line;
+                Rectangle element_dimension = queue_item[index].dimension;
+                line.x = element_dimension.x-15;
+                line.y = element_dimension.y+element_dimension.height/2;
+                Element node = {element_dimension,base_color,std::to_string(GetRandomValue(20,30)),line};
+                
+                queue_item.insert(queue_item.begin()+index,node);
+       
+                for(int i=index+1;i<queue_item.size();i++){
+                    queue_item[i].dimension.x +=element_gap;
+                    queue_item[i].line.x += element_gap;
+                }
+
+                for(int i=0;i<queue_item.size();i++)
+                {
+                    std::cout << "Data = " << queue_item[i].text << std::endl;
+                    std::cout << "Dimensions : X = " << queue_item[i].dimension.x << " Y= " << queue_item[i].dimension.y << std::endl;
+                    std::cout << "-----" << std::endl;
+                }
+                 
+               
+
+              
+
+         
+                
+
+                
+            }
+
+            
+
+    
+        }
+
+
+
+
         for (int i = 0; i < queue_item.size(); i++) {
             DrawRectangleRec(queue_item[i].dimension, queue_item[i].color);
 
@@ -121,7 +198,7 @@ void RunLinkedListVisualizer() {
                 DrawRectangleRec(queue_item[i].dimension, MAROON);
             }
             DrawText(queue_item[i].text.c_str(), queue_item[i].dimension.x + (box_width / 2.0f) - 18,
-                     queue_item[i].dimension.y + (box_height / 2.0f) - 5, 20, WHITE);
+                     queue_item[i].dimension.y + (box_height / 2.0f) - 5, 20,WHITE);
         }
 
         // Drawing Indicators

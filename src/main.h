@@ -22,3 +22,6 @@ extern int comparision_count;
 extern int screen_height;
 extern int numBars;
 extern int screen_width;
+
+
+void CalculateScalingFactor();

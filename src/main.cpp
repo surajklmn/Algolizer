@@ -30,6 +30,18 @@ std::stack<screen> screenStack;
 float scaling_factorX = 1.0f;
 float scaling_factorY = 1.0f;
 
+
+
+
+void CalculateScalingFactor(){
+        scaling_factorX = static_cast<double> (GetScreenWidth()) / static_cast<double>(screenWidth);
+        scaling_factorY = static_cast<double> (GetScreenHeight()) / static_cast<double>(screenHeight);
+}
+
+
+
+
+
 void RenderMainScreen(){
     GuiSetStyle(DEFAULT, TEXT_SIZE, 20);
 
@@ -207,8 +219,7 @@ int main(){
     while(!WindowShouldClose()){
 
         if(IsWindowResized()){
-            scaling_factorX = static_cast<double> (GetScreenWidth()) / static_cast<double>(screenWidth);
-            scaling_factorY = static_cast<double> (GetScreenHeight()) / static_cast<double>(screenHeight);
+            CalculateScalingFactor(); 
         }
 
         switch(currentscreen){
