@@ -5,6 +5,7 @@
 #include "main.h"
 #include <stack>
 #include "graph.h"
+#include <raygui/raygui.h>
 #define NODE_COUNT 6
 #define DELAY_TIME 1.0 // Delay time in seconds
 extern std::stack<screen> screenStack;
@@ -79,10 +80,21 @@ void DrawGraph() {
 // Main function
 void RunGraphVisualizer() {
     SetTargetFPS(60);
+    Rectangle buttonPre = {20,20,150,30};
+    GuiSetStyle(DEFAULT,TEXT_SIZE,15); 
     // Start BFS from node 4
-    InitBFS(1, NODE_COUNT + 1);
+    //InitBFS(1, NODE_COUNT + 1);
     while (!WindowShouldClose()) {
-               ClearBackground(RAYWHITE);
+         ClearBackground(RAYWHITE);
+        bool initBfTraversal =  GuiButton(buttonPre,"BFS Traversal");
+      
+        if(initBfTraversal){
+            for(int i=0;i<NODE_COUNT+1;i++){
+                nodeStates[i] = UNVISITED;
+             }
+            InitBFS(1, NODE_COUNT+1);
+        }
+
         if(IsKeyPressed(KEY_B)){
             currentscreen = screenStack.top();
             break;
