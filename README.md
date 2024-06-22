@@ -49,6 +49,10 @@ Follow these steps to build and run Algolizer:
 ## Usage
 
 Upon running Algolizer, you will be presented with a graphical interface where you can choose different data structures and algorithms to visualize. You can interact with the visualizations to gain a better understanding of how the algorithms work and how data structures are manipulated.
+![image](https://github.com/surajklmn/Algolizer/assets/30106169/bd057ba6-1e62-4c5c-b1d1-7e2bc52af60c)
+![image](https://github.com/surajklmn/Algolizer/assets/30106169/d8610322-667d-459d-9816-4482197337a6)
+![image](https://github.com/surajklmn/Algolizer/assets/30106169/df917cb4-ac2d-4a83-97ef-26fcf0f0ebee)
+
 
 ## Contributing
 
