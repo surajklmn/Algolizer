@@ -115,7 +115,7 @@ void RunLinkedListVisualizer() {
         if(deleteTail){
             if(!queue_item.empty()){
                 queue_item.pop_back();
-                if (!queue_item.empty()) queue_item.begin()->color = DARKGREEN;
+                if (!queue_item.empty()) queue_item.end()->color = MAROON;
 
             }
         }
@@ -183,11 +183,13 @@ void RunLinkedListVisualizer() {
             auto iterator = queue_item.begin() + index;
             if(index == 0){
                 queue_item.pop_front();
+                if (!queue_item.empty()) queue_item.begin()->color = DARKGREEN;
             }else if(index == queue_item.size()-1){
                 queue_item.pop_back();
+                
             }else{
                 queue_item.erase(iterator);
-                for(int i=1;i<queue_item.size();i++){
+                for(int i=index;i<queue_item.size();i++){
                     queue_item[i].dimension.x -=element_gap;
                     queue_item[i].line.x -=element_gap;
                 }
