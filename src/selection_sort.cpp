@@ -43,7 +43,7 @@ void selectionVisualizer(std::vector<int>& arr, int n){
 
             }
             EndDrawing();
-            std::this_thread::sleep_for(std::chrono::milliseconds(50));
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
             comparision_count++;
             if(arr[j] < arr[min_index] ){
                 min_index = j;
@@ -73,7 +73,7 @@ DrawRectangle(k *(bar_width + gap), screen_height - arr[k], bar_width,arr[k],YEL
             }
         }
         EndDrawing();
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
     }
 }
 void RunSelectionSortVisualizer(){
@@ -86,7 +86,7 @@ void RunSelectionSortVisualizer(){
 
     std::vector<int> data(numBars);
     for(int i = 0; i < numBars; i++){
-        data[i] = GetRandomValue(10, screen_height-50);
+        data[i] = GetRandomValue(10, screen_height-100);
 
     }
     bool isSorted = false;

@@ -39,19 +39,19 @@ int partition(std::vector<int>& arr, int low, int high) {
 
     for (int j = low; j <= high - 1; j++) {
         DrawState(arr, low, high, j);
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        std::this_thread::sleep_for(std::chrono::milliseconds(20));
         comparision_count++; 
         if (arr[j] < pivot) {
             i++;
            
             std::swap(arr[i], arr[j]);
             DrawState(arr, low, high, j);
-            std::this_thread::sleep_for(std::chrono::milliseconds(50));
+            std::this_thread::sleep_for(std::chrono::milliseconds(20));
         }
     }
     std::swap(arr[i + 1], arr[high]);
     DrawState(arr, low, high, i + 1);
-    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    std::this_thread::sleep_for(std::chrono::milliseconds(20));
     return (i + 1);
 }
 
