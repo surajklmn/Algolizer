@@ -56,10 +56,11 @@ void RenderMainScreen(){
     const float X_Position = ((screenWidth/2.0) - (button_width/2.0)) * scaling_factorX;
     const float Y_Position = ((screenHeight/2.0) - button_height) * scaling_factorY;
 
-
+    
 
     Rectangle button_Algo = {X_Position,Y_Position,button_width*scaling_factorX,button_height*scaling_factorY};
     Rectangle button_DataS = {X_Position,Y_Position+gap,button_width*scaling_factorX,button_height*scaling_factorY};
+    
 
 
 
@@ -67,7 +68,7 @@ void RenderMainScreen(){
     ClearBackground(RAYWHITE);
 
     DrawText(title_text, (X_Position+35), 30 * scaling_factorY, 50 * scaling_factorX, GRAY);
-
+    DrawText("At Any Screen , Press 'B' To Go Back.",20,GetScreenHeight()-30,20,BLACK);
     bool isAlgorithmPressed = GuiButton(button_Algo,"Algorithms");
     bool isDataStructurePressed = GuiButton(button_DataS,"Data-Structures");
 
