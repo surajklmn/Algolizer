@@ -141,6 +141,9 @@ void runBinarySearchVisualizer() {
                          WINDOW_WIDTH / 2 - 350, WINDOW_HEIGHT / 2, 30, GREEN);
             }
         }
+         if(IsWindowResized()){
+            CalculateScalingFactor(); 
+        }
 
         // Display instructions
         DrawText("Press 'R' to randomize and sort the array", 10, 10, 20, GRAY);

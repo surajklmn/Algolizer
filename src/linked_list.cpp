@@ -60,6 +60,9 @@ void RunLinkedListVisualizer() {
             break;
         }
 
+         if(IsWindowResized()){
+            CalculateScalingFactor(); 
+        }
         if (insertTail) {
             std::string data = std::to_string(GetRandomValue(0,100));
                 if (queue_item.empty()) {

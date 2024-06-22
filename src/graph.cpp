@@ -120,6 +120,9 @@ void RunGraphVisualizer() {
                 }
             }
         }
+         if(IsWindowResized()){
+            CalculateScalingFactor(); 
+        }
 
         BeginDrawing();
         ClearBackground(RAYWHITE);

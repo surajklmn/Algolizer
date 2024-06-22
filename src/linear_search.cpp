@@ -57,6 +57,9 @@ const int SEARCH_DELAY = 500;
            currentscreen = screenStack.top();
             break;
         }
+         if(IsWindowResized()){
+            CalculateScalingFactor(); 
+        }
         // Get user input for target value
         if (IsKeyPressed(KEY_R)) {
             isTargetSet = false;

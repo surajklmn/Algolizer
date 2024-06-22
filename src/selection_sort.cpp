@@ -100,6 +100,9 @@ void RunSelectionSortVisualizer(){
             break;
 
         }
+         if(IsWindowResized()){
+            CalculateScalingFactor(); 
+        }
         if(!isSorted){
             selectionVisualizer(data, numBars);
             isSorted = true;

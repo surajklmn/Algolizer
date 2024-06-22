@@ -76,6 +76,9 @@ void RunInsertionSortVisualizer() {
 
     while (!WindowShouldClose()) {
         ClearBackground(RAYWHITE);
+         if(IsWindowResized()){
+            CalculateScalingFactor(); 
+        }
         if (IsKeyPressed(KEY_B)) {
             currentscreen = screenStack.top();
             break;

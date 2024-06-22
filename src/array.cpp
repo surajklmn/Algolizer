@@ -86,6 +86,9 @@ void runArrayVisualizer(){
         if(data_input.IsEnteringInput()){
             data_input.Draw();
         }
+        if(IsWindowResized()){
+            CalculateScalingFactor(); 
+        }
         ClearBackground(RAYWHITE); 
         DrawText("Index -> ",20,startingY-70, 20, BLACK);
         Color color = BLACK;

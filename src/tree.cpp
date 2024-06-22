@@ -340,6 +340,9 @@ void RunTreeVisualizer(){
     while(!WindowShouldClose()){
      BeginDrawing(); 
      ClearBackground(RAYWHITE);
+         if(IsWindowResized()){
+            CalculateScalingFactor(); 
+        }
         // ----------- Gui Text Components
         int y_coordinateText  = 20; 
         int x_coordinateText  = screenwidth-(screenwidth/4);  

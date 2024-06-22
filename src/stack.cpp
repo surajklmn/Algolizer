@@ -41,7 +41,10 @@ void RunStackVisualizer(){
     if(IsKeyPressed(KEY_B)){
         currentscreen = screenStack.top();
         break;
-    } 
+    }
+         if(IsWindowResized()){
+            CalculateScalingFactor(); 
+        }
     if(IsKeyPressed(KEY_ENTER)){
        input_widget.Update();
        std::string data;

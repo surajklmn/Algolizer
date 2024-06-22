@@ -56,7 +56,9 @@ void RunBubbleSortVisualizer(){
            currentscreen = screenStack.top();
            break;
         }
-
+         if(IsWindowResized()){
+            CalculateScalingFactor(); 
+        }
         if(!isSorted){
             for(int i = 0;i<dataset.size()-1;i++){
                 swapped = false;
