@@ -41,7 +41,7 @@ void RunBubbleSortVisualizer(){
     const int min_barHeight = 20; 
     const int bar_count = GetScreenWidth()/(bar_width+1);
 
- 
+    comparision_count = 0; 
    SetTargetFPS(144); // Change This Value To Increase Animation Time 
 
 
@@ -82,7 +82,6 @@ void RunBubbleSortVisualizer(){
         // Drawing Bars    
     
     }
-    comparision_count = 0;
     
 
 }

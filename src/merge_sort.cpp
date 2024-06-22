@@ -76,7 +76,7 @@ void RunMergeSortVisualizer(){
     const int min_barHeight = 20; 
     const int bar_count = GetScreenWidth()/(bar_width+1);
     
-
+    comparision_count = 0;
     std::vector<int> dataset; 
     for(int i =0;i<bar_count;i++){
         dataset.push_back(GetRandomValue(min_barHeight, max_barHeight));
