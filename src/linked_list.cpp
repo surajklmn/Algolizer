@@ -9,14 +9,6 @@
 #include <deque>
 #include <iostream>
 
-enum InputHolder {
-    INSERT_HEAD,
-    DELETE_HEAD,
-    INSERT_INDEX,
-    INSERT_TAIL,
-    NONE,
-};
-
 struct Element {
     Rectangle dimension;
     Color color;
@@ -37,28 +29,39 @@ void RunLinkedListVisualizer() {
     const Color base_color = DARKGRAY;
     InputBox input_widget = InputBox(Rectangle{800 / 2.0 - 100, 600.0 / 2 - 100, 200, 40});
     std::deque<Element> queue_item;
-    Rectangle spinner = {static_cast<float>(GetScreenWidth()-200), 60, 100, 20};
+    Rectangle spinner = {static_cast<float>(GetScreenWidth()-200), 100, 150, 30};
     int spinnerValue = 0;
+
+
+    Rectangle button_insert_head = {20,20,150,30};
+    Rectangle button_insert_tail = {20,60,150,30};
+    Rectangle button_delete_head = {20,100,150,30};
+    Rectangle button_delete_tail = {20,140,150,30};
+    Rectangle button_insert_index = {static_cast<float>(GetScreenWidth()-200),20,150,30};
+    Rectangle button_delete_index = {static_cast<float>(GetScreenWidth()-200),60,150,30};
+
+    bool insertAtPosition = false;
+    bool deleteAtPosition = false;
+
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(RAYWHITE);
-        DrawText("Press Enter To Enqueue Element", 30, 20, 15, GRAY);
-        DrawText("Press D To Dequeue Element", 30, 40, 15, GRAY);
-        DrawText("Press B To exit", 30, 60, 15, GRAY);
+  
+
+        bool insertHead = GuiButton(button_insert_head,"Insert Head");
+        bool insertTail = GuiButton(button_insert_tail,"Insert Tail");
+        bool deleteHead = GuiButton(button_delete_head,"Delete Head");
+        bool deleteTail = GuiButton(button_delete_tail,"Delete Tail");
+
+
 
         if (IsKeyPressed(KEY_B)) {
             currentscreen = screenStack.top();
             break;
         }
 
-        if (IsKeyPressed(KEY_ENTER)) {
-            input_widget.Update();
-            std::string data;
-            if (!input_widget.IsEnteringInput()) {
-                data = std::to_string(input_widget.GetInputValue());
-                dataEntered = true;
-            }
-            if (dataEntered) {
+        if (insertTail) {
+            std::string data = std::to_string(GetRandomValue(0,100));
                 if (queue_item.empty()) {
                     Rectangle rectangle = {starting_X, 300, box_width, box_height};
                     Color color = DARKGREEN;
@@ -74,22 +77,21 @@ void RunLinkedListVisualizer() {
                     line_start.y = lastElement.y + lastElement.height / 2;
                     queue_item.push_back({rectangle, base_color, data, line_start});
                 }
-                dataEntered = false;
-            }
+               
         }
         if (input_widget.IsEnteringInput()) {
             input_widget.Draw();
         }
         // Deletion Front 
-        if (IsKeyPressed(KEY_D)) {
+        if (deleteHead) {
             if (!queue_item.empty()) {
                 queue_item.pop_front();
                 if (!queue_item.empty()) queue_item.begin()->color = DARKGREEN;
             }
         }
 
-        if (IsKeyPressed(KEY_I)) {
-            int random_value = GetRandomValue(20, 50);
+        if (insertHead) {
+            int random_value = GetRandomValue(0, 100);
    
             Vector2 line;
             if (queue_item.empty()) {
@@ -110,7 +112,7 @@ void RunLinkedListVisualizer() {
         }
 
     // Deletion End
-        if(IsKeyPressed(KEY_R)){
+        if(deleteTail){
             if(!queue_item.empty()){
                 queue_item.pop_back();
                 if (!queue_item.empty()) queue_item.begin()->color = DARKGREEN;
@@ -119,11 +121,13 @@ void RunLinkedListVisualizer() {
         }
 
     // Insertion At Index
-        if(!queue_item.empty()){
+        if(!queue_item.empty() && queue_item.size() > 1){
             GuiSpinner(spinner,"Select Position ",&spinnerValue,0,queue_item.size()-1,false);
+            insertAtPosition = GuiButton(button_insert_index,"Insert At Position");
+            deleteAtPosition = GuiButton(button_delete_index,"Delete At Position");
         } 
 
-        if(IsKeyPressed(KEY_U)){
+        if(insertAtPosition){
             int index = spinnerValue;
             auto iterator = queue_item.begin() + index;
           
@@ -169,20 +173,30 @@ void RunLinkedListVisualizer() {
                 
             }
 
-            
-
+             
+            insertAtPosition = false;
     
         }
         
-        if(IsKeyPressed(KEY_P)){
+        if(deleteAtPosition){
             int index = spinnerValue;
             auto iterator = queue_item.begin() + index;
-            queue_item.erase(iterator);
-            for(int i=1;i<queue_item.size();i++){
-                queue_item[i].dimension.x -=element_gap;
-                queue_item[i].line.x -=element_gap;
+            if(index == 0){
+                queue_item.pop_front();
+            }else if(index == queue_item.size()-1){
+                queue_item.pop_back();
+            }else{
+                queue_item.erase(iterator);
+                for(int i=1;i<queue_item.size();i++){
+                    queue_item[i].dimension.x -=element_gap;
+                    queue_item[i].line.x -=element_gap;
+                }
+
             }
 
+
+
+            deleteAtPosition = false;
         }
 
 
