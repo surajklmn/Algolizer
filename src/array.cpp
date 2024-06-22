@@ -105,7 +105,8 @@ void runArrayVisualizer(){
         }
     
     
-
+    
+        DrawText(TextFormat("Array Size : %d",dataset.size()),20,GetScreenHeight()-30,20,GRAY);
         EndDrawing();
     }
 
